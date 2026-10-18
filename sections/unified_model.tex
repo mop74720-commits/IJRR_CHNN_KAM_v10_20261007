@@ -1,0 +1,194 @@
+\subsection{One clamped--free magnetic beam throughout the computational study}
+\label{sec:unified-model}
+We instantiate the rod reduction as a straight, planar, small-slope
+Euler--Bernoulli cantilever with a concentrated magnetic dipole at its free
+tip. The base position and slope are fixed. The elastic part is linear in
+curvature; the full trigonometric magnetic potential is retained. These
+choices define a reproducible mechanical specialization of the spatial
+rod, rather than a catheter-specific material identification. Table~\ref{tab:unified-si}
+states all dimensional parameters. Gravity, imposed fluid flow and field
+gradient are zero in this specialization. Still-fluid/structural losses
+are represented by a mass-proportional Rayleigh term. The more general
+force accounting above remains applicable when those terms are present.
+
+\begin{table}[t]
+\centering
+\caption{Declared parameters of the unified magnetic cantilever. These are
+illustrative mechanical parameters, not measurements from a clinical or
+spaceflight device.}
+\label{tab:unified-si}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lll}
+\toprule
+Quantity & Symbol & Value\\
+\midrule
+Length & $L$ & $0.08\,\mathrm m$\\
+Circular radius & $r_c$ & $0.0006\,\mathrm m$\\
+Young's modulus & $E$ & $5.0\times10^6\,\mathrm{Pa}$\\
+Density & $\rho$ & $1100\,\mathrm{kg\,m^{-3}}$\\
+Tip dipole & $\mu$ & $2.0\times10^{-5}\,\mathrm{A\,m^2}$\\
+Axial bias field & $B_0$ & $0.03\,\mathrm T$\\
+Mass damping rate & $\alpha$ & $0.55558524\,\mathrm{s^{-1}}$\\
+Transverse field amplitude & $B_a$ & $0.006\,\mathrm T$\\
+Drive frequency & $\Omega_d$ & $9.4449490\,\mathrm{rad\,s^{-1}}$\\
+Ramp time & $t_r$ & $0.25\,\mathrm s$\\
+Uniform Hermite elements & $N_e$ & $32$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Write $w(s,t)$ for transverse displacement and
+$\vartheta(t)=w_s(L,t)$ for the small-slope tip rotation. A uniform field
+$(B_0,B_y(t))$ has zero translational dipole force and the tip moment
+\begin{equation}
+ M_{\rm tip}=\mu\{B_y(t)\cos\vartheta-B_0\sin\vartheta\}.
+ \label{eq:unified-tip-torque}
+\end{equation}
+This is the natural moment boundary load. It does not impose a second
+kinematic constraint at the free tip. The magnetic potential is
+$-\mu(B_0\cos\vartheta+B_y\sin\vartheta)$, so that
+\eqref{eq:unified-tip-torque} follows by variation. Keeping this potential
+exact does not remove the small-slope approximation in the beam kinematics.
+
+Let $q=(w_1,\vartheta_1,\ldots,w_{N_e},\vartheta_{N_e})^{\mathsf T}$
+contain the unconstrained cubic-Hermite nodal coordinates, $e_\vartheta$
+select its final rotation, and $M,K$ be the consistent mass and bending
+stiffness matrices. The physical equations and static-bias energy are
+\begin{align}
+ M\ddot q+\alpha M\dot q+Kq
+ &=e_\vartheta M_{\rm tip},
+ \label{eq:unified-fe}\\
+ H_0(q,p)&=\tfrac12p^{\mathsf T}M^{-1}p+\tfrac12q^{\mathsf T}Kq\notag\\
+ &\quad+E_0\{1-\cos(e_\vartheta^{\mathsf T}q)\},
+ \label{eq:unified-SI-H}\\
+ E_0&=\mu B_0=6\times10^{-7}\,\mathrm J,\qquad p=M\dot q.
+\end{align}
+There is no axial end restraint and no artificial stretching quartic.
+The nonlinearity used in learning and in the KAM calculation is the
+magnetic nonlinearity of this same cantilever.
+
+The static-field linearization is
+$K_b=K+E_0e_\vartheta e_\vartheta^{\mathsf T}$.
+Choose $\Phi^{\mathsf T}M\Phi=I$ and
+$\Phi^{\mathsf T}K_b\Phi=\operatorname{diag}(\omega_j^2)$,
+with positive tip-slope entries fixing modal signs. For $n$ retained modes,
+$q=\Phi_n a$, and the modal momentum is $\pi=\dot a$.
+Set $\omega_0=\omega_1$, $\tau=\omega_0t$, $\nu_j=\omega_j/\omega_0$,
+and
+\begin{equation}
+ a_j=\sqrt{\frac{E_0}{\omega_0\omega_j}}X_j,
+ \qquad
+ \pi_j=\sqrt{\frac{E_0\omega_j}{\omega_0}}Y_j.
+ \label{eq:unified-scale}
+\end{equation}
+The product of each position--momentum scale is $E_0/\omega_0$;
+division of energy by $E_0$ and rescaling time therefore give the standard
+dimensionless canonical equations. Define
+\begin{equation}
+ S=\Phi_n\operatorname{diag}\sqrt{\frac{E_0}{\omega_0\omega_j}},
+ \quad d=S^{\mathsf T}e_\vartheta,\quad
+ \ell(s)^{\mathsf T}=N(s)S,
+\end{equation}
+where $N(s)$ is the Hermite displacement row. Thus the full centreline
+and tip slope are recovered in SI units as
+$w(s)=\ell(s)^{\mathsf T}X$ and $\vartheta=d^{\mathsf T}X$.
+The single dimensionless Hamiltonian used below is
+\begin{align}
+ h_*(X,Y)&=h_2(X,Y)+R_{\rm mag}(X),\\
+ h_2&=\tfrac12\sum_{j=1}^n\nu_j(X_j^2+Y_j^2),\\
+ R_{\rm mag}&=1-\cos(d^{\mathsf T}X)-\tfrac12(d^{\mathsf T}X)^2.
+ \label{eq:unified-h}
+\end{align}
+The subtracted quadratic avoids counting the static magnetic stiffness
+twice. For the two-mode model,
+$(\omega_1,\omega_2)=(11.41728728,70.24049294)\,\mathrm{rad\,s^{-1}}$.
+All learned models use this fixed chart; states are not independently
+renormalized after fitting.
+
+With $u=B_y/B_0$, $\gamma=\alpha/\omega_0$ and
+$\mathsf N=\operatorname{diag}(\nu_j)$, the physical port decoder becomes
+\begin{align}
+ X'&=\partial_Y h,\\
+ Y'&=-\partial_X h-\gamma\mathsf N^{-1}\partial_Yh
+          +u\,d\cos(d^{\mathsf T}X).
+ \label{eq:unified-port}
+\end{align}
+For $h=h_*$, the damping term is exactly $-\gamma Y$.
+The Rayleigh head is
+$\mathcal D(v)=\tfrac12\gamma v^{\mathsf T}\mathsf N^{-1}v$.
+For a learned energy, retaining the velocity-based form in
+\eqref{eq:unified-port} preserves nonnegative dissipation. Using
+$-\gamma Y$ after learning a momentum-dependent residual would, in
+general, lose that guarantee. The corresponding power identity is
+\begin{equation}
+ h'=-\gamma(\partial_Yh)^{\mathsf T}\mathsf N^{-1}\partial_Yh
+       +u\cos(d^{\mathsf T}X)d^{\mathsf T}\partial_Yh.
+ \label{eq:unified-power}
+\end{equation}
+Alternatively, including $-u\sin(d^{\mathsf T}X)$ in the time-dependent
+energy moves the input power to $-u'\sin(d^{\mathsf T}X)$.
+These are equivalent bookkeeping conventions.
+
+\subsection{Independent COMSOL realization of the same discretization}
+The model was also constructed and solved in COMSOL Multiphysics
+6.3.0.290 through LiveLink for MATLAB. Its two-dimensional Beam interface
+uses the Euler--Bernoulli formulation, 32 uniform elements, a consistent
+mass matrix, a fixed base, and the nonlinear tip moment
+\eqref{eq:unified-tip-torque}. Geometric nonlinearity is disabled to match
+the declared small-slope mechanical model. The zero axial displacement
+subspace decouples, leaving 64 transverse displacement/rotation degrees
+of freedom.
+
+After selecting transverse degrees of freedom by their field names and
+coordinates, the independently assembled COMSOL and Python mass and
+elastic stiffness matrices have relative Frobenius differences
+$7.76\times10^{-15}$ and $3.05\times10^{-14}$, respectively. The first
+six modal frequencies agree to a maximum relative difference of
+$1.88\times10^{-9}$. These checks establish agreement of the stated
+discretizations; they do not establish the material validity of the
+chosen parameters. The native model, assembly exports, parameter values
+and time-domain verification records accompany the manuscript.
+
+\subsection{A global result for the unforced physical model}
+\begin{proposition}[Unforced global stability of the full FE target]
+\label{prop:unified-global-stability}
+For the full clamped--free Hermite model~\eqref{eq:unified-SI-H}, set
+$B_y=0$. With the declared parameters, the potential is globally
+strongly convex and the origin is its unique equilibrium.
+If $\alpha>0$, the origin is globally asymptotically stable.
+If $\alpha=0$, every finite-energy trajectory remains in a bounded
+energy sublevel and the origin is Lyapunov stable.
+These are global statements for the declared small-slope mathematical
+model; they do not establish its physical validity at large deflections
+or a global property of arbitrary learned quartic residuals.
+\end{proposition}
+
+\begin{proof}
+Write $b=e_\vartheta$ and
+$U(q)=q^{\mathsf T}Kq/2+E_0\{1-\cos(b^{\mathsf T}q)\}$.
+The clamped conditions give
+$|w_s(L)|^2\leq L\int_0^L|w_{ss}|^2\,ds$, including for every
+Hermite finite-element function. Equivalently,
+$bb^{\mathsf T}\preceq [L/(EI)]K$; equality of the corresponding
+tip compliance follows from the static quadratic bending shape.
+Thus, for every $q$,
+\begin{align}
+ D^2U(q)&=K+E_0\cos(b^{\mathsf T}q)bb^{\mathsf T}\notag\\
+ &\succeq(1-\kappa)K\succeq0.905K,\\
+ \kappa&=\frac{E_0L}{EI}=\frac8{27\pi}<0.095.
+\end{align}
+In particular, $\nabla U=0$ only at $q=0$.
+Both $M$ and $K$ are positive definite, and
+\[
+ H_0\geq\tfrac12p^{\mathsf T}M^{-1}p+\tfrac12q^{\mathsf T}Kq.
+\]
+Its sublevels are compact. Along the unforced dynamics,
+\[
+ \dot H_0=-\alpha p^{\mathsf T}M^{-1}p\leq0.
+\]
+This proves boundedness, global continuation and Lyapunov stability.
+For $\alpha>0$, the largest invariant set with $\dot H_0=0$ has
+$p=0$ and $\nabla U(q)=0$, hence consists only of the origin.
+LaSalle's invariance principle on each compact sublevel gives global
+asymptotic stability.
+\end{proof}

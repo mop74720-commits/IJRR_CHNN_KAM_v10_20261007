@@ -1,0 +1,20 @@
+[
+  {
+    "source": "grid",
+    "cases": 1029,
+    "spectral_radius_min": 0.8038091240725593,
+    "spectral_radius_max": 0.8890547397454435,
+    "max_periodic_residual": 6.64686639062495e-11,
+    "max_determinant_identity_error": 1.404432126150823e-14,
+    "max_floquet_exponent_per_s": -0.27779261841109415
+  },
+  {
+    "source": "continuation",
+    "cases": 686,
+    "spectral_radius_min": 0.8038091240725593,
+    "spectral_radius_max": 0.8890547397454454,
+    "max_periodic_residual": 3.6840006739646824e-11,
+    "max_determinant_identity_error": 1.27675647831893e-14,
+    "max_floquet_exponent_per_s": -0.27779261841109165
+  }
+]

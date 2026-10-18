@@ -1,0 +1,18 @@
+{
+  "python": "3.12.7 | packaged by Anaconda, Inc. | (main, Oct  4 2024, 13:17:27) [MSC v.1929 64 bit (AMD64)]",
+  "dependencies": {
+    "numpy": "1.26.4",
+    "scipy": "1.13.1",
+    "numba": "0.60.0",
+    "threadpoolctl": "3.5.0",
+    "python-flint": "0.9.0"
+  },
+  "inputs": {
+    "feature_model.py": "60becfbe1d1f04c135b01245cae0858968c14d778caf9810d87dc2cfa693c3f2",
+    "finite_fourier_initial_state.npz": "724fbe80f49ada68892a7da737079bc75a1f24a95e890efc96b0eb3656575e87",
+    "integral_fit.npz": "a9bc1c23a811d1200b42ea4ff065e1d455e49d3dc33177e2e5d653dd581a8b85",
+    "manifest.json": "482cbf7815b7e64686125fc2540f94f8e26870e6512b12a728eb03dd24eb6f56",
+    "model_matrices.npz": "ae1b221b5f67ff455c478c17552bc26ce4d8c155169b9e2682f53b992cca4288",
+    "reference_nodal_state.npz": "98127ee121bd6044d1c8cf0e8e5453cf87f2d97f228b9fe4e1e35ff93d9f9321"
+  }
+}

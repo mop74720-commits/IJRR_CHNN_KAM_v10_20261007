@@ -1,0 +1,289 @@
+\subsection{Finite initialization and port-error tolerances}
+\label{sec:operational-tolerances}
+
+The transverse action half-width $10^{-220}$ in
+Appendix~\ref{app:measure-proof} quantifies local invariant-torus measure.
+For operation, we instead construct a finite energy set and a robust
+input-work constraint on the same full beam. This construction accepts
+an ordinary finite-precision initial state, explicit sensing errors and
+bounded command errors. It preserves clearance when the safety filter
+changes the KAM-realizing request; exact quasiperiodic motion is then no
+longer asserted.
+
+\paragraph{Physical object and a measurable initialization set.}
+For this calculation the mathematical plant is the frozen, symmetric
+nodal $64\times64$ matrices $M,K$ supplied with the independent FE
+comparison. All of their exported binary entries are treated as exact.
+This retains the complete physical energy
+\begin{equation}
+ \begin{aligned}
+ E(q,v)&=\tfrac12v^{\mathsf T}Mv+\tfrac12q^{\mathsf T}Kq
+                 +E_0(1-\cos\vartheta),\\
+ \dot E&=-\alpha v^{\mathsf T}Mv
+          +Fv_w+\mu B\cos\vartheta\,v_\vartheta,
+ \end{aligned}
+ \label{eq:operational-physical-power}
+\end{equation}
+where $v=\dot q$, $\vartheta=e_\vartheta^{\mathsf T}q$,
+$v_w=e_w^{\mathsf T}v$, $v_\vartheta=e_\vartheta^{\mathsf T}v$,
+$E_0=\mu B_0$, and $F,B$ are the actual transverse tip force and field.
+The same two physical ports appear in
+\eqref{eq:physical-gradient-command}. The use of nodal matrices here
+includes their small diagonalization discrepancy relative to the frozen
+modal plant in Theorem~\ref{thm:full-fe-kam-lift}; no exact conjugacy between
+these two finite-precision definitions is required for the work bound.
+
+Let $b_r$ list the four cubic Bernstein control rows on every Hermite
+element, including the fixed zero base coordinates, and define
+\begin{equation}
+ C_w=\max_r b_rK^{-1}b_r^{\mathsf T},\qquad
+ E_c=\frac{c^2}{2C_w},\qquad c=4\,\mathrm{mm}.
+ \label{eq:operational-fe-compliance}
+\end{equation}
+The Bernstein convex-hull property and Cauchy--Schwarz in the $K$ metric
+give $\sup_s|w(s)|\leq\sqrt{2C_wE}$ for every FE state, including all
+higher modes. Thus $E<E_c$ is a whole-centreline clearance condition.
+Using exact Hermite coefficients $\ell/3=1/1200$ m, $256$-bit ball
+matrix inverses and positive LDL pivots gives
+$C_w<335.338810137\,\mathrm{m\,N^{-1}}$ and
+$E_c>23.85646921\,\mathrm{nJ}$. This discrete certificate agrees with
+the continuum compliance while avoiding an unbudgeted matrix-rounding step.
+
+Set $K_b=K+E_0e_\vartheta e_\vartheta^{\mathsf T}$ and
+\begin{equation}
+ Q(q,v)=\tfrac12v^{\mathsf T}Mv+\tfrac12q^{\mathsf T}K_bq.
+ \label{eq:operational-initial-metric}
+\end{equation}
+For full-state estimates $(\widehat q,\widehat v)$, require the initialization
+error to satisfy $Q(q-\widehat q,v-\widehat v)\leq\mathcal E_{\rm init}$.
+Since $1-\cos\vartheta\leq\vartheta^2/2$ and $\sqrt Q$ is a norm,
+\begin{equation}
+ E(q,v)\leq Q(q,v)\leq\overline E_0
+ :=\left[\sqrt{Q(\widehat q,\widehat v)}
+                  +\sqrt{\mathcal E_{\rm init}}\right]^2.
+ \label{eq:operational-initial-energy}
+\end{equation}
+This specifies a nonzero finite-dimensional admissible initialization
+region with nonempty interior, without deciding membership in an exact
+invariant torus.
+The energy-error bound is a full-state condition; tip sensing alone does
+not bound unobserved bending or kinetic energy.
+
+\paragraph{Sensing and execution error envelopes.}
+Let $u=(u_F,u_B)$ be the commanded ports and suppose that, throughout the
+specified interval,
+\begin{equation}
+ \begin{aligned}
+ F&=(1+g_F)u_F+e_F,\\
+ B&=(1+g_B)u_B+e_B,\\
+ |g_i|&\leq\eta_i,\qquad |e_i|\leq\epsilon_i.
+ \end{aligned}
+ \label{eq:operational-actuator-envelope}
+\end{equation}
+Assume available estimates obey
+$|v_w-\widehat v_w|\leq\delta_v$,
+$|\vartheta-\widehat\vartheta|\leq\delta_\vartheta$ and
+$|v_\vartheta-\widehat v_\vartheta|\leq\delta_\omega$.
+Define the estimated power coefficients and their error bounds by
+\begin{equation}
+ \begin{aligned}
+ \widehat a_F&=\widehat v_w,&\Delta_F&=\delta_v,\\
+ \widehat a_B&=\mu\cos\widehat\vartheta\,\widehat v_\vartheta,
+ &\Delta_B&=\mu(\delta_\omega+
+                         |\widehat v_\vartheta|\delta_\vartheta).
+ \end{aligned}
+ \label{eq:operational-port-estimation}
+\end{equation}
+The cosine is one-Lipschitz on the real line, hence $|a_i-\widehat a_i|
+\leq\Delta_i$. Both sensing error and relative execution error are covered
+by the convex, positively homogeneous function
+\begin{equation}
+ P^+(u)=\sum_{i\in\{F,B\}}
+ \left\{\widehat a_i u_i+
+ [\Delta_i+\eta_i(|\widehat a_i|+\Delta_i)]|u_i|\right\}.
+ \label{eq:operational-robust-power}
+\end{equation}
+In particular, $P^+(0)=0$. There is no division by a measured velocity,
+so a zero or incorrectly signed noisy velocity creates no singularity.
+
+The independent additive errors need a separate energy allowance.
+For $\alpha>0$, write $m_F=e_w^{\mathsf T}M^{-1}e_w$ and
+$m_\vartheta=e_\vartheta^{\mathsf T}M^{-1}e_\vartheta$, and put
+\begin{equation}
+ p_e=\frac{(\epsilon_F\sqrt{m_F}
+                    +\mu\epsilon_B\sqrt{m_\vartheta})^2}{4\alpha},
+ \qquad R_T=Tp_e.
+ \label{eq:operational-additive-reserve}
+\end{equation}
+For time-dependent bounds one may instead integrate their corresponding
+$p_e(t)$. With $r=e_we_F+\mu e_\vartheta e_B\cos\vartheta$, completion of
+the square gives
+\begin{equation}
+ r^{\mathsf T}v-\alpha v^{\mathsf T}Mv
+ \leq\frac{r^{\mathsf T}M^{-1}r}{4\alpha}\leq p_e.
+ \label{eq:operational-damping-reserve-proof}
+\end{equation}
+All quantities in these equations use SI units: $P^+,p_e$ are powers,
+and $Q,E,R_T$ are energies. No dissipated energy needs to be measured.
+
+\begin{proposition}[Robust finite-horizon work and clearance]
+\label{prop:operational-robust-work}
+Fix $T>0$ and $\overline E_0<C:=E_{\max}-R_T<E_c-R_T$.
+Initialize $W(0)=\overline E_0$ and integrate $\dot W=P^+(u)$.
+Clip a requested force and field to symmetric command limits, then apply
+$u=\sigma u_{\rm req}$, with $\sigma=1$ if
+$P^+(u_{\rm req})\leq\kappa(C-W)$, and otherwise
+\begin{equation}
+ \sigma=\frac{\kappa(C-W)}{P^+(u_{\rm req})},\qquad \kappa>0.
+ \label{eq:operational-radial-governor}
+\end{equation}
+For solutions satisfying the mechanical power identity and the stated
+error envelopes, throughout $0\leq t\leq T$,
+\begin{equation}
+ \begin{aligned}
+ E(t)&\leq W(t)+tp_e\leq C+R_T=E_{\max},\\
+ \sup_s|w(s,t)|&\leq\sqrt{2C_wE_{\max}}<c.
+ \end{aligned}
+ \label{eq:operational-robust-clearance}
+\end{equation}
+Zero command remains feasible, even with nonzero sensing errors. To enforce
+actual actuator limits $F_{\lim},B_{\lim}$, use command limits
+$(F_{\lim}-\epsilon_F)/(1+\eta_F)$ and
+$(B_{\lim}-\epsilon_B)/(1+\eta_B)$, respectively.
+\end{proposition}
+\begin{proof}
+The two non-additive port powers are at most $P^+(u)$, by
+\eqref{eq:operational-port-estimation} and
+\eqref{eq:operational-actuator-envelope}. Equation
+\eqref{eq:operational-damping-reserve-proof} bounds the remaining power
+and damping together. Thus $\dot E\leq\dot W+p_e$, and integration with
+\eqref{eq:operational-initial-energy} proves $E\leq W+tp_e$.
+Positive homogeneity makes the radial choice satisfy
+$\dot W\leq\kappa(C-W)$; consequently
+$C-W(t)\geq(C-W(0))e^{-\kappa t}>0$.
+The spatial compliance bound completes the proof. The amplitude limits
+follow directly from $|F|\leq(1+\eta_F)|u_F|+\epsilon_F$ and its field
+counterpart. If additive errors vanish, $R_T=0$ and the same argument
+holds for all time and for any $\alpha\geq0$. A constant nonzero additive
+error allowance has the stated finite horizon; it is not an all-time KAM
+or clearance assertion.
+\end{proof}
+
+\paragraph{Sampled sensing and delayed execution.}
+The sensing bounds must cover the age of the data, not only sensor
+quantization. For a sample at $t_k$ used for an interval of length $h_k$,
+let the maximum age including sensing latency be $\ell_k$.
+If valid bounds $|\dot v_w|\leq A_w$,
+$|v_\vartheta|\leq V_\vartheta$ and
+$|\dot v_\vartheta|\leq A_\vartheta$ hold on that interval, replace
+\begin{equation}
+ \delta_v\mapsto\delta_v+A_w\ell_k,\quad
+ \delta_\vartheta\mapsto\delta_\vartheta+V_\vartheta\ell_k,\quad
+ \delta_\omega\mapsto\delta_\omega+A_\vartheta\ell_k.
+ \label{eq:operational-sensor-age}
+\end{equation}
+Compute $P_k^+$ with this interval envelope. A fully discrete sufficient
+rule is to hold $u_k$ such that
+$h_kP_k^+(u_k)\leq C-W_k$ and set
+$W_{k+1}=W_k+h_kP_k^+(u_k)$. Linear interpolation of $W$ proves the same
+within-interval energy bound; $u_k=0$ remains feasible. This rule does
+not treat a value at one sample as an interval guarantee.
+
+Similarly, if a continuously specified command has a verified slew bound
+$|\dot u_i|\leq S_i$ and the applied copy is delayed by at most $d_i$,
+including a zero-order-hold age when applicable, it suffices to use
+\begin{equation}
+ \epsilon_i\geq\epsilon_{i,0}+(1+\eta_i)S_id_i
+ \label{eq:operational-execution-age}
+\end{equation}
+in the additive reserve. This is an explicit joint delay/slew budget.
+The radial governor alone does not impose a slew limit. A controller
+that also enforces slew must verify its feasibility, or use the discrete
+interval-power rule above. The numerical experiment below uses continuous
+bounded port estimates and the declared direct execution-error envelope;
+it does not identify a hardware latency or an unmeasured acceleration bound.
+
+\paragraph{A nonzero SI budget next to the finite-amplitude reference.}
+The reference $(\widehat q,\widehat v)$ is the frozen nodal reconstruction
+of phase $(0,0)$ of the computed Fourier candidate for the integral-COMSOL
+fit, with the learned velocity $h_Y$, rather than an assumed exact torus
+point. Its quadratic energy is below $21.45855219$ nJ.
+For $\mathcal E_{\rm init}=5$ pJ, ball evaluation of
+\eqref{eq:operational-initial-energy} gives
+$\overline E_0<22.11866366$ nJ. This full-state ellipsoid implies, among
+other coordinate bounds, an initial tip-displacement error below
+$56.006$ $\mu$m and tip-angle error below $1.19851$ mrad.
+It also implies mass-weighted RMS velocity error below $0.316981$ mm/s,
+where the squared RMS is $\delta v^{\mathsf T}M\delta v/(\rho A_cL)$.
+These are projections of one energy ellipsoid; their endpoints cannot
+be independently combined as a Cartesian error box.
+
+\begin{table}[t]
+\centering\small
+\caption{One sufficient operational budget for the full nodal FE plant.
+Bounds are deterministic hypotheses; they are not measured sensor specifications.}
+\label{tab:operational-tolerances}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lr}
+\hline
+Quantity & Value or outward bound\\
+\hline
+Horizon $T$ & $4$ s\\
+Energy cap $E_{\max}$ & $22.66$ nJ\\
+Initialization error $\mathcal E_{\rm init}$ & $5$ pJ\\
+Angle / angular-rate error & $1$ mrad / $0.01$ rad/s\\
+Tip-velocity error & $0.1$ mm/s\\
+Relative force and field execution error & $1\%$ each\\
+Additive force / field error & $0.5$ nN / $0.05$ $\mu$T\\
+Additive work reserve $R_T$ & $<0.09677917$ nJ\\
+Available commanded-work cap $C$ & $>22.56322083$ nJ\\
+Initial commanded-work margin & $>0.44455717$ nJ\\
+Whole-centreline displacement bound & $<3.898405$ mm\\
+Minimum net wall clearance & $>0.101595$ mm\\
+\hline
+\end{tabular}
+\end{table}
+The declared actual limits are $20$ mT and $20$ $\mu$N; the latter
+corresponds to a gradient norm $1$ T/m in the ideal local magnetic
+realization. The command bounds reserve the relative and additive errors
+before clipping. Matrix ball arithmetic, rather than a two-mode estimate
+of unobserved velocity, gives $m_F<4.452635925\,10^6$ and
+$m_\vartheta<3.940922387\,10^{13}$ in their respective SI inverse-mass
+units, which establish the work reserve in the table.
+
+\paragraph{Full-model numerical check.}
+The reproducibility directory
+\texttt{reviewer\_revision\_20261008/robustness} contains the complete
+input matrices, learned coefficients, finite initial reference, original-file
+hashes, code and trajectories. The physical integrator retains
+$\Phi^{\mathsf T}M\Phi$ and $\Phi^{\mathsf T}K_b\Phi$ in full, so it
+integrates the frozen nodal plant in a well-scaled modal basis instead of
+discarding diagonalization residuals. The requesting controller uses the
+same fitted $h_Y,h_{YX},h_{YY}$ and velocity-to-momentum inverse as
+\eqref{eq:full-fe-hamiltonian-feedback}, with an additional bounded
+low-state perturbation. Independent deterministic sinusoids supply the
+stated port-sensor, gain and additive execution errors. The full-state
+initialization error is verified by direct Arb matrix products, including
+the modal-to-nodal transformation.
+
+The initialized energy is $21.743724$ nJ, with a $46.354$ $\mu$m tip
+position error and a $0.347654$ mm/s tip velocity error; its combined
+initial error energy is below $4.951$ pJ. Over $4$ s the saved-time
+Bernstein centreline bound is below $1.944145$ mm and the physical
+energy is below $21.744899$ nJ. The work filter is active at $97.8011\%$
+of the $2001$ saved times, illustrating its conservative use of work
+without crediting dissipated energy. Its activation changes the desired
+Hamiltonian trajectory. Clearance follows from
+Proposition~\ref{prop:operational-robust-work}, while invariant-torus
+persistence remains the separate conservative and ideal-feedback result.
+
+The Radau run uses relative tolerance $2\,10^{-8}$ and componentwise
+absolute tolerances $2\,10^{-13}$ for modal positions,
+$2\,10^{-11}$ for modal velocities and $2\,10^{-13}$ for normalized
+energy states. Simultaneously reducing them tenfold changes the saved tip
+trajectory by less than $0.010$ $\mu$m and the energy by less than
+$3.2\,10^{-15}$ J; the refined energy-ledger residual is below
+$3\,10^{-16}$ J. These are numerical implementation checks, not a
+validated enclosure of the integrated trajectory. The continuous-time
+clearance statement uses the analytic work proof and its independently
+validated initialization and parameter bounds.

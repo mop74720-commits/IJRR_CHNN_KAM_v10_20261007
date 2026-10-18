@@ -1,0 +1,25 @@
+{
+  "analytic_jacobian_max_difference": 2.9039171067779534e-09,
+  "finite_difference_step": 1e-06,
+  "adaptive_DOP853": [
+    {
+      "amplitude_mT": 6.0,
+      "frequency_ratio": 0.82725,
+      "maximum_state_difference": 1.3744083995903544e-13,
+      "maximum_tip_difference_m": 7.314045382987708e-16
+    },
+    {
+      "amplitude_mT": 2.0,
+      "frequency_ratio": 1.0,
+      "maximum_state_difference": 1.6810864529039852e-13,
+      "maximum_tip_difference_m": 9.204597738170013e-16
+    },
+    {
+      "amplitude_mT": 20.0,
+      "frequency_ratio": 0.8,
+      "maximum_state_difference": 3.1201833515992136e-13,
+      "maximum_tip_difference_m": 1.7321455445637035e-15
+    }
+  ],
+  "note": "Independent RHS spelling; not a rigorous floating-point certificate."
+}

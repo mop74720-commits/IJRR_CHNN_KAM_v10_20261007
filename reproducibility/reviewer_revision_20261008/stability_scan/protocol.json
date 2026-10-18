@@ -1,0 +1,54 @@
+{
+  "purpose": "Forced nominal magnetic-beam response boundaries; does not infer chaos from a failed KAM condition.",
+  "frozen_before_primary_computation": true,
+  "nominal_physics": "Same 32-element frozen modal beam, full magnetic sine/cosine, mass damping, one prescribed uniform transverse field; zero magnetic gradient; no learned-energy surrogate.",
+  "field": "By=A*(1-exp(-(t/0.25)^2))*sin(r*omega0*t) for independent runs. Continuation changes r at zero-field phase after each run, with no restarted ramp except its first frequency.",
+  "amplitude_mT": [
+    1,
+    2,
+    4,
+    6,
+    10,
+    15,
+    20
+  ],
+  "frequency_ratio": "union 0.70:0.02:1.30 and 0.94:0.005:1.06, rounded 6 decimals",
+  "initial_states_X1X2Y1Y2": [
+    [
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0.18,
+      0.04,
+      0,
+      0
+    ],
+    [
+      -0.18,
+      -0.04,
+      0,
+      0
+    ]
+  ],
+  "burn_periods": 128,
+  "measurement_periods": 64,
+  "integration": "Fixed DOP853 order 8, 256 steps/forcing period, simultaneous analytic variational equation, tangent renormalization every period.",
+  "lyapunov": "Conditional finite-time exponent at fixed forcing phase, mean over last 64 periods; half-window convergence recorded.",
+  "spatial_diagnostic": "Cubic Hermite Bernstein absolute control-row bound at 128 phases/cycle. Conservative in space at saved phases; not rigorous continuous-time bound.",
+  "scope": "4 mm net clearance; operational 20mT field cap. Slopes above .1 rad marked outside a conservative small-slope screening subdomain; .1 is a modeling-screen convention, not an established physical validity threshold.",
+  "planned_refinement": "Halved time step and doubled burn/measurement duration, higher 4/8 modes and selected full-64-mode implicit solver checks near resonance and 4mm crossings. Direct amplitude bisection for sampled steady/transient 4mm crossings, not an analytic safe threshold.",
+  "planned_classification": "Report stroboscopic recurrence and conditional FTLE together. Negative finite-time exponent does not prove absence of chaos. Positive exponent requires persistent refinement and valid-slope checks before being called a chaos candidate.",
+  "input_hashes": {
+    "reference_model_matrices.npz": "ae1b221b5f67ff455c478c17552bc26ce4d8c155169b9e2682f53b992cca4288",
+    "reference_model_spec.json": "fd18c090c9f58dac7a5813a5445b7f14c5409ec767c5cb9a4ec38dd2e883ae8c"
+  },
+  "environment": {
+    "python": "3.12.7",
+    "numpy": "1.26.4",
+    "scipy": "1.13.1",
+    "numba": "0.60.0"
+  }
+}

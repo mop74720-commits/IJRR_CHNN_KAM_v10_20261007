@@ -1,0 +1,417 @@
+--- before/workspace_indexes/00_当前保留版本说明.md
++++ after/workspace_indexes/00_当前保留版本说明.md
+@@ -6,7 +6,7 @@
+ |---|---|---|
+ | v8：主线整合修订稿 | [完整压缩包](E:/回写/稿件版本/IJRR_CHNN_KAM_主线整合修订稿_20261002.zip) | 42页长稿及对应科学资料。 |
+ | v9：导师意见凝练稿 | [正文PDF](E:/回写/稿件版本/IJRR_CHNN_KAM_主线补齐稿_20261002/main.pdf) · [补充材料](E:/回写/稿件版本/IJRR_CHNN_KAM_主线补齐稿_20261002/supplement.pdf) · [完整压缩包](E:/回写/稿件版本/IJRR_CHNN_KAM_导师意见凝练稿_20261002.zip) · [精简包](E:/回写/稿件版本/IJRR_CHNN_KAM_v9_精简版_20261002.zip) | 正文15页＋补充40页；工作目录沿用“主线补齐稿”名称，实际内容是v9。 |
+-| v10：四项审阅问题修订，10月8日 | [正文PDF](E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/main.pdf) · [补充材料](E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/supplement.pdf) · [最新S2包](E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/S2_reviewer_revision_20261008.zip) · [处理说明](E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/核对说明/四项审阅问题处理说明_20261008.md) | 正文15页＋补充45页；本轮补充实际计算与误差证明，S2含新实验数据。之前文字精简包是修订前历史版本。 |
++| v10：四项问题及引文适用性修订，10月8日 | [正文PDF](E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/main.pdf) · [补充材料](E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/supplement.pdf) · [最新S2包](E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/S2_citation_revision_20261008.zip) · [处理说明](E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/核对说明/四项审阅问题处理说明_20261008.md) | 正文15页＋补充45页；S2含引文适用性修订及此前实际计算与误差证明，详见[引文修订说明](E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/核对说明/引文适用性修订说明_20261008.md)。之前文字精简包是修订前历史版本。 |
+ 
+ v9和v10的可编辑工作目录保持原路径；两版PDF应各自与其配套supplement.pdf放在同一目录。v10历史计算数据S1仍在保留的v9完整资料包中，本次新增计算数据随最新S2包交付。
+ 
+--- before/main.tex
++++ after/main.tex
+@@ -59,7 +59,7 @@
+ The numerical comparisons define the scope of this result: real and complex implementations have equivalent resolved accuracy, and the known-physics inverse performs best on the slow nominal tracking task. Extending the analysis to partial sensing, calibrated actuators and three-dimensional contact requires corresponding mechanical models and error bounds.
+ 
+ \section*{Data and code availability}
+-The supplied materials comprise two identified archives. Archive S1 is the complete computational record dated 2 October 2026, containing native COMSOL models, construction and learning code, trajectories, fitted coefficients and interval records. Archive S2, \texttt{S2\_reviewer\_revision\_20261008.zip}, contains the revised article and Supplement, the additional stability and tolerance studies, frozen inputs, raw numerical outputs and reproduction commands. The accompanying \texttt{reproducibility/ARTIFACT\_INDEX.md} identifies the archives and maps results to files and checksums; its source map separates full-FE identification from the two-mode integral data used for the KAM proof.
++The supplied materials comprise two identified archives. Archive S1 is the complete computational record dated 2 October 2026, containing native COMSOL models, construction and learning code, trajectories, fitted coefficients and interval records. Archive S2, \texttt{S2\_citation\_revision\_20261008.zip}, contains the revised article and Supplement, the additional stability and tolerance studies, frozen inputs, raw numerical outputs and reproduction commands. The accompanying \texttt{reproducibility/ARTIFACT\_INDEX.md} identifies the archives and maps results to files and checksums; its source map separates full-FE identification from the two-mode integral data used for the KAM proof.
+ \section*{Declarations}
+ This work reports mathematical analysis and computer-generated mechanical data. No human, animal or in-orbit experiment was performed.
+ \input{sections/references}
+--- before/README.md
++++ after/README.md
+@@ -1,15 +1,17 @@
+-# v10 四项审阅问题修订稿
++# v10 引文适用性修订稿
+ 
+-初版日期：2026-10-07；本次四项问题修订：2026-10-08。原 v9 和本轮修订前 v10 均保留。
++初版日期：2026-10-07；四项问题与引文适用性修订：2026-10-08。原 v9 和修订前 v10 均保留。
++
++本次引文修订澄清复网络导数逼近的适用范围、补充磁应力到偶极模型的标准化约、说明 Haro 常数来源并锁定定理版本。详见 `核对说明/引文适用性修订说明_20261008.md` 和 `verification/citation_revision_20261008.json`。四项审阅问题的既有计算结果继续随包提供；其原验证记录保留为历史证据。
+ 
+ - `main.pdf`：英文主稿，15 页，含参考文献。
+ - `supplement.pdf`：英文补充，45 页。两份 PDF 放在同一目录，保留跨文件链接。
+ - `main.tex`、`supplement.tex`、`sections/`、`figures/`：可编辑稿件。新增边界图位于下述实验目录，也包含在 S2 中。
+ - `核对说明/四项审阅问题处理说明_20261008.md`：四项问题、具体处理、证据和适用范围。
+-- `verification/four_issue_revision_20261008.json`：本轮最终验证；`four_issue_revision_redline.html` 为源码红线差异。
++- `verification/four_issue_revision_20261008.json`：此前四项问题修订的验证；`four_issue_revision_redline.html` 为相应源码红线差异。
+ - `reproducibility/ARTIFACT_INDEX.md`：S1/S2 身份、校验和结果到源文件映射。
+ 
+-本次实际补充了 1,715 组受迫响应扫描、完整 FE 周期清隙边界及启动复核，以及非零初始化/传感/执行误差下的清隙证明与完整节点模型仿真。新输入、代码和原始结果自包含于 `reproducibility/reviewer_revision_20261008/stability_scan/` 与 `robustness/`，各目录 README 给出复算命令及依赖。机器人相关文献来源记录在 `literature/`。
++此前四项问题修订实际补充了 1,715 组受迫响应扫描、完整 FE 周期清隙边界及启动复核，以及非零初始化/传感/执行误差下的清隙证明与完整节点模型仿真。新输入、代码和原始结果自包含于 `reproducibility/reviewer_revision_20261008/stability_scan/` 与 `robustness/`，各目录 README 给出复算命令及依赖。机器人相关文献来源记录在 `literature/`。
+ 
+ 使用未修改的原 IJRR/SAGE 模板。已有 Python 与 pdflatex 环境可执行：
+ 
+@@ -19,8 +21,10 @@
+ 
+ 脚本先编译补充，再编译正文并检查未定义引用和越栏。无需重新运行实验即可编译交付的源文件。
+ 
+-本次交付包为 `S2_reviewer_revision_20261008.zip`，附 `.zip.sha256`。完整历史科学材料 S1 仍为同级父目录的 `IJRR_CHNN_KAM_导师意见凝练稿_20261002.zip`，SHA-256：`f335542f8eec42067bda474306ebdcb23dcca0450f132fcba7723621eab34170`。S1 含原 COMSOL 工程及全部历史计算记录，内部论文是 v9；阅读本次稿件用 S2。分享完整科学材料时同时提供 S1 和 S2。
++本次交付包为 `S2_citation_revision_20261008.zip`，附 `.zip.sha256`。完整历史科学材料 S1 仍为同级父目录的 `IJRR_CHNN_KAM_导师意见凝练稿_20261002.zip`，SHA-256：`f335542f8eec42067bda474306ebdcb23dcca0450f132fcba7723621eab34170`。S1 含原 COMSOL 工程及全部历史计算记录，内部论文是 v9；阅读本次稿件用 S2。分享完整科学材料时同时提供 S1 和 S2。
+ 
+-本轮未修改旧数据、重新训练已认证拟合模型或重跑全部历史 COMSOL 工程。新扫描未发现规定采样协议内的混沌转变；它提供数值共振/清隙边界。新增严格误差容限针对所列条件下 4 秒清隙，并不声称噪声下保持精确 KAM 环面。
++本次引文修订未修改数据、重新训练拟合模型或重跑历史 COMSOL 工程。此前四项问题修订中的扫描未发现规定采样协议内的混沌转变；它提供数值共振/清隙边界。既有严格误差容限针对所列条件下 4 秒清隙，并不声称噪声下保持精确 KAM 环面。
+ 
+-本轮前备份：`verification/backups/v10_pre_four_issue_revision_20261008.zip`，SHA-256：`e5a0531fcfa82a70626c2a5168f0982af8de40335094f5b8e10f72f83483b73a`。此前 `v10_*.md/json` 属于相应历史修订记录，其旧页数与旧哈希不代表本次结果。
++四项问题修订前备份：`verification/backups/v10_pre_four_issue_revision_20261008.zip`，SHA-256：`e5a0531fcfa82a70626c2a5168f0982af8de40335094f5b8e10f72f83483b73a`。此前 `v10_*.md/json` 属于相应历史修订记录，其旧页数与旧哈希不代表本次结果。
++
++本次引文修订前备份：`verification/backups/v10_pre_citation_revision_20261008.zip`，SHA-256：`7102fc942222037f3c4a212cfb95bb7bdcb6e4b666a8bba249069fbcc3388f5d`。原 `S2_reviewer_revision_20261008.zip` 保留为本次引文修订前的完整交付包。最新包内文件清单见 `verification/citation_artifact_manifest_20261008.json`；打包脚本为 `verification/build_citation_package_20261008.py`。
+--- before/reproducibility/ARTIFACT_INDEX.md
++++ after/reproducibility/ARTIFACT_INDEX.md
+@@ -28,8 +28,9 @@
+ 
+ ## Archive S2: revised article and additional evidence
+ 
+-- Supplied filename: `S2_reviewer_revision_20261008.zip`.
+-- The companion `S2_reviewer_revision_20261008.zip.sha256` records the archive checksum. Inside the ZIP, `reproducibility/reviewer_revision_20261008/artifact_manifest.json` lists every archived file's size and SHA-256.
++- Supplied filename: `S2_citation_revision_20261008.zip`.
++- The companion `S2_citation_revision_20261008.zip.sha256` records the archive checksum. Inside the ZIP, `verification/citation_artifact_manifest_20261008.json` lists every archived payload file's size and SHA-256.
++- This citation revision retains the earlier scientific computations. The previous `S2_reviewer_revision_20261008.zip` remains the frozen pre-citation attachment.
+ - Extract S2 into a new directory. Its root contains `main.tex`, `supplement.tex`, the corresponding PDFs, the unmodified SAGE class, `sections/`, `figures/`, and the additional experiments below.
+ - The new experiments carry their minimal frozen inputs locally. They do not require absolute paths to the original author's workstation or a new COMSOL solve. S1 remains necessary to rerun the original study in full.
+ 
+@@ -40,7 +41,8 @@
+ | Forced-response and operational boundary | `stability_scan/` | Frozen protocol, input hashes, independent initial states, bidirectional continuation, periodic-response stability diagnostics and numerical refinement |
+ | Nonzero initialization and port errors | `robustness/` | Physical-energy tolerance calculation, uncertainty-aware work bounds, controller implementation and recorded full-model responses |
+ | Closest related work | `literature/related_work_patch.json` | Verified formal publications, exact inserted text, bibliography and claim-to-primary-source mapping |
+-| Source, layout and result verification | `verification/four_issue_revision_20261008.json` in the archive root | Compilation and reference checks, result cross-checks and verified scope |
++| Citation applicability corrections | `verification/citation_revision_20261008.json` and `核对说明/引文适用性修订说明_20261008.md` in the archive root | Current source, mathematical corrections, compilation and unresolved original-text verification limits |
++| Source, layout and result verification | `verification/four_issue_revision_20261008.json` in the archive root | Historical four-issue compilation and scientific result checks; current document hashes are in the citation-revision record |
+ | Revision correspondence | `核对说明/四项审阅问题处理说明_20261008.md` in the archive root | Four issues, concrete changes, evidence and remaining scientific scope |
+ 
+ See each experiment's README for its commands and recorded environment. Rebuild the article after the experiments are available with:
+--- before/sections/complex_theorem_note.tex
++++ after/sections/complex_theorem_note.tex
+@@ -1,7 +1,7 @@
+ \section{Complex-gradient descent with a strict descent margin}
+ \label{sec:complex-descent}
+ 
+-Theorem 3 of \citet{zhang} motivates complex-gradient optimization,
++Theorem 3 in the published version of \citet{zhang} motivates complex-gradient optimization,
+ but a stationary-point conclusion requires a strict descent margin. The
+ following convention-explicit statement also applies to a smooth CHNN
+ regression objective.
+@@ -45,3 +45,5 @@
+ cannot imply gradient convergence. Nonsmooth complex activations also need
+ separate treatment; a smooth polynomial CHNN satisfies the differentiability
+ requirements, with a Lipschitz gradient bound on any bounded iterate region.
++This proposition concerns smooth gradient descent; the experimental
++readouts are fitted by linear least squares.
+--- before/sections/core_background.tex
++++ after/sections/core_background.tex
+@@ -29,7 +29,7 @@
+ 
+ Hamiltonian neural networks provide a natural learning mechanism: fit a scalar energy and obtain its canonical vector field by differentiation \citep{greydanus}. This makes the energy derivatives available to both numerical integration and stability analysis. A magnetic catheter also loses and receives energy, so we follow the separation of conservative dynamics, dissipation and inputs used by dissipative SymODEN and port-Hamiltonian networks \citep{zhong,desai}. The learned conservative part specifies reversible dynamics; a nonnegative dissipation model and explicit magnetic ports complete the physical decoder. This separation is necessary for a controller to distinguish the energy stored by the device from the work it must supply.
+ 
+-Complex coordinates package modal position and momentum into one state and permit shared complex features \citep{trabelsi}. Their physical interpretation remains tied to the underlying real energy. We derive that representation explicitly, including the conjugate dependence and the analytic extension used in the KAM argument. Complex-network approximation theory offers useful existence and comparison results, but those results depend on the activation, target class and norm \citep{zhang}. Here the relevant question is whether the fitted model controls the required derivatives on a declared domain. Smooth approximation theory \citep{hornik} provides an existence route; the quantitative analysis then uses the actual finite feature class and its fitted coefficients.
++Complex coordinates package modal position and momentum into one state. This representation supports shared complex features \citep{trabelsi}. Their physical interpretation remains tied to the underlying real energy. We derive that representation explicitly, including the conjugate dependence and the analytic extension used in the KAM argument. Complex-network approximation theory offers useful existence and comparison results, but those results depend on the activation, target class and norm \citep{zhang}. Here the relevant question is whether the fitted model controls the required derivatives on a declared domain. Smooth approximation theory \citep{hornik} provides an existence route; the quantitative analysis then uses the actual finite feature class and its fitted coefficients.
+ 
+ That feature class combines the complete magnetic potential with an analytic polynomial residual. Its coefficients can be fitted from energy derivatives or state increments, and all derivatives needed for the subsequent analysis are explicit. A residual may depend on momentum as well as position. We retain that dependence because it changes both the Hamiltonian vector field and the relation between physical velocity and canonical momentum. The magnetic feedback is consequently derived from the full learned gradient and Hessian. This gives learning a concrete role: it supplies a differentiable energy whose approximation error can be bounded and whose dynamics can be translated back into physical commands.
+ 
+--- before/sections/core_kam.tex
++++ after/sections/core_kam.tex
+@@ -196,7 +196,7 @@
+ retains an analytic remainder (Supplementary
+ Corollary~\ref{S-cor:finite-torus-families}). The nonresonant frequency,
+ nondegenerate quadratic part and analytic remainder meet the hypotheses
+-of \citet[Theorem~6, $\alpha=1$, arXiv:1412.0509]{bounemoura2016torus}.
++of \citet[Theorem~6, $\alpha=1$, arXiv:1412.0509v1]{bounemoura2016torus}.
+ That theorem gives positive-measure families of analytic Lagrangian
+ invariant tori around $K_\infty$, with relative density tending to one
+ as the transverse action box shrinks. The same argument applies to all
+--- before/sections/physical_and_safety_mechanics.tex
++++ after/sections/physical_and_safety_mechanics.tex
+@@ -4,11 +4,11 @@
+ \subsection{Rod mechanics and a variationally consistent reduction}
+ Following the spatial rod formulation \citep{simo,antman}, let $s\in[0,L]$ denote reference arclength, $r(s,t)\in\mathbb R^3$
+ the centreline and $D(s,t)\in SO(3)$ its director frame. Define
+-\begin{equation}
+- \Gamma=D^{\mathsf T}r_s,\quad
+- D_s=D\widehat\kappa,\quad D_t=D\widehat\omega_b.
+-\end{equation}
+-The hat map is defined by $\widehat a b=a\times b$.
++\begin{equation}
++ \Gamma=D^{\mathsf T}r_s,\quad
++ D_s=D\widehat\kappa,\quad D_t=D\widehat\omega_b.
++\end{equation}
++The hat map is defined by $\widehat a b=a\times b$.
+ The extensible, unshearable Kirchhoff specialization has
+ $\Gamma=(0,0,1+e)^{\mathsf T}$; inextensibility additionally sets $e=0$.
+ Transverse internal forces are then constraint reactions. They must not
+@@ -27,7 +27,8 @@
+ magnetic load.
+ 
+ For a body-fixed magnetic moment density $\mu_b(s)$ and a static applied
+-field $B_0(r)$, the magnetic potential is
++field $B_0(r)$, neglecting magnetic interactions between distinct
++material elements gives the applied-field potential
+ \begin{equation}
+  V_{\rm mag}=-\int_0^L(D\mu_b)\cdot B_0(r)\,ds.
+ \end{equation}
+@@ -36,49 +37,76 @@
+ $\tau_{\rm mag}=\mu\times B_0$, where $\mu=D\mu_b$.
+ Thus static magnetic loading belongs to the conservative energy.
+ Field modulation supplies explicit time-dependent work or an input port.
+-A fixed-orientation dipole approximation is equivalent to a consistent
+-Maxwell-stress calculation in its regime of validity; the same load is
+-not added twice.
+-
+-More explicitly, the magnetic force on a finite material segment can
+-be evaluated on a surrounding vacuum or nonmagnetic control surface
+-$\Sigma$ using
+-\begin{equation}
+- F_{\rm mag}=\int_\Sigma T_Mn_\Sigma\dd A,\qquad
+- T_M=\mu_0^{-1}(BB^{\mathsf T}-\tfrac12|B|^2I).
+-\end{equation}
+-Here $B$ is the total field on the control surface, including the
+-self-consistent magnetic contribution of the material. The associated moment is the integral of the moment arm crossed with
+-$T_Mn_\Sigma$. The dipole formulas above are its small-magnet reduction
+-when the applied field varies slowly across the magnetic segment
+-\citep{abbott}.
+-
+-A modified Morison-type local closure, stated per unit reference length,
+-is
+-\begin{align}
+- f_{\rm h}={}&m_f a_f+m_a(a_f-r_{tt})
+-             -c_1v_r-c_2|v_r|v_r,\\
+- v_r={}&r_t-v_f,\qquad c_1,c_2\ge0.
+-\end{align}
+-Here $m_f=\rho_f A_f$ and $m_a$ are displaced-fluid and added mass
+-per unit length; $a_f$ is the prescribed fluid acceleration.
+-This is a reduced closure requiring calibration, not a solved
+-Navier--Stokes interaction. In still fluid its drag power is
+-$-c_1|r_t|^2-c_2|r_t|^3$. In moving fluid it is dissipative relative to
+-the fluid velocity and can do positive work on the rod. A constant
+-added mass may be moved to the inertial side exactly once.
+-
+-For a stationary wall, define penetration $\delta(r)$ positive inside
+-the wall and $n_c=\nabla\delta$. One nonadhesive penalty model is
+-\begin{align}
+- V_c&=\frac{k_c}{m+1}[\delta]_+^{m+1},\\
+- f_c&=-k_c[\delta]_+^m n_c
+-       -c_c\mathbf1_{\{\delta>0\}}[\dot\delta]_+n_c.
+-\end{align}
+-The elastic term is included through $V_c$ and the second term dissipates
+-power during compression. Friction can be added as a dissipative port.
+-This switching law is used for force accounting outside the contact-free
+-KAM domain, not as an analytic perturbation through an impact.
++The permanent-dipole load is the leading term of the Maxwell-stress
++resultant derived below; it is counted once in the force balance.
++
++For a complete localized magnetic element, the magnetostatic force
++can be evaluated on a surrounding vacuum control surface $\Sigma$:
++\begin{equation}
++ F_{\rm mag}=\int_\Sigma T_Mn_\Sigma\dd A,\qquad
++ T_M=\mu_0^{-1}(BB^{\mathsf T}-\tfrac12|B|^2I).
++\end{equation}
++Here $B$ is the total field, including the element's self-field.
++The associated moment integrates the moment arm crossed with
++$T_Mn_\Sigma$. To recover the permanent-dipole approximation, represent
++the element by its complete localized steady current $j(\xi)$,
++including bound currents, with $\xi=x-r$. The prescribed magnetization
++is unaffected by the applied field $B_{\rm ext}$, whose sources lie
++outside $\Sigma$. Current closure gives $\nabla\cdot j=0$ and no flux
++through the boundary. The identity $\nabla\cdot T_M=j\times B$ and
++symmetry of $T_M$ convert the stress resultants into Lorentz force and
++moment. The self-field has zero net force and moment, as seen by taking
++its stress surface to infinity; the applied-field-only stress also has
++zero resultant in this source-free volume. The remaining interaction is
++\begin{equation}
++\begin{aligned}
++ m_{\rm d}&=\tfrac12\int\xi\times j(\xi)\,\dd V,\\
++ F_{\rm mag}&=\int j(\xi)\times B_{\rm ext}(r+\xi)\,\dd V\\
++ &=\nabla_r\!\left(m_{\rm d}\cdot B_{\rm ext}(r)\right)+R_F,\\
++ \tau_{\rm mag}&=\int\xi\times[j(\xi)\times B_{\rm ext}(r+\xi)]\,\dd V\\
++ &=m_{\rm d}\times B_{\rm ext}(r)+R_\tau .
++\end{aligned}
++\label{eq:stress-dipole-reduction}
++\end{equation}
++The gradient holds the moment orientation fixed.
++Integration by parts gives $\int j\,\dd V=0$ and
++$\int\xi_i j_j\,\dd V=\epsilon_{ijk}(m_{\rm d})_k$.
++Taylor expansion of $B_{\rm ext}$ and $\nabla\cdot B_{\rm ext}=0$
++then give \eqref{eq:stress-dipole-reduction}.
++For $J_2=\int|\xi|^2|j(\xi)|\,\dd V$, the remainders obey
++$|R_F|\le\tfrac12J_2\sup\|D^2B_{\rm ext}\|$ and
++$|R_\tau|\le J_2\sup\|DB_{\rm ext}\|$, with operator norms taken over
++the element and its Taylor segments. Surface-current contributions are
++included in these integrals when present. Neglecting the higher
++multipoles recovers the permanent-dipole force and torque used in
++magnetic robotics \citep[Section~4.1, Eqs.~(12) and~(16)]{abbott}.
++
++A modified Morison-type local closure, stated per unit reference length,
++is
++\begin{align}
++ f_{\rm h}={}&m_f a_f+m_a(a_f-r_{tt})
++             -c_1v_r-c_2|v_r|v_r,\\
++ v_r={}&r_t-v_f,\qquad c_1,c_2\ge0.
++\end{align}
++Here $m_f=\rho_f A_f$ and $m_a$ are displaced-fluid and added mass
++per unit length; $a_f$ is the prescribed fluid acceleration.
++This is a reduced closure requiring calibration, not a solved
++Navier--Stokes interaction. In still fluid its drag power is
++$-c_1|r_t|^2-c_2|r_t|^3$. In moving fluid it is dissipative relative to
++the fluid velocity and can do positive work on the rod. A constant
++added mass may be moved to the inertial side exactly once.
++
++For a stationary wall, define penetration $\delta(r)$ positive inside
++the wall and $n_c=\nabla\delta$. One nonadhesive penalty model is
++\begin{align}
++ V_c&=\frac{k_c}{m+1}[\delta]_+^{m+1},\\
++ f_c&=-k_c[\delta]_+^m n_c
++       -c_c\mathbf1_{\{\delta>0\}}[\dot\delta]_+n_c.
++\end{align}
++The elastic term is included through $V_c$ and the second term dissipates
++power during compression. Friction can be added as a dissipative port.
++This switching law is used for force accounting outside the contact-free
++KAM domain, not as an analytic perturbation through an impact.
+ 
+ Choose a configuration map $(r(s,q),D(s,q))$ that satisfies the essential
+ boundary conditions and the rod constraints. A linear centreline
+@@ -98,12 +126,12 @@
+ hydrodynamic inertia remains in the generalized force balance and is
+ not also included in $M$. Galerkin projection of the virtual-work
+ identity gives
+-\begin{equation}
+- M(q)\ddot q+C(q,\dot q)\dot q+\nabla V_N(q)=Q_{\rm nc},
+-\end{equation}
+-\begin{equation}
+- Q_i=\int_0^L(f\cdot r_i+\tau\cdot Da_i)ds+Q_i^\partial.
+-\end{equation}
++\begin{equation}
++ M(q)\ddot q+C(q,\dot q)\dot q+\nabla V_N(q)=Q_{\rm nc},
++\end{equation}
++\begin{equation}
++ Q_i=\int_0^L(f\cdot r_i+\tau\cdot Da_i)ds+Q_i^\partial.
++\end{equation}
+ Here $C\dot q$ denotes the Christoffel contribution of $M$, and $V_N$
+ contains elastic, static magnetic and retained gravitational potentials.
+ Microgravity reduces the last contribution; it does not eliminate
+@@ -129,17 +157,17 @@
+ and $t_0$ be reference energy and time, and choose diagonal position and
+ momentum scales $Q_0,P_0$ with $Q_0^{\mathsf T}P_0=E_0t_0I$.
+ Set $q=Q_0x$, $p=P_0y$, $\tau=t/t_0$ and
+-\begin{align}
+- h(x,y)&=H_N(Q_0x,P_0y)/E_0,\\
+- d(x,v)&=\frac{t_0}{E_0}\mathcal D_N(Q_0x,Q_0v/t_0).
+-\end{align}
++\begin{align}
++ h(x,y)&=H_N(Q_0x,P_0y)/E_0,\\
++ d(x,v)&=\frac{t_0}{E_0}\mathcal D_N(Q_0x,Q_0v/t_0).
++\end{align}
+ Here $v=dx/d\tau$ and $\mathcal D_N$ is a Rayleigh dissipation potential.
+ The two entries of $h+id$ are now dimensionless. A complex network
+ provides coupled features and two physically decoded real readouts,
+-\begin{align}
+- \mathcal H_\theta(x,y,v)&=h_\theta(x,y)+i d_\theta(x,v),\\
+- h_\theta&=h_{\rm prior}+h_{{\rm res},\theta}.
+-\end{align}
++\begin{align}
++ \mathcal H_\theta(x,y,v)&=h_\theta(x,y)+i d_\theta(x,v),\\
++ h_\theta&=h_{\rm prior}+h_{{\rm res},\theta}.
++\end{align}
+ One admissible dissipative head is
+ \begin{equation}
+  d_\theta(x,v)=\tfrac12v^{\mathsf T}D_\theta(x)v,
+@@ -195,6 +223,6 @@
+ their ordinary piecewise-smooth implementation is not analytic.
+ 
+ 
+-The dimensional specialization below uses explicit SI units. The learning
+-and KAM statements use dimensionless canonical variables, with their
+-energy and time scales declared before fitting.
++The dimensional specialization below uses explicit SI units. The learning
++and KAM statements use dimensionless canonical variables, with their
++energy and time scales declared before fitting.
+--- before/sections/references.tex
++++ after/sections/references.tex
+@@ -18,7 +18,7 @@
+ Bounemoura A (2016) Non-degenerate Liouville tori are KAM stable.
+ \textit{Advances in Mathematics} 292: 42--51.
+ \doi{10.1016/j.aim.2016.01.012}
+-\url{https://arxiv.org/abs/1412.0509}.
++Preprint version used: \url{https://arxiv.org/abs/1412.0509v1}.
+ 
+ \bibitem[Bounemoura(2020)]{bounemoura}
+ Bounemoura A (2020) Positive measure of KAM tori for finitely differentiable Hamiltonians.
+@@ -99,7 +99,7 @@
+ P\"oschel J (2001) A lecture on the classical KAM theorem.
+ In: \textit{Proceedings of Symposia in Pure Mathematics}, vol. 69, pp. 707--732.
+ \doi{10.1090/pspum/069/1858551}
+-\url{https://arxiv.org/abs/0908.2234}.
++Preprint version used: \url{https://arxiv.org/abs/0908.2234v1} (Version 1.3, 2009).
+ 
+ \bibitem[Simo(1985)]{simo}
+ Simo JC (1985) A finite strain beam formulation. The three-dimensional dynamic problem.
+@@ -121,7 +121,7 @@
+ Zhang SQ, Gao W and Zhou ZH (2022) Towards understanding theoretical advantages of
+ complex-reaction networks. \textit{Neural Networks} 151: 80--93.
+ \doi{10.1016/j.neunet.2022.03.024}
+-\url{https://arxiv.org/abs/2108.06711}.
++\href{https://www.lamda.nju.edu.cn/zhangsq/papers/2022-CRNet-NN.pdf}{Published version used for theorem numbering}.
+ 
+ \bibitem[Zhong et~al.(2020)]{zhong}
+ Zhong YD, Dey B and Chakraborty A (2020) Dissipative SymODEN: Encoding Hamiltonian
+--- before/sections/unified_kam.tex
++++ after/sections/unified_kam.tex
+@@ -165,7 +165,7 @@
+ 
+ With nonsingular $A_\eta$ and fourth-order nonresonance, the ordinary
+ Kolmogorov theorem applies on sufficiently small positive-action boxes
+-\citep[Theorems~A--B, arXiv:0908.2234]{poschel}.
++\citep[Theorems~A--B, arXiv:0908.2234v1]{poschel}.
+ Indeed, their action width is $O(r^2)$, their integrable Hessian is
+ $A_\eta$, and~\eqref{eq:beam-complete-normal-form-tail} is $O(r^6)$.
+ Choosing a Diophantine constant proportional to $r^2$ makes the analytic
+@@ -347,8 +347,12 @@
+ \end{equation}
+ The rational recurrence in those tables is evaluated using rational or
+ ball arithmetic; rounded decimal values are used only for display. The
+-source's $C_{\rm sym}$ is evaluated from its
+-Eq.~(4.39), giving $\sigma_B^2C_{\Omega_L}=192$.
++source's $C_{\rm sym}$ follows from the Case~III block identity in
++Remark~4.7, immediately after Eq.~(4.39):
++$C_{\rm sym}=\max\{1,\sigma_B^2\}C_{\Omega_L}=192$,
++using $\sigma_B=4$ and $C_{\Omega_L}=12$.
++This uses $C_{\Omega_L}$ from the geometric identity in place of the
++$C_{\widetilde\Omega_L}$ printed in the corresponding row of Table~1.
+ 
+ \emph{Analytic residual and torsion checks.}
+ For each case the approximate embedding $K$ is an exact dyadic finite
+--- before/supplement.tex
++++ after/supplement.tex
+@@ -85,7 +85,20 @@
+ \subsection{What complex approximation theory establishes}
+ \citet[Theorem~1]{zhang} establish universal approximation with the specified complex-reaction activation. Their Theorem~2 gives a separate $L^2$ comparison with real networks under a particular distribution and resource budget. These results have distinct hypotheses and approximation criteria. Such a theorem supplies neither higher derivative accuracy nor a universal advantage for magnetic catheter energies. In particular, piecewise reaction activations cannot be inserted unchanged into a smooth KAM proof.
+ 
+-There is nevertheless a direct smooth approximation route. A split-complex network with real-part output contains real smooth networks: for an input $(Q+iP)/\sqrt2$, choose first-layer complex weights $\sqrt2(A_Q-iA_P)$ to obtain real preactivation $A_QQ+A_PP+b$. Subsequent real weights keep the real channel independent of the imaginary channel. Finite-order derivative approximation for smooth real networks \citep[Theorem~3]{hornik} is thereby inherited as an existence result. Alternatively, on a compact box where a target has a convergent analytic power series, truncation gives a polynomial approximation with uniformly controlled derivatives. Those polynomials are realizable by the complex polynomial features used here. Training and a quantitative certificate are still required to establish that a particular fitted network attains the error needed for KAM.
++There is nevertheless a direct smooth approximation route. For input
++$(Q+iP)/\sqrt2$, first-layer weights $\sqrt2(A_Q-iA_P)$ and real bias $b$
++give preactivation $(A_QQ+A_PP+b)+i(A_QP-A_PQ)$.
++Split activations and subsequent real weights keep the real channel
++independent of the imaginary channel, so a real-part output realizes
++standard real networks. For bounded, nonconstant $C^m$ activations such as
++$\tanh$, \citet[Theorem~3]{hornik} gives uniform approximation through
++derivative order $m$ of $C^m$ targets on compact sets, with network width
++allowed to grow. Alternatively, increasing the polynomial degree and
++network size realizes successive truncations of a convergent analytic
++power series, with uniform derivative control on compact polydiscs inside
++its convergence domain. The fixed quartic feature class used in the
++experiments instead requires the quantitative coefficient certificate
++developed below.
+ 
+ 
+ \section{From nonzero training loss to KAM persistence}
+--- before/workspace_indexes/论文要求清单与附件索引_20261008.md
++++ after/workspace_indexes/论文要求清单与附件索引_20261008.md
+@@ -80,7 +80,7 @@
+ | v8：主线整合修订稿 | [完整压缩包](E:/回写/稿件版本/IJRR_CHNN_KAM_主线整合修订稿_20261002.zip) | 42页长稿及科学资料；用于回查凝练前的论证、实验与结果，检查后续版本是否遗漏内容。 |
+ | v9：导师意见凝练稿 | [工作目录](E:/回写/稿件版本/IJRR_CHNN_KAM_主线补齐稿_20261002)；[正文](E:/回写/稿件版本/IJRR_CHNN_KAM_主线补齐稿_20261002/main.pdf)；[英文补充](E:/回写/稿件版本/IJRR_CHNN_KAM_主线补齐稿_20261002/supplement.pdf) | 正文15页＋补充40页。按导师六部分重组后的对照版本，同时保存完整计算资料。工作目录虽名为“主线补齐稿”，实际稿件是v9。 |
+ | v9完整资料包 | [完整ZIP](E:/回写/稿件版本/IJRR_CHNN_KAM_导师意见凝练稿_20261002.zip)；[精简ZIP](E:/回写/稿件版本/IJRR_CHNN_KAM_v9_精简版_20261002.zip) | 完整包保存科学计算资料；精简包用于阅读、改稿和重新排版。两者是同一稿件版本的不同包装。 |
+-| v10：四项审阅问题修订，10月8日 | [工作目录](E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007)；[正文](E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/main.pdf)；[英文补充](E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/supplement.pdf)；[最新S2包](E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/S2_reviewer_revision_20261008.zip)；[处理说明](E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/核对说明/四项审阅问题处理说明_20261008.md) | 当前稿，正文15页＋补充45页。S2含新增扫描、误差容限和原始计算输出；历史完整资料S1仍见v9完整包。之前的文字精简ZIP保留为修订前版本，不是最新稿。 |
++| v10：四项问题及引文适用性修订，10月8日 | [工作目录](E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007)；[正文](E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/main.pdf)；[英文补充](E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/supplement.pdf)；[最新S2包](E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/S2_citation_revision_20261008.zip)；[处理说明](E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/核对说明/四项审阅问题处理说明_20261008.md) | 当前稿，正文15页＋补充45页。最新引文修订见[处理说明](E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/核对说明/引文适用性修订说明_20261008.md)。S2含引文修订、扫描、误差容限和原始计算输出；历史完整资料S1仍见v9完整包。之前的文字精简ZIP保留为修订前版本，不是最新稿。 |
+ 
+ v9、v10应各自与其配套的`supplement.pdf`放在同一目录，维持跨文件引用；两版补充材料不能互换。v10源码入口为工作目录内的`main.tex`、`supplement.tex`及`sections/`。
+ 

@@ -1,0 +1,49 @@
+\section{Complex-gradient descent with a strict descent margin}
+\label{sec:complex-descent}
+
+Theorem 3 in the published version of \citet{zhang} motivates complex-gradient optimization,
+but a stationary-point conclusion requires a strict descent margin. The
+following convention-explicit statement also applies to a smooth CHNN
+regression objective.
+
+\begin{proposition}[Complex descent]
+Let $\mathcal L:\mathbb C^P\simeq\mathbb R^{2P}\to\mathbb R$ be bounded
+below and have an $L$-Lipschitz real gradient on every segment traversed by
+the iterates. For $w=a+ib$, define
+$G(w)=\nabla_a\mathcal L+i\nabla_b\mathcal L
+=2\partial\mathcal L/\partial\bar w$.
+Choose a constant $\rho\in\mathbb C$ with
+$\kappa=\operatorname{Re}\rho-(L/2)|\rho|^2>0$, and update
+$w_{t+1}=w_t-\rho G(w_t)$.
+Then
+\[
+ \mathcal L(w_{t+1})\leq\mathcal L(w_t)-\kappa\|G(w_t)\|_2^2,
+ \qquad \lim_{t\to\infty}\|G(w_t)\|_2=0,
+\]
+and
+\[
+ \min_{0\leq t<T}\|G(w_t)\|_2^2
+ \leq\frac{\mathcal L(w_0)-\inf\mathcal L}{\kappa T}.
+\]
+\end{proposition}
+
+\begin{proof}
+Under realification, multiplication by $\rho=u+iv$ is $uI+vJ_c$, with
+$J_c^\top=-J_c$ and $J_c^\top J_c=I$.
+Hence the update has inner product $-u\|G\|^2$ with the real gradient
+and squared norm $|\rho|^2\|G\|^2$.
+The real descent lemma gives the first inequality. Summing it and using
+the lower bound for $\mathcal L$ gives
+$\kappa\sum_{t\geq0}\|G(w_t)\|^2\leq\mathcal L(w_0)-\inf\mathcal L$.
+Square summability proves convergence of the gradient norm and the minimum
+bound. The result asserts convergence to stationarity in gradient norm,
+not convergence to a global minimum or to a particular parameter vector.
+\end{proof}
+
+For a real step this condition is $0<\rho<2/L$ under the stated convention.
+The case $\rho=0$, allowed by a non-strict printed step-size interval,
+cannot imply gradient convergence. Nonsmooth complex activations also need
+separate treatment; a smooth polynomial CHNN satisfies the differentiability
+requirements, with a Lipschitz gradient bound on any bounded iterate region.
+This proposition concerns smooth gradient descent; the experimental
+readouts are fitted by linear least squares.

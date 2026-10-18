@@ -1,0 +1,6 @@
+{
+  "maximum_tip_difference_m": 9.695051731263907e-09,
+  "maximum_energy_difference_J": 3.1595801409201517e-15,
+  "maximum_work_observer_difference_J": 1.1644306120029247e-15,
+  "relative_and_absolute_tolerances_refined_by": 10
+}

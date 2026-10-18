@@ -1,0 +1,301 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-10-08T14:29:59.836130+00:00",
+  "reviewer": "template_requirements independent QA",
+  "status": "pass_with_explicit_scope_limits",
+  "unresolved_scientific_blockers_in_audited_additions": [],
+  "scope": {
+    "subject": "New forced-response stability/clearance scan and finite-initialization/port-error work bound; final main and supplementary claim wording.",
+    "independence": "Read source and saved arrays directly. Independent mathematical derivation, finite differences, exact Fraction arithmetic, eigendecompositions and spectral residual calculations. Existing validation.json was not treated as proof.",
+    "mutations": "Only this independent_qa.json is created by the reviewer; colleagues code, results and TeX are not modified.",
+    "not_performed": [
+      "No re-integration of the entire 1715-case scan.",
+      "No independent re-run of the long robust Radau trajectories or full startup sweeps.",
+      "No independent Arb inversion/LDL re-run in this reviewer process; the default Python lacked flint. Exact rational initialization and outward-export comparisons were independently run.",
+      "No independent recompilation of the final manuscript and supplement; this QA is not a new full-paper mathematical certification."
+    ],
+    "execution_method": "Python code evaluated from PowerShell standard input. Selected functions parsed with ast and executed without numba decorators, avoiding cache writes. No uploaded manuscript or external write."
+  },
+  "direct_execution_checks": {
+    "variational_and_physical_rhs": {
+      "status": "passed",
+      "method": "For n=2,8,64, canonical states and normalized perturbation vectors generated with numpy default_rng seed 711; central difference step 1e-6, t=0.3 s, A=0.004 T, frequency ratio 0.97. Compare analytic variational RHS to directional finite differences, and modal acceleration to independently projected raw nodal M,K dynamics.",
+      "results": [
+        {
+          "modes": 2,
+          "variational_relative_error": 2.423024400841857e-12,
+          "physical_projection_relative_error": 1.223595366645092e-10
+        },
+        {
+          "modes": 8,
+          "variational_relative_error": 6.222966148981363e-12,
+          "physical_projection_relative_error": 2.2799002326389166e-12
+        },
+        {
+          "modes": 64,
+          "variational_relative_error": 1.555762895005867e-11,
+          "physical_projection_relative_error": 2.9317093834900123e-15
+        }
+      ],
+      "interpretation": "Checks signs, SI time scaling and the derivative 1-cos(theta)-u*sin(theta). Numerical checks, not a proof of the integration error."
+    },
+    "spatial_bernstein": {
+      "status": "passed",
+      "method": "Independently evaluate cubic Hermite displacement and quadratic spatial derivative at 101 points per element for the sampled states; compare against exported Bernstein control bounds.",
+      "results": [
+        {
+          "modes": 2,
+          "displacement_upper_m": 0.00015520445899435043,
+          "dense_displacement_max_m": 0.00015520445899435043,
+          "slope_upper_rad": 0.005888212651639129,
+          "dense_slope_max_rad": 0.005885735761468738
+        },
+        {
+          "modes": 8,
+          "displacement_upper_m": 0.0001838274832147239,
+          "dense_displacement_max_m": 0.00018356292381461765,
+          "slope_upper_rad": 0.013658955135577935,
+          "dense_slope_max_rad": 0.01351886401848057
+        },
+        {
+          "modes": 64,
+          "displacement_upper_m": 0.0002637335295092135,
+          "dense_displacement_max_m": 0.00023473980828671293,
+          "slope_upper_rad": 0.18725876889712278,
+          "dense_slope_max_rad": 0.0838090077376483
+        }
+      ],
+      "analytical_scope": "Cubic rows w0,w0+l*theta0/3,w1-l*theta1/3,w1 and quadratic slope rows theta0,3*(w1-w0)/l-theta0-theta1,theta1 correctly bound the FE element in space. Sampling these bounds in time is not a continuous-time enclosure."
+    },
+    "zero_forcing_floquet": {
+      "status": "passed",
+      "method": "Independently execute the two-mode monodromy helper for one period at zero forcing and zero state, 256 steps per period; compare all multipliers with exp((-alpha/2 +/- i*sqrt(omega_j^2-alpha^2/4))*T).",
+      "maximum_nearest_multiplier_error": 5.723646805763282e-13,
+      "computed_spectral_radius": 0.8582366410506316,
+      "analytic_spectral_radius": 0.8582366410506332,
+      "orbit_residual": 0.0
+    },
+    "stored_floquet_eigendecomposition": {
+      "status": "passed",
+      "method": "Independently call numpy.linalg.eigvals on each saved 4x4 monodromy matrix; compare spectral radii to saved metadata. This does not re-integrate the orbits.",
+      "grid": {
+        "cases": 1029,
+        "minimum_radius": 0.8038091240725593,
+        "maximum_radius": 0.8890547397454435,
+        "maximum_saved_radius_difference": 0.0
+      },
+      "continuation": {
+        "cases": 686,
+        "minimum_radius": 0.8038091240725593,
+        "maximum_radius": 0.8890547397454454,
+        "maximum_saved_radius_difference": 0.0
+      },
+      "scope": "Numerical local stability of the tested two-mode forced periodic responses, with forcing phase fixed; not a full 64-mode Floquet certificate or a global parameter-space theorem."
+    },
+    "fourier_nonlinear_residual": {
+      "status": "passed_after_source_and_metadata_correction",
+      "original_issue": "The original residual reused the nonlinear force that generated the transfer-function response. It therefore mainly tested the linear transfer identity and could miss mismatch between the iterated angle and d@x.",
+      "correction": "verify_and_boundaries.py lines 131-135 reconstruct theta=d@x, recompute theta-sin(theta)+u*cos(theta), and check both first-order equations.",
+      "independent_method": "For all 31 saved 1024-phase, 64-mode crossing waveforms, independently rFFT the saved x,y, differentiate spectrally, and evaluate the complete nonlinear RHS at d@x.",
+      "saved_state_roundtrip_residual_max_per_s": 9.736655925962623e-13,
+      "saved_state_roundtrip_residual_max_at_ratio": 1.01,
+      "corrected_builtin_residual_max_per_s": 1.8738782618789117e-14,
+      "exact_metadata_reproduction": {
+        "method": "Execute the corrected periodic_response function at all 31 saved amplitude/ratio pairs.",
+        "maximum_state_difference_from_saved": 0.0,
+        "maximum_builtin_residual_difference_from_saved_metadata": 0.0
+      },
+      "different_derivative_routes_explained": {
+        "builtin": "Derivative from the retained Fourier transfer coefficients, without a time-to-spectrum round trip.",
+        "independent_saved_state": "Derivative after inverse FFT state storage and a new forward FFT; small round-trip errors are amplified by spectral differentiation.",
+        "direct_attribution_check_ratio": 1.01,
+        "builtin_residual_at_ratio_per_s": 2.018558317976775e-15,
+        "same_fresh_and_saved_states_bitwise": true,
+        "same_nonlinear_RHS": true,
+        "dx_derivative_roundtrip_difference_per_s": 5.808686864838819e-13,
+        "dy_derivative_roundtrip_difference_per_s": 9.736655925962623e-13,
+        "interpretation": "The larger independent number is from a different floating-point differentiation route, not inconsistent state data or metadata. Both are numerical checks, not interval enclosures."
+      },
+      "scope": "The independent saved-state calculation also found a small nonlinear residual before the reporting fix; the issue affected the diagnostic definition, not the saved orbit values."
+    },
+    "exact_initialization_64d": {
+      "status": "passed",
+      "method": "Use standard-library Fraction.from_float for every frozen binary M,K,Phi, saved modal initial component and frozen nodal reference component. Form q=Phi*a0 and v=Phi*v0 by exact rational products; add exact decimal E0=6e-7 to the last K diagonal. Evaluate the full 64-dimensional Q without floating-point summation.",
+      "display_values_J": {
+        "Q_reference": 2.1458552180018963e-08,
+        "Q_initial_error": 4.949999999991012e-12,
+        "Q_actual_initial": 2.1743961935755665e-08
+      },
+      "exact_boolean_checks": {
+        "Q_error_strictly_less_than_exact_5pJ": true,
+        "exported_reference_Q_upper_encloses_exact_Q": true,
+        "exported_Ebar_above_actual_Q": true,
+        "exported_Ebar_encloses_sqrt_sum_squared": true
+      },
+      "root_free_exact_enclosure_test": "Let s = Fraction(exported_Ebar)-Q_reference-5e-12. Check s>=0 and s*s>=4*Q_reference*5e-12 exactly, proving Ebar >= (sqrt(Q_reference)+sqrt(5e-12))^2.",
+      "scope": "Exact for the declared frozen dyadic nodal matrices/reference and saved initial modal values; no claim of exact-torus membership or continuum-beam certification."
+    },
+    "outward_export": {
+      "status": "passed_after_directional_rounding_fix",
+      "method": "At Decimal precision 110 compare exact binary64 exports with both endpoints of the printed high-precision Arb ball strings; verify upper exports exceed upper endpoints and lower exports are below lower endpoints.",
+      "all_checked_exports_outward": true,
+      "differences_from_relevant_ball_endpoint": {
+        "Cw_upper": "7.768573264920909409001635813722213611106504077591318630513829776e-14",
+        "Ec_lower": "-3.03702670621198858649567121067015201314641100508069915313369875e-24",
+        "Ebar_upper": "4.01891687042742149499395312462093972136067660864577585422657798e-24",
+        "additive_reserve_upper": "1.015300546436347022372798567187948481113272017591822961756090736e-26",
+        "command_cap_lower": "-2.72855135120206259056702830425263875201743649548643458703943534e-24",
+        "Q_reference_upper": "4.0176747186768847596972968530212245545525746068181401809377532e-24",
+        "energy_cap_lower": "-4.217663205990061781047728572957566939294338226318359374999999729e-24"
+      },
+      "implementation": "run_operational_tolerances.py lines 49-50 applies np.nextafter after ball-to-float conversion.",
+      "limitation": "This checks the exported endpoint direction and code; it is not a fresh independent calculation of every inverse-matrix Arb ball."
+    }
+  },
+  "mathematical_review": {
+    "robust_power_envelope": "Passed: Delta_B=mu*(delta_omega+abs(omega_hat)*delta_theta) follows from cosine being 1-Lipschitz. Multiplicative errors enter Pplus homogeneously, so Pplus(0)=0.",
+    "additive_error_separation": "Passed: additive execution errors are bounded together with damping by p_e=(epsilon_F*sqrt(m_F)+mu*epsilon_B*sqrt(m_theta))^2/(4*alpha), and use R_T=T*p_e. Zero commanded input is not assumed to remove additive disturbances.",
+    "governor_invariance": "Passed: positive homogeneity gives Wdot<=kappa*(C-W), W(0)<C; E(t)<=W(t)+t*p_e<=Emax for 0<=t<=T. With constant nonzero additive allowance this is finite horizon, not all time.",
+    "actuator_limits": "Passed after correction: clip commands at (actual_limit-epsilon)/(1+eta) before radial scaling. Actual force/field limits then follow from the stated envelope.",
+    "spatial_continuous_time_clearance": "Passed conditionally: instantaneous FE Bernstein/compliance estimate and the analytic all-times energy inequality, not temporal sampling of simulation maxima, give the continuous-time 4 s clearance bound.",
+    "initialization": "Passed: a full-state Q error ellipsoid around a finite exported reference; projected tip/angle/RMS error bounds are not an independently selectable Cartesian box.",
+    "sampling_and_delay": "Passed as conditional sufficient rules: sensor age inflation needs verified rate/acceleration bounds; h_k*Pplus_k<=C-W_k bounds within-interval work. Execution delay uses a separately verified slew/error budget. No measured hardware latency is asserted.",
+    "frozen_model_scope": "The robust proof is for exact exported nodal matrices. The text acknowledges their small diagonalization discrepancy from the frozen modal model used in the ideal KAM result.",
+    "finite_time_lyapunov": "One tangent-vector renormalization supplies a conditional finite-time growth estimate at fixed forcing phase; it is not an exact largest-singular-value finite-time exponent or a global absence-of-chaos proof."
+  },
+  "resolved_findings": [
+    {
+      "issue": "Nearest rounding after Arb endpoint export could lose the direction of a claimed enclosure.",
+      "resolution": "Explicit nextafter outward conversion; independently checked relevant ball/export endpoints."
+    },
+    {
+      "issue": "Tip-angle compliance was ambiguously called a whole-beam slope bound.",
+      "resolution": "Output renamed tip_slope_bound_rad; theorem whole-centreline bound uses displacement Bernstein rows."
+    },
+    {
+      "issue": "Clipping commanded ports at actual hard limits ignored relative/additive execution errors.",
+      "resolution": "Command limits derated by (limit-epsilon)/(1+eta)."
+    },
+    {
+      "issue": "Initialized error should be measured about the frozen exact dyadic nodal reference, including modal-to-nodal reconstruction.",
+      "resolution": "Arb check in source and independent exact 64D Fraction check pass."
+    },
+    {
+      "issue": "Fourier ODE residual reused the forcing used to construct the orbit.",
+      "resolution": "Recompute from reconstructed theta and check both first-order equations; all saved cases independently checked."
+    },
+    {
+      "issue": "Text stated energy refinement difference <3.1e-15 J but saved maximum is 3.1595801409201517e-15 J.",
+      "resolution": "Final operational_tolerances.tex line 285 now states <3.2e-15 J."
+    }
+  ],
+  "claim_wording_review": {
+    "core_application_lines_84_86": "Pass: identifies the 1715 two-mode scan, numerical Floquet results, no detected transition under the sampled protocol, 64-mode numerical steady crossings, and possible startup overshoot.",
+    "core_application_lines_110_112": "Pass: distinguishes finite initialization from tiny KAM action tube; states a 4 s clearance guarantee under full-state and port-error hypotheses; does not promise noisy exact-torus persistence or tracking accuracy.",
+    "stability_boundary_lines_70_100": "Pass: distinguishes numerical sampled-point stability from a continuous parameter theorem and conservative KAM breakup; spatial Bernstein bounds explicitly refer to sampled phases.",
+    "stability_boundary_lines_104_147": "Pass: full-FE steady versus eight-mode startup contours are protocol dependent and not certified safe-field limits; 32-period full-FE startup crosschecks are not presented as proven infinite-time roots.",
+    "operational_tolerances_lines_269_289": "Pass: trajectory peaks are labelled saved-time results; analytic clearance and ideal invariant-torus results are separate; tolerance refinement is an implementation check, not a validated trajectory enclosure."
+  },
+  "numerical_scope_reminders": [
+    "Only two-mode periodic responses have the full 1715-case Floquet calculation. Full 64-mode periodic branches have separate Fourier/Radau agreement checks.",
+    "A spatial upper bound above 4 mm alone does not prove actual violation; at the reported steady roots it equals the sampled actual tip maximum. Startup examples separately show actual tip overshoot.",
+    "A finite phase grid can shift numerical crossing estimates. The reported phase/mode/time refinements quantify selected discrepancies but are not rigorous global error bars.",
+    "The 0.1 rad slope screen is a reporting convention, not a calibrated material/model-validity threshold.",
+    "The work governor substantially changes the requested motion (active at about 97.8 percent of saved robust-run times); the proved new capability is bounded-error clearance, not exact KAM tracking.",
+    "No contact model or new hardware validation is supplied by these numerical additions."
+  ],
+  "final_artifact_hashes": [
+    {
+      "path": "E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/sections/core_application.tex",
+      "sha256": "0cd7873ffb174b8488cdedae9feeee8ffed7d3bec938916bd1115b3dbc3e41e5"
+    },
+    {
+      "path": "E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/sections/stability_boundary.tex",
+      "sha256": "f020dc45d36457e2332b6809578822598545744d13406ecd43da7cbff6950aac"
+    },
+    {
+      "path": "E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/sections/operational_tolerances.tex",
+      "sha256": "d1ed126d5cad6f358a772584fe619a55b8b1f107ffba02d569375df6e6eb1a4d"
+    },
+    {
+      "path": "E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/reproducibility/reviewer_revision_20261008/stability_scan/run_stability_scan.py",
+      "sha256": "4a6b825427611032b7caa8ed44345a012aa679e479fbe6b0a361bdf9b45c34e7"
+    },
+    {
+      "path": "E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/reproducibility/reviewer_revision_20261008/stability_scan/verify_and_boundaries.py",
+      "sha256": "49dc4cbe26582f2d6f4860a9143cb44bdee96f78bc3a8099fe18d065f2bcfdee"
+    },
+    {
+      "path": "E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/reproducibility/reviewer_revision_20261008/stability_scan/inputs/reference_model_matrices.npz",
+      "sha256": "ae1b221b5f67ff455c478c17552bc26ce4d8c155169b9e2682f53b992cca4288"
+    },
+    {
+      "path": "E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/reproducibility/reviewer_revision_20261008/stability_scan/inputs/reference_model_spec.json",
+      "sha256": "fd18c090c9f58dac7a5813a5445b7f14c5409ec767c5cb9a4ec38dd2e883ae8c"
+    },
+    {
+      "path": "E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/reproducibility/reviewer_revision_20261008/stability_scan/grid_floquet.npz",
+      "sha256": "a7f4fba2da4412caf4eb48a1d5810e6529211b94f45bc4e40bd241cb2e6605ca"
+    },
+    {
+      "path": "E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/reproducibility/reviewer_revision_20261008/stability_scan/continuation_floquet.npz",
+      "sha256": "81d9e4ab3f42d4658c67ac0c66f751a6ddf1982434880f5c9ac9150092655801"
+    },
+    {
+      "path": "E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/reproducibility/reviewer_revision_20261008/stability_scan/full_FE_boundary_waveforms.npz",
+      "sha256": "36e523e12c19b9fe0f66f012b7850a9a4d3f35dd986ecf399718734a5e4c1bbd"
+    },
+    {
+      "path": "E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/reproducibility/reviewer_revision_20261008/stability_scan/full_FE_steady_clearance_boundary.json",
+      "sha256": "822917fdc7ed3b4a39315c25c3d07472597141cbcf1f8ad9781076019c148ebc"
+    },
+    {
+      "path": "E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/reproducibility/reviewer_revision_20261008/stability_scan/boundary_modal_phase_refinement.json",
+      "sha256": "0825cbec38292a039870bd9f51aab9ecfc83e2f8e15a5c4e52952f51e80f3aae"
+    },
+    {
+      "path": "E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/reproducibility/reviewer_revision_20261008/stability_scan/full_FE_Radau_crosscheck.json",
+      "sha256": "c82442c0c6d9fd9f32b4c160ad7cc505b16e4d5f72ce323b960281a0077dc5a2"
+    },
+    {
+      "path": "E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/reproducibility/reviewer_revision_20261008/stability_scan/startup_clearance_boundary.json",
+      "sha256": "6feab8d7d5583cd002f22f8eaaa40b0c9582d6328d80cc63ca091ea363e7f81d"
+    },
+    {
+      "path": "E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/reproducibility/reviewer_revision_20261008/stability_scan/startup_boundary_refinement.json",
+      "sha256": "ec80da63d514ceb241a4805d1010bc9272604b6639f790c9ac2f1c9379362064"
+    },
+    {
+      "path": "E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/reproducibility/reviewer_revision_20261008/robustness/run_operational_tolerances.py",
+      "sha256": "5db4b3ec10647a858911e6d2d3dd242ccbd7f7b08172f4fbbe2a8354aa8e3042"
+    },
+    {
+      "path": "E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/reproducibility/reviewer_revision_20261008/robustness/inputs/model_matrices.npz",
+      "sha256": "ae1b221b5f67ff455c478c17552bc26ce4d8c155169b9e2682f53b992cca4288"
+    },
+    {
+      "path": "E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/reproducibility/reviewer_revision_20261008/robustness/inputs/reference_nodal_state.npz",
+      "sha256": "98127ee121bd6044d1c8cf0e8e5453cf87f2d97f228b9fe4e1e35ff93d9f9321"
+    },
+    {
+      "path": "E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/reproducibility/reviewer_revision_20261008/robustness/analytic_certificate.json",
+      "sha256": "bd033e29b5b9e36c2c83eac94a02ebcc1ee0d71e3be49dffa86bb516d7976e03"
+    },
+    {
+      "path": "E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/reproducibility/reviewer_revision_20261008/robustness/primary_trajectory.npz",
+      "sha256": "fdf05ec965eacdd1c0b9346d72d83a7dcf3c31556dde82f72d7169b4507634df"
+    },
+    {
+      "path": "E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/reproducibility/reviewer_revision_20261008/robustness/primary_results.json",
+      "sha256": "af22096e1be6a99b759d328925541b299cc1ce8d7662999d3be682b37eaad186"
+    },
+    {
+      "path": "E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/reproducibility/reviewer_revision_20261008/robustness/refined_results.json",
+      "sha256": "a516df787764a6e7fc7c328588554e126679f233fe260f1d581661761c840bf5"
+    },
+    {
+      "path": "E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/reproducibility/reviewer_revision_20261008/robustness/refinement_comparison.json",
+      "sha256": "30b0f90b679a0557fafe5c7a2183897fdfddbb42e4b0e1438d49be0607290cad"
+    }
+  ]
+}

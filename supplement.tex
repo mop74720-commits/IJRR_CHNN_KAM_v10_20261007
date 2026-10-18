@@ -1,0 +1,187 @@
+\documentclass[doublespace,Afour,sageh,times]{sagej}
+\usepackage{amsmath,amssymb,amsthm,graphicx,booktabs,array,url}
+\usepackage[colorlinks,bookmarksopen,bookmarksnumbered,citecolor=blue,urlcolor=blue]{hyperref}
+\setcounter{secnumdepth}{3}
+\setcounter{dbltopnumber}{2}
+\renewcommand{\dbltopfraction}{0.85}
+\def\journalname{The International Journal of Robotics Research}
+\runninghead{Supplementary derivations and experiments}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{remark}{Remark}
+\newcommand{\R}{\mathbb R}
+\newcommand{\C}{\mathbb C}
+\newcommand{\T}{\mathbb T}
+\newcommand{\dd}{\,\mathrm d}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\Rea}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
+\newcommand{\eps}{\varepsilon}
+\providecommand{\doi}[1]{\href{https://doi.org/#1}{doi: #1}.}
+
+\renewcommand{\thesection}{S\arabic{section}}
+\renewcommand{\theequation}{S\arabic{equation}}
+\renewcommand{\thetheorem}{S\arabic{theorem}}
+\renewcommand{\theassumption}{S\arabic{assumption}}
+\renewcommand{\theremark}{S\arabic{remark}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\begin{document}
+\title{Supplementary material: Complex Hamiltonian learning and KAM-preserving magnetic control of a catheter model}
+\author{Anonymous authors}
+\begin{abstract}
+This supplement gives the distributed force accounting, complete learning-error estimates, nonlinear normal forms, invariant-torus proofs and extended numerical experiments supporting the main article. It also supplies the full magnetic-feedback lift, energy-based clearance proofs and explicit local KAM measure calculation. Numerical observations and infinite-time conclusions retain their respective domains and assumptions. External theorems are attributed at their point of application; model-specific derivations and proofs are included here.
+\end{abstract}
+\maketitle
+\raggedbottom
+\section{Distributed mechanics and the unified magnetic model}
+\label{sec:mechanics}
+\input{sections/physical_and_safety_mechanics}
+\input{sections/unified_model}
+\section{Complex Hamiltonian learning}
+\label{sec:learning}
+\subsection{A fixed canonical chart}
+For a positive definite constant mass $M$ and reference stiffness $K_{\rm ref}$, select $U$ such that $U^{\mathsf T}MU=I$ and $U^{\mathsf T}K_{\rm ref}U=\Omega^2$, where $\Omega=\diag(\omega_1,\ldots,\omega_n)$. In the magnetic specialization, $K_{\rm ref}=K_b$ includes the static-field stiffness. The transformation
+\begin{equation}
+ q=U\Omega^{-1/2}Q,\qquad p=MU\Omega^{1/2}P
+ \label{eq:balancechart}
+\end{equation}
+is symplectic: its configuration and momentum blocks satisfy $S_q^{\mathsf T}S_p=I$. Consequently $H_2=\tfrac12\sum_j\omega_j(Q_j^2+P_j^2)$. The computational variables in \eqref{eq:unified-scale} obey $(Q,P)=\sqrt{E_0/\omega_0}(X,Y)$, together with the stated energy and time normalization. That fixed dimensionless chart is used for training, derivative errors and normal forms. Canonical normalization requires the position and momentum scalings to preserve the symplectic form. Optional training weights change only the loss metric.
+
+Write $x=(Q,P)$ and use one complex normalization throughout:
+\begin{equation}
+ z_j=\frac{Q_j+iP_j}{\sqrt2},\quad I_j=z_j\bar z_j,
+ \qquad\{z_j,\bar z_k\}=-i\delta_{jk}.
+ \label{eq:complexchart}
+\end{equation}
+Wirtinger calculus gives $\partial_{\bar z_j}=(\partial_{Q_j}+i\partial_{P_j})/\sqrt2$ and therefore $\dot z=-i\partial_{\bar z}H$ for real $H$. This is a change of representation of a real symplectic system. Holomorphicity in $z$ alone would exclude most real energy functions, including $H_2=\sum_j\omega_jz_j\bar z_j$. The analyticity required by analytic KAM instead means a holomorphic extension of the real variables $(Q,P)$ to a complex neighbourhood, in which $z$ and $\bar z$ are independent linear combinations.
+
+\subsection{Architecture and objective}
+A shared complex feature map $F_\theta(z,\bar z,b)$, with magnetic configuration $b$, drives real readouts for $H_\theta$ and a dissipation factor $L_\theta$. The latter defines $\mathcal D_\theta(q,v)=\tfrac12\norm{L_\theta(q)^{\mathsf T}v}^2$. The physical decoder in Section~\ref{sec:mechanics} determines the vector field. An affine complex layer has the real block realization
+\begin{equation}
+ (A+iB)(a+ib)= (Aa-Bb)+i(Ba+Ab).
+ \label{eq:block}
+\end{equation}
+Thus complex weights impose a specific coupling, rather than furnishing an extra physical state. Smooth split activations $\sigma(a+ib)=\tanh(a)+i\tanh(b)$ are real analytic on bounded real domains and extend to a sufficiently small pole-free complex neighbourhood when weights are bounded. Their use does not justify assuming an arbitrarily wide analytic strip.
+
+For observed dimensionless states and velocities, a suitable objective is
+\begin{align}
+ \widehat{\mathcal L}={}&\frac1N\sum_{i=1}^N
+ \norm{\widehat{\dot x}_i-f_\theta(x_i,u_i)}^p
+ +\lambda_E\widehat{\mathcal L}_E
+ +\lambda_R\mathcal R(\theta).
+ \label{eq:training}
+\end{align}
+Energy observations, if available, fix a gauge through $\widehat{\mathcal L}_E$; vector-field training alone identifies $H$ only up to a constant. To infer conservative gradient error from the full decoder loss, errors in dissipation and inputs must first be bounded or measured and included in the label-error budget. They cannot be absorbed into a Hamiltonian residual merely because their magnitudes are small.
+
+The reproducible experiments specialize this architecture to a finite analytic complex feature network. The exact magnetic feature $R_{\rm mag}$ in \eqref{eq:unified-h} is represented by complex exponentials and a quadratic correction, with a learned real readout. Quartic features complement its degree-four Taylor coefficient; this keeps the full cosine target in the hypothesis class while avoiding a duplicate quartic direction. Products of complex affine forms and their conjugates generate all real quadratic and quartic monomials. They can be implemented by a finite network with polynomial activation, using $uv=((u+v)^2-(u-v)^2)/4$. A real readout combines the full magnetic analytic feature with the polynomial residual; conjugate features enforce the reality of the energy. The prescribed features exclude a spurious cubic term and, for the gray-box model, preserve the known static-field quadratic part exactly. Fitting the output coefficients from energy derivatives is linear least squares. The experiment therefore tests an explicitly specified finite-feature CHNN. The magnetic coefficient and polynomial residual readouts are estimated by linear least squares within this finite-feature architecture.
+
+\subsection{What complex approximation theory establishes}
+\citet[Theorem~1]{zhang} establish universal approximation with the specified complex-reaction activation. Their Theorem~2 gives a separate $L^2$ comparison with real networks under a particular distribution and resource budget. These results have distinct hypotheses and approximation criteria. Such a theorem supplies neither higher derivative accuracy nor a universal advantage for magnetic catheter energies. In particular, piecewise reaction activations cannot be inserted unchanged into a smooth KAM proof.
+
+There is nevertheless a direct smooth approximation route. For input
+$(Q+iP)/\sqrt2$, first-layer weights $\sqrt2(A_Q-iA_P)$ and real bias $b$
+give preactivation $(A_QQ+A_PP+b)+i(A_QP-A_PQ)$.
+Split activations and subsequent real weights keep the real channel
+independent of the imaginary channel, so a real-part output realizes
+standard real networks. For bounded, nonconstant $C^m$ activations such as
+$\tanh$, \citet[Theorem~3]{hornik} gives uniform approximation through
+derivative order $m$ of $C^m$ targets on compact sets, with network width
+allowed to grow. Alternatively, increasing the polynomial degree and
+network size realizes successive truncations of a convergent analytic
+power series, with uniform derivative control on compact polydiscs inside
+its convergence domain. The fixed quartic feature class used in the
+experiments instead requires the quantitative coefficient certificate
+developed below.
+
+
+\section{From nonzero training loss to KAM persistence}
+\label{sec:transfer}
+\input{sections/theorem_bridge}
+
+\section{Nonlinear stability of the learned magnetic model}
+\label{sec:benchmark}
+\input{sections/unified_kam}
+\input{sections/integral_comsol_to_kam}
+\input{sections/measure_persistence}
+
+\section{Reproducible learning and independent COMSOL validation}
+\label{sec:experiments}
+\input{sections/unified_experiments}
+\input{sections/measure_numerical}
+\input{sections/robustness_and_adaptation}
+\input{sections/stability_boundary}
+
+\section{Preserving KAM dynamics through magnetic actuation}
+\label{sec:kam-actuation}
+\input{sections/full_fe_kam_control}
+\input{sections/kam_control_experiment}
+
+\section{Clearance guarantees and magnetic safety control}
+\label{sec:safety}
+\input{sections/unified_safety}
+\input{sections/operational_tolerances}
+\input{sections/s_path}
+
+\section{Structure-preserving time integration}
+\label{app:integrator}
+For a real smooth Hamiltonian, implicit midpoint is
+\begin{equation}
+ x_{k+1}=x_k+hJ\nabla H\big((x_k+x_{k+1})/2\big).
+\end{equation}
+Let $A=JH''(\bar x)$. Differentiation gives $D\Phi_h=(I-hA/2)^{-1}(I+hA/2)$. Since $A^{\mathsf T}J+JA=0$, this Cayley transform satisfies $D\Phi_h^{\mathsf T}JD\Phi_h=J$ whenever the implicit equation defines a differentiable local map. The proof assumes the nonlinear step is solved exactly; residual tolerances add a numerical defect. Explicit RK4 is not symplectic in general. For the separable physical Hamiltonian, the kick--drift--kick St\"ormer--Verlet map is also symplectic, because each substep is the exact flow of the kinetic or potential Hamiltonian. A general learned momentum-dependent quartic no longer admits that separable split, so the same formula cannot be reused without justification.
+
+Energy error and symplecticity are distinct diagnostics. Finite-time energy plots are evaluated against the specified reference Hamiltonian and accompanied by a step-size check. A small integration error does not certify a Diophantine inequality, nor does a positive finite-time Lyapunov estimate alone establish asymptotic chaos. These facts determine the labels used in the numerical figures.
+
+\section{The fourth-order central generating-function scheme}
+\label{app:central4}
+Let $f=J\nabla H$, $A=H''$ and define a central generating function
+\begin{equation}
+ S_h(x)=hH(x)+\frac{h^3}{24}f(x)^{\mathsf T}A(x)f(x).
+\end{equation}
+The map is specified implicitly by
+\begin{equation}
+ x_+-x_-=J\nabla S_h\big((x_-+x_+)/2\big).
+ \label{eq:central4}
+\end{equation}
+The central generating-function construction and fourth-order formula are classical \citep[Theorem~24, p.~90; formula on p.~95]{feng}; geometric integration is developed systematically by \citet{hairer}. Here every derivative is
+computed from the same learned scalar Hamiltonian. The identity
+\begin{equation}
+ J\nabla(f^{\mathsf T}Af)=f''[f,f]-2(f')^2f
+\end{equation}
+follows by differentiating both occurrences of $f$, using $f'=JA$ and
+$J^{\mathsf T}=-J$. It gives the displacement implemented in the
+reproducibility code:
+\begin{equation}
+ g_h=hf+\frac{h^3}{24}\bigl(f''[f,f]-2(f')^2f\bigr).
+\end{equation}
+The Hessian $S_h''$ is symmetric, so the midpoint Cayley-transform argument
+in Supplement~\ref{app:integrator} proves exact symplecticity of the
+locally defined map. Since $S_{-h}=-S_h$, interchanging its endpoints
+proves reversibility.
+
+To verify order, expand an exact orbit about its temporal midpoint $x_0$.
+Its endpoint midpoint $m$ and endpoint difference satisfy
+\begin{align}
+ m&=x_0+\tfrac18h^2f'(x_0)f(x_0)+O(h^4),\\
+ x_+-x_-&=hf(x_0)+\tfrac1{24}h^3
+       \bigl(f''[f,f]+(f')^2f\bigr)(x_0)\nonumber\\
+       &\quad+O(h^5).
+\end{align}
+Substituting $x_0=m-\tfrac18h^2f'(m)f(m)+O(h^4)$ gives
+$x_+-x_-=g_h(m)+O(h^5)$, proving fourth order under the required
+smoothness and local solvability assumptions.
+
+\input{sections/unified_integrator_check}
+\input{sections/complex_theorem_note}
+\section{An explicit local KAM measure estimate}
+\input{sections/measure_proof}
+
+\input{sections/references}
+\end{document}

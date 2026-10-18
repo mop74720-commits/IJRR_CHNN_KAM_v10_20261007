@@ -1,0 +1,209 @@
+\subsection{A validated COMSOL state-to-KAM learning certificate}
+\label{sec:validated-integral-learning}
+
+We add a controlled identification experiment for the same complete
+two-mode magnetic Hamiltonian. COMSOL independently integrates its four
+state equations for $64$ initial conditions, with $17$ state observations
+on each dimensionless interval $[0,T]$, $T\simeq0.04$.
+This experiment is explicitly a two-mode modal ODE experiment; the
+earlier $64$-DOF finite-element trajectories remain a separate validation.
+Only positions and velocities enter the new training labels.
+Neither acceleration reconstruction nor a solver tolerance is used as
+an error certificate.
+
+For each observed orbit, fit a degree-eight polynomial curve
+$c_\ell:[0,T]\to\mathbb R^4$ to the observed states.
+Its coefficients are frozen as exact dyadic rationals, with its constant
+and linear coefficients corrected exactly so that both endpoints equal
+the exported observations $z_\ell^-,z_\ell^+$.
+This construction uses no evaluation of the physical acceleration.
+Let $Lz=X_{h_2}(z)$ and let
+$V(z)=[J\nabla F_0(z),\ldots,J\nabla F_{34}(z)]$
+be the nonlinear feature field of the same learned family. Define
+\begin{equation}
+ \begin{aligned}
+ D_\ell&=\frac1T\int_0^T V(c_\ell(\tau))\,d\tau,\\
+ y_\ell&=\frac{z_\ell^+-z_\ell^-}{T}
+          -\frac1T\int_0^T Lc_\ell(\tau)\,d\tau .
+ \end{aligned}
+ \label{eq:validated-integral-observations}
+\end{equation}
+The integral design and labels are therefore functions of the observed
+state curves, not instantaneous force-balance labels.
+
+\begin{proposition}[Integral loss, dynamic defect and coefficient error]
+\label{prop:integral-transfer}
+Let $\eta_\star=(s_4,0,\ldots,0)$ represent the declared full-cosine target,
+and let $m$ be the number of observed curves. Put
+\begin{equation}
+ \begin{aligned}
+ e_\ell&=\frac1T\int_0^T
+       \bigl(\dot c_\ell-X_{h_\star}(c_\ell)\bigr)\,d\tau,\\
+ G_I&=\frac1{4m}\sum_{\ell=1}^m D_\ell^\top D_\ell,\\
+ r_I^2&=\frac1{4m}\sum_{\ell=1}^m
+                   \|D_\ell\widehat\eta-y_\ell\|_2^2 .
+ \end{aligned}
+ \label{eq:integral-defect-gram}
+\end{equation}
+If $\lambda_{\min}(G_I)\geq\underline\lambda>0$ and
+$(4m)^{-1}\sum_\ell\|e_\ell\|_2^2\leq\epsilon_I^2$, then
+\begin{equation}
+ \|\widehat\eta-\eta_\star\|_2
+ \leq b_I:=\frac{r_I+\epsilon_I}{\sqrt{\underline\lambda}} .
+ \label{eq:integral-coefficient-transfer}
+\end{equation}
+The curves need not be exact solutions of the physical differential
+equation. Their explicitly verified dynamic defect supplies the required
+error budget.
+\end{proposition}
+
+\begin{proof}
+Exact endpoint matching and the fundamental theorem of calculus give
+$y_\ell-D_\ell\eta_\star=e_\ell$.
+The triangle inequality in the stacked, $1/(4m)$-normalized Euclidean
+norm gives
+$\|D(\widehat\eta-\eta_\star)\|_2/\sqrt{4m}\leq r_I+\epsilon_I$.
+The Gram lower bound proves~\eqref{eq:integral-coefficient-transfer}.
+\end{proof}
+
+The defect is independently evaluated against the explicitly declared
+physical target. Thus the proposition does not infer arbitrary unknown
+model error from a small training loss. It certifies consistency with
+this target using additional, verified physical information.
+
+\paragraph{Validated integrals and numerical error.}
+All polynomial feature integrals are evaluated by exact polynomial
+integration with Arb ball coefficients. For $\vartheta=d^\top(c_\ell)_X$,
+the magnetic feature uses the odd Taylor terms of
+$\sin\vartheta-\vartheta$ through degree $19$, together with
+\begin{equation}
+ \begin{aligned}
+ S_{19}(\vartheta)&=
+ \sum_{\substack{3\leq j\leq19\\j\ {\rm odd}}}
+       \frac{(-1)^{(j-1)/2}\vartheta^j}{j!},\\
+ |\sin\vartheta-\vartheta-S_{19}(\vartheta)|
+ &\leq\frac{R^{21}\cosh R}{21!},\quad |\vartheta|\leq R .
+ \end{aligned}
+ \label{eq:integral-sine-remainder}
+\end{equation}
+The computed maximum remainder is below $4.8752\times10^{-43}$.
+The remainder is included in every affected feature integral and dynamic
+defect; the certified function remains the complete cosine model.
+The exact identity $y-D\eta_\star=e$ is also checked componentwise by
+independent ball evaluations.
+
+The interval Gram inverse is computed at $256$-bit precision.
+Since the exact Gram matrix is real symmetric and positive semidefinite,
+a validated inverse makes it positive definite and gives
+$\underline\lambda=1/\|G_I^{-1}\|_\infty$.
+Decoder rounding is retained when the real readout coefficients are
+exported as a cosine multiplier and a quartic polynomial.
+With $B=[q_\star/s_4\ U]$, this gives
+\begin{equation}
+ \begin{aligned}
+ \|A_{\widehat\eta}-A_\star\|_2
+ &\leq\sqrt{19}\bigl(\|B\|_2b_I+\delta_{\rm dec}\bigr),\\
+ \|h_{\widehat\eta}-h_\star\|_r
+ &\leq b_I B_F(r)+\delta_{h,\rm dec}(r).
+ \end{aligned}
+ \label{eq:integral-analytic-transfer}
+\end{equation}
+Here $\|B\|_2\leq\|B^\top B\|_\infty^{1/2}$ is verified from the
+exported feature matrix; exact numerical orthogonality is unnecessary.
+The analytic bound controls every derivative on a smaller polydisc by
+Cauchy's estimate:
+\[
+ \begin{aligned}
+ &\|\partial^\alpha(h_{\widehat\eta}-h_\star)\|_{r'}\\
+ &\quad\leq\alpha!(r-r')^{-|\alpha|}
+       \|h_{\widehat\eta}-h_\star\|_r .
+ \end{aligned}
+\]
+
+\begin{table}[t]
+\centering
+\caption{Outward bounds for the independent COMSOL integral-learning
+experiment. The MSE has a strictly positive certified lower bound.}
+\label{tab:integral-certificate}
+\begin{tabular}{lr}
+\hline
+Quantity & Certified bound\\
+\hline
+Training MSE & $[3.6030,3.6031]\,10^{-23}$\\
+$r_I$ & $\leq6.0026\,10^{-12}$\\
+$\epsilon_I$ & $\leq6.8835\,10^{-12}$\\
+$\lambda_{\min}(G_I)$ & $\geq2.9302\,10^{-7}$\\
+$\|\widehat\eta-\eta_\star\|_2$ & $\leq2.3805\,10^{-8}$\\
+Twist error & $\leq1.0377\,10^{-7}$\\
+$\sigma_{\min}(A_\star)$ & $\geq4.9032\,10^{-4}$\\
+$\|h_{\widehat\eta}-h_\star\|_{0.3}$ & $\leq1.3310\,10^{-9}$\\
+\hline
+\end{tabular}
+\end{table}
+
+The target is unchanged. The singular-value lower bound in
+Table~\ref{tab:integral-certificate} is a sharper bound for the same
+two-by-two symmetric matrix:
+$\sigma_{\min}(A_\star)\geq|\det A_\star|/\|A_\star\|_\infty$.
+The previously reported, smaller lower bound remains valid.
+The strict twist margin, fixed quadratic part and complete analytic
+tail therefore give local positive-measure KAM families for this actual
+fitted Hamiltonian by the normal-form argument above.
+
+\paragraph{An independent bound on trajectory error.}
+The observation curves deviate from every exported sample by at most
+$5.2538\times10^{-14}$ and satisfy
+\[
+ \sup_\tau\|\dot c_\ell-X_{h_\star}(c_\ell)\|_2
+ \leq1.0973\times10^{-8}.
+\]
+The linear modal field $L$ is skew symmetric in these balanced
+coordinates. On the real box $|z|_\infty<0.3$, the nonlinear part has
+Euclidean Lipschitz constant
+\[
+ \|d\|_2^2\frac{(0.3\|d\|_1)^2}{2}
+ <0.002084<0.01 .
+\]
+For the exact physical solution $z_\ell$ with
+$z_\ell(0)=c_\ell(0)$, variation of constants and Gronwall's inequality
+therefore give
+\[
+ \begin{aligned}
+ &\sup_{0\leq\tau\leq T}\|z_\ell(\tau)-c_\ell(\tau)\|_2\\
+ &\quad\leq T e^{0.01T}
+       \|\dot c_\ell-X_{h_\star}(c_\ell)\|_{\infty,2}\\
+ &\quad<4.3907\times10^{-10}.
+ \end{aligned}
+\]
+The verified curve bound $|c_\ell|_\infty<0.2000$ closes the
+bootstrap inside the radius-$0.3$ box. This is an a posteriori bound
+on the independently observed trajectories, not an interpretation of
+COMSOL's requested time-stepping tolerances.
+
+\paragraph{The same fitted function at millimetre amplitude.}
+The frozen network has cosine multiplier
+$a=0.9999996888354415$.
+Its complete exported coefficients are also used in a separate,
+$512$-bit a posteriori torus verification with the frequency in
+Eqs.~\eqref{eq:certified-invariance}--\eqref{eq:certified-quadratic-frequency}
+and the theorem constants of Theorem~\ref{thm:beam-finite-tori}.
+The verified analytic invariance residual is at most
+$2.7310\times10^{-77}$, the KAM smallness quotient is at most
+$0.031724$, and the inverse averaged torsion is below $80526$.
+The invariant torus lies within $2.0894\times10^{-41}$ of its exact
+Fourier candidate. The tip-displacement witness is at least
+$1.8977904$ mm, and the whole reconstructed centerline is bounded by
+$1.8977962$ mm for every phase and all time.
+Thus the nonzero integral-loss certificate and the finite-amplitude
+KAM certificate concern exactly the same independently trained function.
+The first proves coefficient, analytic and twist control; the second
+checks the additional invariance-residual condition needed at the stated
+finite amplitude.
+
+The full-FE trajectory fit has an independent a posteriori torus
+certificate, but its integral observation matrix yields a coefficient
+bound above $0.025$ before accounting for continuous-quadrature and
+model errors. This bound does not satisfy the coefficient condition
+used here. The independently observed two-mode trajectories provide
+the defect bounds needed for the complete integral-learning theorem;
+model-reduction errors remain part of the separate full-FE evaluation.

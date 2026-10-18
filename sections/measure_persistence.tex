@@ -1,0 +1,53 @@
+\subsection{Phase-space measure of the invariant family}
+\label{sec:measure-definition}
+
+The positive-measure family established above motivates a domain-specific
+measure of quasiperiodic initial states. A quantitative fraction requires
+a specified volume measure and initial-state domain. Following the measure formulation of
+\citet{biasco2018measure,chierchia2021measure}, let $U\subset\R^4$ be a
+bounded domain of positive Liouville volume for the identified
+two-degree-of-freedom Hamiltonian $h$, and
+let $\mathcal K_h$ denote the union of its analytic Lagrangian invariant
+tori carrying Diophantine quasiperiodic motion. Define
+\begin{equation}
+ f_{\rm KAM}(U)=\frac{\mu_L(U\cap\mathcal K_h)}{\mu_L(U)},
+ \qquad \mu_L=\mathrm dX_1\,\mathrm dX_2\,\mathrm dY_1\,\mathrm dY_2.
+ \label{eq:measure-fraction-definition}
+\end{equation}
+An explicitly certified subfamily provides a lower bound for this
+fraction. The complement of that subfamily can contain other regular
+motion; it is not thereby a chaotic set. The sampling confidence in a
+learning bound such as that of \citet{chen2022} is a probability over
+training data, whereas \eqref{eq:measure-fraction-definition} measures
+initial states of one fixed fitted Hamiltonian.
+
+For a symplectic chart $\Xi$ and an action box $D$, set
+$U=\Xi(\mathbb T^2_{2\pi}\times D)$, where
+$\mathbb T^2_{2\pi}=(\R/2\pi\mathbb Z)^2$. Then
+$\mu_L(U)=(2\pi)^2\operatorname{area}(D)$.
+The period-one angles used by the earlier torus certificate are changed
+to radians together with the inverse action rescaling, preserving the
+symplectic form. The constant volume factor in the SI canonical chart
+also cancels from the relative fraction. The radius and location of $D$
+must accompany every reported percentage.
+
+Where the assumptions of Theorem~\ref{thm:full-fe-kam-lift} hold, the
+invariant-family lift to the $64$-mode closed loop carries this
+low-dimensional parameter measure forward. It does not turn it into a
+positive fraction of the full $128$-dimensional Lebesgue volume.
+Accordingly, the measure estimate in Appendix~\ref{app:measure-proof}
+and the numerical sampling experiment in Section~\ref{sec:measure-numerical}
+refer to the conservative low-mode Hamiltonian realized by the magnetic
+feedback, with their respective domains specified separately.
+
+
+The explicit constants of \citet{chierchia2021measure} yield a computable
+local measure bound after construction of a symplectic tube and estimation
+of the full analytic remainder. Appendix~\ref{app:measure-proof} gives that
+construction for the integral-COMSOL Hamiltonian. Its sufficient estimates
+certify an extremely thin transverse domain; the central motion remains
+at millimetre amplitude, but the resulting width does not quantify an
+experimentally resolvable initial-state tolerance. To examine a broader
+range of amplitudes, Section~\ref{sec:measure-numerical} samples a prescribed
+action domain and evaluates finite-time quasiperiodicity with independent
+integration and averaging checks.

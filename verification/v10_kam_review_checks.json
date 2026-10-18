@@ -1,0 +1,45 @@
+{
+  "date": "2026-10-07",
+  "scope": "Read-only identity and exact-algebra review; no COMSOL, trajectory integration or 512-bit KAM certificate rerun.",
+  "checks": {
+    "magnetic_twist_determinant": true,
+    "quartic_to_twist_operator_norm_squared_19": true,
+    "source_fit_identity": true,
+    "cosine_fit_torus_identity": true,
+    "quartic_fit_torus_identity": true,
+    "frequency_exact_identity": true,
+    "outward_empirical_RMS_upper": true,
+    "outward_physical_integral_defect_RMS_upper": true,
+    "outward_coefficient_error_upper": true,
+    "outward_twist_error_upper": true,
+    "outward_Gram": true,
+    "outward_twist_sigma": true,
+    "positive_MSE_lower": true,
+    "outward_MSE_upper": true,
+    "outward_analytic_error": true,
+    "outward_residual_analytic_upper": true,
+    "outward_torsion_inverse_norm_upper": true,
+    "outward_HL_smallness_quantity_upper": true,
+    "outward_embedding_correction_upper": true,
+    "outward_tip_witness": true,
+    "outward_centerline_bound": true,
+    "all_references_have_source_labels": true,
+    "no_CJK_or_control_characters": true,
+    "balanced_environments": true,
+    "frequency_ratio_not_frequency_vector_called_quadratic_irrational": true,
+    "same_modal_frequencies": true,
+    "same_magnetic_participation": true,
+    "same_all_nonquartic_polynomial_terms": true
+  },
+  "all_pass": true,
+  "source_sha256": "8991c1d80916281b7c12593b43b87ca7518331d03c5eefc4ff0b57ab3fe1385b",
+  "tokenized_word_counts": {
+    "v9": 1212,
+    "v10": 1170
+  },
+  "display_environments": {
+    "v9": 7,
+    "v10": 6
+  },
+  "removed_main_label": "core-eq-statistical-interface; complete bound remains in Supplementary Theorem learning-to-cl"
+}

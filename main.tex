@@ -1,0 +1,66 @@
+\documentclass[doublespace,Afour,sageh,times]{sagej}
+\usepackage{amsmath,amssymb,amsthm,graphicx,booktabs,array,url}
+\usepackage{xr-hyper}
+\usepackage[colorlinks,bookmarksopen,bookmarksnumbered,citecolor=blue,urlcolor=blue]{hyperref}
+\setcounter{secnumdepth}{3}
+\setcounter{dbltopnumber}{2}
+\renewcommand{\dbltopfraction}{0.85}
+\def\journalname{The International Journal of Robotics Research}
+\runninghead{Complex Hamiltonian learning and KAM stability}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{remark}{Remark}
+\newcommand{\R}{\mathbb R}
+\newcommand{\C}{\mathbb C}
+\newcommand{\T}{\mathbb T}
+\newcommand{\dd}{\,\mathrm d}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\diag}{\operatorname{diag}}
+\newcommand{\Rea}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
+\newcommand{\eps}{\varepsilon}
+\providecommand{\doi}[1]{\href{https://doi.org/#1}{doi: #1}.}
+
+\externaldocument[S-]{supplement}
+\begin{document}
+\title{Complex Hamiltonian learning and KAM-preserving magnetic control of a catheter model}
+\author{Anonymous authors}
+\begin{abstract}
+A learned model of a magnetic catheter should connect accurate prediction to bounded motion and realizable actuation. We develop this connection for a clamped--free beam in four steps. First, we derive its complex Hamiltonian representation and the complete fourth-order central symplectic update. Second, matched learning and integration comparisons quantify approximation and numerical errors. Third, nonzero-loss, state-only two-mode COMSOL identification yields coefficient and analytic-error bounds that support an a posteriori KAM proof for the fitted Hamiltonian at approximately $1.9$ mm amplitude. Fourth, magnetic force-and-torque feedback realizes that conservative motion in the damped $64$-mode plant. For zero higher-mode startup, the whole-centreline bound is below $1.971$ mm. An input-work constraint additionally guarantees clearance during driven motion, including a quantified nonzero-error envelope over $4$ s. Frequency continuation resolves a resonance-induced clearance boundary, and an S-shaped endpoint task achieves $6.419\,\mu$m RMS tracking error. Classical symplectic and KAM results underpin the analysis; the contributions are the model-specific error bounds, magnetic realization and full-model motion guarantees under stated sensing and actuation assumptions.
+\end{abstract}
+\keywords{magnetic catheter robots, complex Hamiltonian learning, symplectic integration, KAM theory, magnetic control}
+\maketitle
+\raggedbottom
+\section{Background and research question}
+\label{sec:background}
+\input{sections/core_background}
+\section{Derivation of the complex Hamiltonian and symplectic scheme}
+\label{sec:derivation}
+\input{sections/core_derivation}
+\section{Numerical and approximation analysis}
+\label{sec:analysis}
+\input{sections/core_analysis}
+\section{Connection to KAM nondegeneracy and invariant tori}
+\label{sec:kam}
+\input{sections/core_kam}
+\section{Guidance for magnetic actuation and clearance}
+\label{sec:application}
+\input{sections/core_application}
+\clearpage
+\section{Conclusion}
+\label{sec:conclusion}
+We connected an identified magnetic energy to numerical prediction, nonlinear persistence and physical actuation in four steps. The complex representation and classical central symplectic update preserve the model's structure; the approximation analysis carries nonzero identification error into the KAM hypotheses; and magnetic feedback realizes the resulting finite-amplitude torus in the damped full beam. The model-specific realization and lift yield explicit centreline, field and gradient bounds. Input-work control extends clearance guarantees to driven motions beyond that torus, with explicit nonzero initialization, sensing and actuation tolerances over a prescribed finite horizon. The frequency study identifies a resonance-induced clearance boundary; no chaotic transition is detected under its sampled protocol.
+
+The numerical comparisons define the scope of this result: real and complex implementations have equivalent resolved accuracy, and the known-physics inverse performs best on the slow nominal tracking task. Extending the analysis to partial sensing, calibrated actuators and three-dimensional contact requires corresponding mechanical models and error bounds.
+
+\section*{Data and code availability}
+The supplied materials comprise two identified archives. Archive S1 is the complete computational record dated 2 October 2026, containing native COMSOL models, construction and learning code, trajectories, fitted coefficients and interval records. Archive S2, \texttt{S2\_citation\_revision\_20261008.zip}, contains the revised article and Supplement, the additional stability and tolerance studies, frozen inputs, raw numerical outputs and reproduction commands. The accompanying \texttt{reproducibility/ARTIFACT\_INDEX.md} identifies the archives and maps results to files and checksums; its source map separates full-FE identification from the two-mode integral data used for the KAM proof.
+\section*{Declarations}
+This work reports mathematical analysis and computer-generated mechanical data. No human, animal or in-orbit experiment was performed.
+\input{sections/references}
+\end{document}

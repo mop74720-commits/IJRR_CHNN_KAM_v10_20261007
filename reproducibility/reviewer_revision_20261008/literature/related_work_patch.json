@@ -1,0 +1,201 @@
+{
+  "schema_version": 1,
+  "created_date": "2026-10-08",
+  "purpose": "Replace a repeated roadmap paragraph with a concise primary-source comparison of recent magnetic-robot shape and navigation control; preserve the manuscript contribution scope.",
+  "application_status": "APPLIED_BY_ROOT",
+  "background_patch": {
+    "path": "E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/sections/core_background.tex",
+    "source_sha256": "1dda3cc856cb6dda956b54981016b93072b6338097f0b110d5fd7f19176d495b",
+    "expected_old_occurrences": 1,
+    "old": "This formulation fixes what information must pass between the four steps. The identification input is a set of observed states with a declared mechanical normalization and error budget. The fitted object is an energy function, so a control decision can use derivatives evaluated away from the observed trajectories. The stability output must then specify a state set and a physical amplitude, rather than only a reconstruction error. Finally, the actuation output must include commands and bounds for the full body. These requirements determine the quantities measured in the experiments: held-out state and tip errors for prediction, step-refinement errors for integration, analytic and nondegeneracy bounds for persistence, and centreline and magnetic-command envelopes for operation. These quantities connect learning accuracy to an admissible motion or command, following the four steps in Table~\\ref{tab:core-roadmap}.",
+    "new": "Recent magnetic-robot control studies address shape regulation and lumen navigation directly. \\citet{francescon2025shape} combine a pseudo-rigid-link model with vision feedback and homogeneous fields to control a robot with a prescribed lengthwise magnetization profile, demonstrating navigation in a soft pancreatic-duct phantom under varied insertion poses. \\citet{tong2025navigation} use a geometrically nonlinear magnetic-rod simulation with reduced contact handling to compute fields that reduce distal-tip constraint forces, with planar phantom experiments and three-dimensional numerical demonstrations. These studies establish practical routes from a mechanical model to magnetic commands. The question pursued here is how a learned energy, with a quantified identification error, can support both persistent motion and bounds on the entire centreline. For the stated planar beam, we connect analytic error and twist bounds to a finite-amplitude invariant torus, realize its low-mode dynamics in the damped full finite-element plant, and bound driven motion through supplied work. Table~\\ref{tab:core-roadmap} summarizes the objects passed between these steps.",
+    "preserve_line_endings": "CRLF",
+    "location_before_patch": "paragraph at line 9, before Table 1"
+  },
+  "bibliography_patch": {
+    "path": "E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/sections/references.tex",
+    "entries": [
+      {
+        "key": "francescon2025shape",
+        "insert_before_exact": "\\bibitem[Greydanus et~al.(2019)]{greydanus}",
+        "latex": "\\bibitem[Francescon et~al.(2025)]{francescon2025shape}\nFrancescon V, Murasovs N, Lloyd P, Onaizah O, Chathuranga DS and Valdastri P (2025)\nClosed-loop shape-forming control of a magnetic soft continuum robot.\n\\textit{IEEE Robotics and Automation Letters} 10(6): 6071--6078.\n\\doi{10.1109/LRA.2025.3565124}\n"
+      },
+      {
+        "key": "tong2025navigation",
+        "insert_before_exact": "\\bibitem[Trabelsi et~al.(2018)]{trabelsi}",
+        "latex": "\\bibitem[Tong et~al.(2025)]{tong2025navigation}\nTong D, Hao Z, Li J, Sun B, Liu M, Wang L and Huang W (2025)\nReal-time simulation enabled navigation control of magnetic soft continuum robots in confined lumens.\n\\textit{Journal of the Mechanics and Physics of Solids} 203: 106198.\n\\doi{10.1016/j.jmps.2025.106198}\n"
+      }
+    ],
+    "preserve_line_endings": "CRLF"
+  },
+  "verified_sources": [
+    {
+      "id": "francescon2025shape",
+      "authors": [
+        "Vittorio Francescon",
+        "Nikita Murasovs",
+        "Peter Lloyd",
+        "Onaizah Onaizah",
+        "Damith Suresh Chathuranga",
+        "Pietro Valdastri"
+      ],
+      "title": "Closed-Loop Shape-Forming Control of a Magnetic Soft Continuum Robot",
+      "year": 2025,
+      "journal": "IEEE Robotics and Automation Letters",
+      "volume": "10",
+      "issue": "6",
+      "pages": "6071-6078",
+      "doi": "10.1109/LRA.2025.3565124",
+      "doi_url": "https://doi.org/10.1109/LRA.2025.3565124",
+      "metadata_urls": [
+        "https://eprints.whiterose.ac.uk/id/eprint/227177/",
+        "https://discovery.ucl.ac.uk/id/eprint/10209908/",
+        "https://api.crossref.org/works/10.1109/LRA.2025.3565124"
+      ],
+      "full_text_url": "https://eprints.whiterose.ac.uk/id/eprint/227177/1/24-3637_final_manuscript.pdf",
+      "version_read": "Author accepted manuscript; 9 PDF pages including repository cover; 8 article pages.",
+      "verified_locations": [
+        "Abstract and Section II: article pp. 1-3 / PDF pp. 2-4.",
+        "Section III and IV: article pp. 3-5 / PDF pp. 4-6.",
+        "Sections V-VI, Tables I-II: article pp. 6-8 / PDF pp. 7-9."
+      ],
+      "metadata_verification": "All six author names, title, journal, year, volume, issue, pages and DOI agree between author repository and Crossref (HTTP 200).",
+      "access_note": "doi.org access through web tool returned an internal error; full accepted manuscript and repository records were successfully read."
+    },
+    {
+      "id": "tong2025navigation",
+      "authors": [
+        "Dezhong Tong",
+        "Zhuonan Hao",
+        "Jiyu Li",
+        "Boxi Sun",
+        "Mingchao Liu",
+        "Liu Wang",
+        "Weicheng Huang"
+      ],
+      "title": "Real-time simulation enabled navigation control of magnetic soft continuum robots in confined lumens",
+      "year": 2025,
+      "journal": "Journal of the Mechanics and Physics of Solids",
+      "volume": "203",
+      "article_number": "106198",
+      "doi": "10.1016/j.jmps.2025.106198",
+      "doi_url": "https://doi.org/10.1016/j.jmps.2025.106198",
+      "metadata_urls": [
+        "https://eprints.ncl.ac.uk/306197",
+        "https://api.crossref.org/works/10.1016/j.jmps.2025.106198",
+        "https://www.sciencedirect.com/science/article/pii/S0022509625001747"
+      ],
+      "full_text_url": "https://eprints.ncl.ac.uk/file_store/production/306197/7CAB59D2-D36A-4A12-8648-428A2D798BBC.pdf",
+      "preprint_urls": [
+        "https://arxiv.org/abs/2503.08864",
+        "https://arxiv.org/html/2503.08864v1"
+      ],
+      "version_read": "Final published article, 18 pages; inspected in memory with PyMuPDF, including pp. 1, 9-12; arXiv v1 methods/results/conclusions also read.",
+      "verified_locations": [
+        "Final article p. 1: authors, abstract, venue/DOI and publication information.",
+        "Final article p. 9: field optimization via virtual distal-tip constraint force; Section 4, Eqs. 41-45 and Algorithm 1.",
+        "Final article pp. 10-12: experiment setup, planar phantom validations; Section 5.4 explicitly limits 3D examples to numerical demonstrations."
+      ],
+      "metadata_verification": "All seven author names, title, journal, year, volume, article number and DOI verified against Crossref (HTTP 200) and official repository/final PDF. Published online 2 June 2025; issue October 2025.",
+      "access_note": "ScienceDirect open and repository dynamic download failed in web tool; official repository static published-PDF URL succeeded with HTTP 200. No user manuscript was transmitted."
+    }
+  ],
+  "claim_source_map": [
+    {
+      "claim_id": "P1",
+      "new_paragraph_sentences": [
+        1
+      ],
+      "type": "editorial synthesis",
+      "source_ids": [
+        "francescon2025shape",
+        "tong2025navigation"
+      ]
+    },
+    {
+      "claim_id": "P2",
+      "new_paragraph_sentences": [
+        2
+      ],
+      "type": "source-supported methods and experimental scope",
+      "source_ids": [
+        "francescon2025shape"
+      ],
+      "locations": "Abstract; Sections II-IV and Tables I-II."
+    },
+    {
+      "claim_id": "P3",
+      "new_paragraph_sentences": [
+        3
+      ],
+      "type": "source-supported methods and validation scope",
+      "source_ids": [
+        "tong2025navigation"
+      ],
+      "locations": "Final published PDF pp. 1, 9-12; Section 5.4 is explicitly numerical only."
+    },
+    {
+      "claim_id": "P4",
+      "new_paragraph_sentences": [
+        4
+      ],
+      "type": "limited editorial synthesis",
+      "source_ids": [
+        "francescon2025shape",
+        "tong2025navigation"
+      ],
+      "note": "Describes demonstrated model-to-command methods; does not compare accuracy across papers."
+    },
+    {
+      "claim_id": "P5",
+      "new_paragraph_sentences": [
+        5,
+        6
+      ],
+      "type": "current-manuscript contribution positioning",
+      "source_files": [
+        {
+          "path": "E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/sections/core_kam.tex",
+          "lines": "22-68, 70-105, 137-175"
+        },
+        {
+          "path": "E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/sections/core_application.tex",
+          "lines": "15-56, 83-102"
+        }
+      ],
+      "note": "Points to the manuscript error-bound, finite-amplitude torus, finite-element realization and work-based clearance results. Does not assert external-source support for this manuscript mathematics."
+    },
+    {
+      "claim_id": "P6",
+      "new_paragraph_sentences": [
+        7
+      ],
+      "type": "local navigation",
+      "source_files": [
+        {
+          "path": "E:/回写/稿件版本/IJRR_CHNN_KAM_v10_20261007/sections/core_background.tex",
+          "lines": "11-25"
+        }
+      ]
+    }
+  ],
+  "editorial_decisions": [
+    "Use two directly relevant primary studies; no extra review paragraph or comparison table.",
+    "Replace the repeated roadmap paragraph, retaining its Table 1 reference.",
+    "Cite the verified final Tong journal publication rather than mislabelling it as only an arXiv preprint.",
+    "Do not assert priority, universal superiority, lower error than the cited robots, or missing safety/KAM results in all prior literature.",
+    "Do not frame absence of a resolved complex-representation accuracy advantage as a defect.",
+    "Keep the planar-beam scope explicit; do not imply clinical, 3D contact, or hardware validation by this manuscript."
+  ],
+  "validation": {
+    "old_text_occurrences": 1,
+    "new_word_count_whitespace": 149,
+    "bibliography_anchors_unique": true,
+    "new_keys_not_already_present": true,
+    "manuscript_files_unchanged": true
+  },
+  "application_validation": {
+    "background_sha256": "3b3e75c88171755fa75946bb28dd862092e89101c45cb97139b01d97ccca7e53",
+    "references_sha256": "927c135a1b9ce9b445c714fdc923793b049baf6064bce04b80f7a6e90e1fc4f0"
+  }
+}

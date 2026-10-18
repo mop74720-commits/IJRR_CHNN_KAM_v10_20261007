@@ -1,0 +1,207 @@
+\subsection{From magnetic rod mechanics to canonical variables}
+\label{sec:core-canonical-model}
+We first derive an energy from magnetic beam mechanics, express that
+energy in complex coordinates, and then discretize its conservative
+flow. For a planar, small-slope cantilever, the transverse displacement
+$w(s,t)$ satisfies
+\begin{align}
+ \rho A_c w_{tt}+c_d w_t+EIw_{ssss}&=0,\qquad 0<s<L,\nonumber\\
+ w(0,t)=w_s(0,t)&=0,\qquad w_{sss}(L,t)=0,\nonumber\\
+ EIw_{ss}(L,t)&=\mu[B_y\cos\vartheta-B_0\sin\vartheta],
+ \label{eq:core-beam-balance}
+\end{align}
+where $\vartheta=w_s(L,t)$, $A_c=\pi r_c^2$, and $I=\pi r_c^4/4$.
+The negative rotation derivative of the magnetic potential
+$-\mu(B_0\cos\vartheta+B_y\sin\vartheta)$ gives the tip moment.
+Thus the free-end rotation remains unconstrained, the constant bias
+$B_0$ stores energy, and the transverse field $B_y(t)$ supplies work.
+
+The $80$ mm beam has radius $0.6$ mm and uses $32$ consistent-mass
+cubic-Hermite elements, leaving $64$ free coordinates after clamping;
+supplementary Table~\ref{S-tab:unified-si} gives its material and field
+parameters. Let $q$, $M$, $K$ and $e_\vartheta$ denote the nodal vector,
+mass matrix, bending stiffness and tip-rotation selector. Two integrations
+by parts in the Galerkin weak form place the natural moment on
+$e_\vartheta$, giving the finite-element equations and stored energy
+\begin{align}
+ M\ddot q+\alpha M\dot q+Kq
+ &=\mu e_\vartheta[B_y\cos\vartheta-B_0\sin\vartheta],\nonumber\\
+ H_0(q,p)&=\tfrac12p^{\mathsf T}M^{-1}p+\tfrac12q^{\mathsf T}Kq\nonumber\\
+ &\quad+E_0[1-\cos(e_\vartheta^{\mathsf T}q)],
+ \label{eq:core-fe-energy}
+\end{align}
+where $p=M\dot q$, $E_0=\mu B_0=6.0\times10^{-7}\,\mathrm J$ and
+$c_d=\alpha\rho A_c$, with $\alpha=0.55558524\,\mathrm{s^{-1}}$.
+The cosine potential remains exact within the small-slope beam model.
+
+The bias-field stiffness is $K_b=K+E_0e_\vartheta e_\vartheta^{\mathsf T}$.
+Choose $\Phi_n^{\mathsf T}M\Phi_n=I$ and
+$\Phi_n^{\mathsf T}K_b\Phi_n=\diag(\omega_j^2)$ for $n$ retained modes,
+and write $q=\Phi_n a$, with reduced canonical momentum $\pi=\dot a$.
+Set $\omega_0=\omega_1$, $\tau=\omega_0t$, and $\nu_j=\omega_j/\omega_0$.
+Define the scalar position scales $S_j=\sqrt{E_0/(\omega_0\omega_j)}$.
+The balanced scaling is
+\begin{equation}
+ a_j=\sqrt{\frac{E_0}{\omega_0\omega_j}}X_j,
+ \qquad
+ \pi_j=\sqrt{\frac{E_0\omega_j}{\omega_0}}Y_j.
+ \label{eq:unified-scale}
+\end{equation}
+The scale product $E_0/\omega_0$, energy $H_0/E_0$ and time
+$\tau=\omega_0t$ give canonical dimensionless equations.
+Define $S=\Phi_n\diag(S_j)$,
+$d=S^{\mathsf T}e_\vartheta$, and $\ell(s)^{\mathsf T}=N(s)S$, where
+$N(s)$ is the Hermite displacement row. Then
+$w(s)=\ell(s)^{\mathsf T}X$, $\vartheta=d^{\mathsf T}X$, and
+\begin{align}
+ h_*(X,Y)&=h_2(X,Y)+g(d^{\mathsf T}X),\nonumber\\
+ h_2&=\tfrac12\sum_{j=1}^n\nu_j(X_j^2+Y_j^2),\nonumber\\
+ g(s)&=1-\cos s-\tfrac12s^2.
+ \label{eq:unified-h}
+\end{align}
+Subtracting $s^2/2$ avoids counting the bias stiffness twice.
+For the two-mode learning model, $\omega_0\approx11.417287283\,\mathrm{rad\,s^{-1}}$,
+$\nu\approx(1,6.152117504)$, $d\approx(0.225670773,0.321798806)^{\mathsf T}$,
+and $\ell(L)\approx(0.013506054,0.005470926)^{\mathsf T}\,\mathrm m$.
+Calculations use the full exported coefficients in this fixed chart,
+shared by learning, integration and stability analysis.
+
+\subsection{Complex energy and a power-consistent decoder}
+\label{sec:core-complex-decoder}
+The complex Hamiltonian follows by an invertible change of coordinates.
+Let $x=(X,Y)\in\mathbb R^{2n}$,
+$J=\left(\begin{smallmatrix}0&I\\-I&0\end{smallmatrix}\right)$, and
+\begin{align}
+ \zeta_j&=\frac{X_j+\mathrm iY_j}{\sqrt2},\qquad
+ \chi_j=\frac{X_j-\mathrm iY_j}{\sqrt2},\nonumber\\
+ X_j&=\frac{\zeta_j+\chi_j}{\sqrt2},\qquad
+ Y_j=\frac{\zeta_j-\chi_j}{\mathrm i\sqrt2}.
+ \label{eq:core-complex-chart}
+\end{align}
+On the real phase space $\chi=\bar\zeta$. Substitution into
+\eqref{eq:unified-h} gives the explicit complex form
+\begin{align}
+ h_*^{\mathbb C}(\zeta,\chi)
+ &=\sum_j\nu_j\zeta_j\chi_j
+   +1-\cos\!\left(\frac{d^{\mathsf T}(\zeta+\chi)}{\sqrt2}\right)\nonumber\\
+ &\quad-\tfrac14[d^{\mathsf T}(\zeta+\chi)]^2.
+ \label{eq:core-complex-energy}
+\end{align}
+It restricts to the real energy when $\chi=\bar\zeta$ and is entire
+in the independent complex variables $(\zeta,\chi)$. This extension,
+including the learned polynomial residual below, supplies the analytic
+Hamiltonian used in KAM theory. It need not be holomorphic in $\zeta$
+alone. For a real analytic energy $h$, the chain rule yields
+\begin{align}
+ \{\zeta_j,\bar\zeta_k\}&=-\mathrm i\delta_{jk},\qquad
+ \partial_{\bar\zeta_j}&=
+       \frac{\partial_{X_j}+\mathrm i\partial_{Y_j}}{\sqrt2},\nonumber\\
+ \zeta'&=-\mathrm i\partial_\chi h^{\mathbb C},\qquad
+ \chi'=\mathrm i\partial_\zeta h^{\mathbb C}.
+ \label{eq:core-complex-canonical}
+\end{align}
+
+Magnetic actuation and damping enter through the physical decoder.
+A CHNN supplies real readouts $h_\eta$ and $\mathcal D_\eta(X,v)$,
+with physical dissipation divided by $E_0\omega_0$, and
+\begin{align}
+ X'&=v=\partial_Yh_\eta,\nonumber\\
+ Y'&=-\partial_Xh_\eta-\partial_v\mathcal D_\eta(X,v)
+       +u\,d\cos(d^{\mathsf T}X).
+ \label{eq:fragment-decoder}
+\end{align}
+Here $u=B_y/B_0$, and $\partial_v\mathcal D_\eta$ is evaluated before
+substituting $v=\partial_Yh_\eta$. With $\mathsf N=\diag(\nu_j)$, we use
+$\mathcal D_\eta=\widehat\gamma v^{\mathsf T}\mathsf N^{-1}v/2$,
+$\widehat\gamma\ge0$; for the stated beam, $\gamma=\alpha/\omega_0$.
+Taking the derivative along the decoded trajectory gives
+\begin{equation}
+ h_\eta'=-v^{\mathsf T}\partial_v\mathcal D_\eta
+       +u\cos(d^{\mathsf T}X)d^{\mathsf T}v,
+ \label{eq:fragment-power}
+\end{equation}
+with an additional $\partial_\tau h_\eta$ for time-varying parameters.
+The quadratic Rayleigh readout makes the first term nonpositive.
+In complex coordinates this decoder becomes
+\begin{equation}
+ \zeta'=-\mathrm i\partial_{\bar\zeta}h_\eta
+       +\frac{\mathrm i}{\sqrt2}
+        [-\partial_v\mathcal D_\eta+u\,d\cos(d^{\mathsf T}X)].
+ \label{eq:core-complex-dynamics}
+\end{equation}
+One may package the readouts as $\mathcal H_\eta=h_\eta+\mathrm i\mathcal D_\eta$,
+but this pair is distinct from the analytic continuation $h_\eta^{\mathbb C}$:
+its dynamics are defined by the power-consistent decoder above.
+The symplectic scheme acts on the conservative energy with
+$u=0$ and $\mathcal D_\eta=0$.
+
+\subsection{Derivation of the fourth-order central scheme}
+\label{sec:core-central-derivation}
+For $h=h_\eta$ and $f=J\nabla h$, we derive the specialization of
+Feng et~al.'s classical fourth-order central scheme
+\citep[Theorem~24, p.~90; fourth-order formula, p.~95]{feng} to the
+full learned magnetic energy.
+The generating-function construction \citep{hairer} retains all mixed
+position--momentum terms. Let $\Delta$ denote the dimensionless step and
+$m=(x_-+x_+)/2$ the endpoint midpoint. A central generating function
+$\mathcal S_\Delta$ defines a canonical map through
+\begin{equation}
+ x_+-x_-=J\nabla\mathcal S_\Delta(m).
+ \label{eq:core-central-map}
+\end{equation}
+Taking $\mathcal S_\Delta=\Delta h$ gives implicit midpoint. To determine
+the cubic correction, expand the exact trajectory about its temporal
+midpoint $x_0=x(t+\Delta/2)$:
+\begin{align}
+ m&=x_0+\tfrac18\Delta^2 f'f(x_0)+O(\Delta^4),\nonumber\\
+ x_+-x_-&=\Delta f(x_0)\nonumber\\
+ &\quad+\tfrac1{24}\Delta^3\{f''[f,f]+(f')^2f\}(x_0)
+  +O(\Delta^5).
+ \label{eq:core-midpoint-expansion}
+\end{align}
+Since $x_0=m-\Delta^2 f'f(m)/8+O(\Delta^4)$, substitution yields
+\begin{align}
+ x_+-x_-&=\Delta f(m)\nonumber\\
+ &\quad+\frac{\Delta^3}{24}
+       \{f''[f,f]-2(f')^2f\}(m)+O(\Delta^5).
+ \label{eq:core-exact-displacement}
+\end{align}
+The coefficient $-2/24=1/24-1/8$ accounts for the difference between
+the temporal and endpoint midpoints.
+
+To recover a scalar generator, put $A=\nabla^2h$. Since
+$f'=JA$ and $(f')^{\mathsf T}=-AJ$, differentiation gives
+\begin{align}
+ \nabla(f^{\mathsf T}Af)
+   &=h^{(3)}[f,f]-2AJA f,\nonumber\\
+ J\nabla(f^{\mathsf T}Af)
+   &=f''[f,f]-2(f')^2f.
+ \label{eq:core-generator-identity}
+\end{align}
+Consequently choose
+\begin{equation}
+ \mathcal S_\Delta(x)=\Delta h(x)
+             +\frac{\Delta^3}{24}f(x)^{\mathsf T}\nabla^2h(x)f(x).
+ \label{eq:core-central-generator}
+\end{equation}
+Equations~\eqref{eq:core-central-map} and
+\eqref{eq:core-generator-identity} give the fourth-order difference scheme
+\begin{align}
+ x_+&=x_-+g_\Delta(m),\nonumber\\
+ g_\Delta&=\Delta f+\frac{\Delta^3}{24}
+                 [f''[f,f]-2(f')^2f].
+ \label{eq:central4}
+\end{align}
+Equivalently,
+$\zeta_+-\zeta_-=-\mathrm i\partial_{\bar\zeta}\mathcal S_\Delta(m)$.
+
+Each step solves $r(x_+)=x_+-x_--g_\Delta(m)=0$. Newton's correction is
+\begin{equation}
+ x_+^{(k+1)}=x_+^{(k)}-
+ \left[I-\tfrac12Dg_\Delta(m^{(k)})\right]^{-1}r(x_+^{(k)}).
+ \label{eq:core-central-newton}
+\end{equation}
+The Jacobian uses energy derivatives through order four and is invertible
+near the identity for sufficiently small $\Delta$. Analytic polynomial
+and cosine derivatives therefore provide an implementable scheme even
+when learned momentum terms preclude the physical kinetic--potential split.

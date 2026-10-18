@@ -1,0 +1,222 @@
+% The main argument uses integral observations of the two-mode model.
+% General statistical bounds and detailed interval estimates remain in supplement.tex.
+\subsection{From state observations to analytic error}
+\label{core-sec-learning-kam}
+Long-time prediction tests the fitted dynamics along selected trajectories.
+To establish invariant motion, we also need error bounds on a neighborhood
+of those trajectories. Following the learning-to-KAM connection of
+\citet[Theorem~11]{chen2022}, we derive these bounds for the analytic
+readout~\eqref{eq:unified-feature-readout},
+$h_\eta=h_2+\eta^{\mathsf T}F$, whose quadratic part is fixed and whose
+full-cosine target is $h_\star=h_{\eta_\star}$. We write $\widehat h$ for
+the fitted function, including coefficient-export rounding.
+
+For independently sampled gradient labels, our uniform learning bound
+in Supplementary Theorem~\ref{S-thm:learning-to-cl} connects nonzero loss
+to a $C^\ell$ error under explicit sampling and regularity assumptions.
+Supplementary Corollary~\ref{S-cor:common-target-kam} combines it with
+\citet[Theorem~A]{bounemoura}. The COMSOL observations used here are
+correlated states along trajectories, so we instead derive a deterministic
+bound from their integrated equations of motion.
+
+COMSOL supplies $17$ position--velocity observations on each of $m=64$
+conservative two-mode trajectories. Let $c_j:[0,T]\to\mathbb R^4$ be
+their degree-eight fitted curves, with endpoints fixed to the observations,
+and let $Lx=J\nabla h_2(x)$. Define
+\begin{equation}
+ \begin{aligned}
+  D_j&=T^{-1}\int_0^T J\nabla F(c_j(t))\,dt,\\
+  y_j&=T^{-1}\left[c_j(T)-c_j(0)-\int_0^T Lc_j(t)\,dt\right],\\
+  G_I&=(4m)^{-1}\sum_jD_j^{\mathsf T}D_j.
+ \end{aligned}
+ \label{core-eq-integral-design}
+\end{equation}
+These labels require states and feature integrals, without acceleration
+reconstruction. Let $r_I$ be the RMS residual $D_j\widehat\eta-y_j$
+over the $4m$ scalar observations, and let $\epsilon_I$ bound the RMS
+integrated physical defect
+$e_j=T^{-1}\int_0^T(\dot c_j-J\nabla h_\star(c_j))\,dt$.
+
+\begin{proposition}[Integral observations bound the learned energy]
+\label{core-prop-integral-bound}
+If $\lambda_{\min}(G_I)\geq\underline\lambda>0$, then
+\begin{equation}
+ \begin{aligned}
+  \|\widehat\eta-\eta_\star\|_2
+   &\leq b_I:=\frac{r_I+\epsilon_I}{\sqrt{\underline\lambda}},\\
+  \|\widehat h-h_\star\|_r
+   &\leq b_I B_F(r)+\delta_{h,\mathrm{dec}}(r).
+ \end{aligned}
+ \label{core-eq-integral-bound}
+\end{equation}
+Here $\|\cdot\|_r$ is the supremum norm on the complex polydisc
+$|x|_\infty<r$, $B_F(r)^2=\sum_j\|F_j\|_r^2$, and
+$\delta_{h,\mathrm{dec}}$ bounds coefficient-export rounding.
+\end{proposition}
+\begin{proof}
+Endpoint matching gives $y_j-D_j\eta_\star=e_j$.
+The triangle inequality in the normalized stacked observation norm
+bounds $\sqrt{\underline\lambda}\|\widehat\eta-\eta_\star\|_2$
+by $r_I+\epsilon_I$. Cauchy--Schwarz in feature space then gives
+the analytic bound.
+\end{proof}
+The physical defect is evaluated against the declared target; it is
+additional information beyond the training loss. Interval integration
+bounds this defect and retains the full sine remainder and coefficient
+rounding. Cauchy's estimate then bounds every derivative on a smaller
+polydisc. Supplementary Section~\ref{S-sec:validated-integral-learning}
+gives these estimates and the independent trajectory-error bound.
+
+\subsection{The magnetic nonlinearity preserves twist after learning}
+\label{core-sec-twist}
+The analytic error bound becomes useful for KAM theory because the
+magnetic potential supplies a nondegenerate frequency map.
+For $h_\star=h_2+g(d^{\mathsf T}X)$, with
+$g(u)=1-\cos u-u^2/2$, its quartic part is
+$-(d^{\mathsf T}X)^4/24$. Averaging over the modal angles with
+$I_j=(X_j^2+Y_j^2)/2$ gives the action Hessian
+\begin{equation}
+ \begin{aligned}
+ A_\star&=-\frac18
+ \begin{pmatrix}
+ d_1^4&2d_1^2d_2^2\\2d_1^2d_2^2&d_2^4
+ \end{pmatrix},\\
+ \det A_\star&=-\frac3{64}d_1^4d_2^4\ne0.
+ \end{aligned}
+ \label{core-eq-magnetic-twist}
+\end{equation}
+Indeed, $\langle X_j^4\rangle=3I_j^2/2$ and
+$\langle X_1^2X_2^2\rangle=I_1I_2$, while odd terms average to zero.
+Both modal tip rotations are nonzero, so the twist is nonsingular,
+although indefinite.
+
+Learning preserves this property if its quartic error is smaller than
+the target's least singular value. Let $B$ map the readout coefficients
+to quartic coefficients and let $\delta_{\mathrm{dec}}$ bound rounding
+in that map. Angular averaging yields
+\begin{equation}
+ \|A_{\widehat h}-A_\star\|_2
+ \leq\sqrt{19}\bigl(\|B\|_2b_I+\delta_{\mathrm{dec}}\bigr)
+ <\sigma_{\min}(A_\star).
+ \label{core-eq-twist-transfer}
+\end{equation}
+The factor $\sqrt{19}$ bounds the quartic-to-twist operator, including
+momentum-dependent terms. Table~\ref{core-tab-transfer} establishes
+the strict inequality for the Hamiltonian learned from the COMSOL states.
+
+\begin{table}[t]
+\centering\small
+\caption{Learning error and twist margin for the COMSOL two-mode fit.
+All displayed bounds include coefficient rounding and are rounded outward.}
+\label{core-tab-transfer}
+\begin{tabular}{lr}
+\toprule
+Quantity & Bound\\
+\midrule
+Training MSE & $[3.6030,3.6031]\,10^{-23}$\\
+$r_I$, $\epsilon_I$ & $\leq6.003\,10^{-12},\ 6.884\,10^{-12}$\\
+$\lambda_{\min}(G_I)$ & $\geq2.930\,10^{-7}$\\
+$b_I$ & $\leq2.381\,10^{-8}$\\
+Twist error & $\leq1.038\,10^{-7}$\\
+$\sigma_{\min}(A_\star)$ & $\geq4.903\,10^{-4}$\\
+$\|\widehat h-h_\star\|_{0.3}$ & $\leq1.331\,10^{-9}$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The complete magnetic potential also contributes a sixth-order analytic
+tail bounded by $(Dr)^6\cosh(Dr)/720$, where $D=\|d\|_1$.
+Together with fourth-order nonresonance, the twist bound gives a local
+normal form $\nu\cdot I+\tfrac12I^{\mathsf T}A_{\widehat h}I+O(r^6)$.
+Our remainder estimates in Supplementary
+Sections~\ref{S-sec:unified-normal-form}--\ref{S-sec:unified-learning-twist}
+therefore yield positive-measure KAM families near equilibrium.
+To establish persistence at a specified physical amplitude, we next
+apply an a posteriori theorem to the same fitted function.
+
+\subsection{An invariant torus at finite physical amplitude}
+\label{core-sec-finite-torus}
+The existence theorem used here is
+\citet[Theorem~3.1]{haro2019aposteriori}, with the constants of
+arXiv:1711.05515v1, Appendix~B. Our contribution in the following result
+is the construction and analytic bounds for the learned magnetic model.
+
+\begin{theorem}[Finite-amplitude persistence for the learned magnetic model]
+\label{core-thm-learned-torus}
+The fitted Hamiltonian in Table~\ref{core-tab-transfer}, specified by its
+exact coefficients in Supplementary
+Section~\ref{S-sec:validated-integral-learning}, admits a real analytic
+embedded Lagrangian torus $K_\infty:\mathbb T^2\to\mathbb R^4$ satisfying
+\begin{equation}
+ J\nabla\widehat h(K_\infty)=DK_\infty\varpi.
+ \label{core-eq-torus-frequency}
+\end{equation}
+The exact frequency $\varpi$ is specified in
+Supplementary Eqs.~\eqref{S-eq:certified-invariance}--\eqref{S-eq:certified-quadratic-frequency};
+angles have period one and time is dimensionless.
+The torus is within $2.0894\,10^{-41}$ of the computed Fourier embedding
+on the complex strip of width $1/80$. Its beam reconstruction attains
+a tip displacement of at least $1.8977904$ mm and has centreline
+displacement at most $1.8977962$ mm at every phase.
+\end{theorem}
+\begin{proof}
+The bounded continued-fraction coefficients of the frequency ratio give
+$|k\cdot\varpi|\geq(9/1750)|k|_1^{-1}$ for every nonzero integer $k$,
+and hence the weaker Diophantine exponent $3$ used in the theorem.
+On the strip $\rho=1/40$, 512-bit ball-arithmetic evaluation of the Fourier candidate,
+including interpolation tails, bounds the analytic invariance residual
+by $2.7310\,10^{-77}$ and its inverse averaged torsion by $80526$.
+The geometric and derivative estimates in Supplementary
+Section~\ref{S-sec:unified-aposteriori} give a residual threshold greater
+than $8.6086\,10^{-76}$, with smallness quotient below $0.031724<1$.
+The cited theorem then supplies the exact torus and correction bound.
+Fourier bounds and the Hermite-element convex-hull property give the
+displacement estimates.
+\end{proof}
+Thus nonzero learning loss, preserved twist and finite-amplitude
+persistence are established for one fitted Hamiltonian. The result uses
+the independently simulated two-mode state observations; the full-beam
+comparisons in Section~\ref{sec:analysis} quantify a separate reduction
+error. Section~\ref{sec:application} connects this conservative motion
+to the controlled full beam.
+
+\subsection{From one torus to a family of quasiperiodic motions}
+\label{core-sec-positive-measure}
+The nondegeneracy bound survives the a posteriori iteration:
+$\|\langle T_\infty\rangle^{-1}\|\leq2\,10^5$ for the exact torus's
+averaged torsion. In an analytic symplectic tube, solving one quadratic
+homological equation therefore gives
+\begin{equation}
+ \widehat h\circ\Psi
+ =e+\varpi\cdot I+\tfrac12I^{\mathsf T}\overline A I+O(|I|^3),
+ \qquad\det\overline A\ne0.
+ \label{core-eq-torus-normal-form}
+\end{equation}
+Our construction identifies $\overline A$ with the averaged torsion and
+retains an analytic remainder (Supplementary
+Corollary~\ref{S-cor:finite-torus-families}). The nonresonant frequency,
+nondegenerate quadratic part and analytic remainder meet the hypotheses
+of \citet[Theorem~6, $\alpha=1$, arXiv:1412.0509v1]{bounemoura2016torus}.
+That theorem gives positive-measure families of analytic Lagrangian
+invariant tori around $K_\infty$, with relative density tending to one
+as the transverse action box shrinks. The same argument applies to all
+seven fitted or target Hamiltonians considered in the supplement.
+
+A numerical fraction additionally depends on the chosen initial-state
+domain. For $U\subset\mathbb R^4$ of positive Liouville volume, define
+$f_{\rm KAM}(U)=\mu_L(U\cap\mathcal K_h)/\mu_L(U)$, where
+$\mathcal K_h$ is the union of analytic Diophantine Lagrangian tori.
+Supplementary Section~\ref{S-app:measure-proof} applies
+\citet[Theorems~1 and~3]{chierchia2021measure} to an explicit tube;
+its very small transverse width limits its use as an operating tolerance.
+For the broader action domain $I_1,I_2\in[0.0032,0.0072]$, independent
+uniform sampling of actions and phases gives $1024/1024$ finite-time
+quasiperiodicity candidates over $8192$ dimensionless time units
+($717.5$ s). At step $1/64$, all pass the eight-digit test on consecutive windows
+of length $2048$ and $4096$; six- and ten-digit tests agree.
+Supplementary Section~\ref{S-sec:measure-numerical} gives the weighted
+Birkhoff method, uncertainty and refinement checks. This broader-domain
+diagnostic complements the local family theorem without supplying an
+infinite-time volume bound. The magnetic realization below carries the
+family's low-mode parameter measure into the damped plant; this measure
+is distinct from volume in the full $128$-dimensional state space.

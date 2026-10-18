@@ -1,0 +1,732 @@
+{
+  "review_date": "2026-10-07",
+  "scope": "Citation authenticity evidence reuse plus targeted primary text recheck; snapshot while v10 editing is in progress; not a new numerical-proof audit.",
+  "reference_count": 22,
+  "reference_keys": [
+    "abbott",
+    "antman",
+    "biasco2018measure",
+    "bounemoura2016torus",
+    "bounemoura",
+    "chen2022",
+    "chierchia2021measure",
+    "das2017quasiperiodicity",
+    "desai",
+    "duignan2023flows",
+    "feng",
+    "greydanus",
+    "hairer",
+    "haro2019aposteriori",
+    "hornik",
+    "kim",
+    "nasa",
+    "poschel",
+    "simo",
+    "trabelsi",
+    "zhang",
+    "zhong"
+  ],
+  "same_keys_as_v9": true,
+  "inherited_reference_evidence": "E:\\回写\\稿件版本\\IJRR_CHNN_KAM_主线补齐稿_20261002\\reproducibility\\teacher_revision_reference_check.json",
+  "inherited_pdf_evidence_checks": [
+    {
+      "path": "E:\\回写\\重写工作区\\主线补齐_20261002\\teacher_revision\\reference_check\\biasco_v1.pdf",
+      "matches_20261002_record": true,
+      "sha256": "08f112e22bebdc642763a0fbe211aba88169e0b7fd19a3c1d33f63c422cb9555"
+    },
+    {
+      "path": "E:\\回写\\重写工作区\\主线补齐_20261002\\teacher_revision\\reference_check\\boun2016.pdf",
+      "matches_20261002_record": true,
+      "sha256": "5ad3a8cdd53d603d689627406331050d53973d5ce1200fe102b61475f1a41631"
+    },
+    {
+      "path": "E:\\回写\\重写工作区\\主线补齐_20261002\\teacher_revision\\reference_check\\bruder_ijrr.pdf",
+      "matches_20261002_record": true,
+      "sha256": "becd87809e22e3fe2c336218f92b7a8812b7288e7114b309679ce99daae9b2bd"
+    },
+    {
+      "path": "E:\\回写\\重写工作区\\主线补齐_20261002\\teacher_revision\\reference_check\\chen.pdf",
+      "matches_20261002_record": true,
+      "sha256": "d9c66637570e815e0239456f19c591b7311c3862565a330e80d071d6b6426ffb"
+    },
+    {
+      "path": "E:\\回写\\重写工作区\\主线补齐_20261002\\teacher_revision\\reference_check\\ck_v1.pdf",
+      "matches_20261002_record": true,
+      "sha256": "a0e746bae78b59393aae5f8a90d16391f4751530f159dc318076aec96a9b6b69"
+    },
+    {
+      "path": "E:\\回写\\重写工作区\\主线补齐_20261002\\teacher_revision\\reference_check\\das.pdf",
+      "matches_20261002_record": true,
+      "sha256": "5f38b41617a26af54390f320a7c09fb9aa70dadbc6393c6b8c702d3c52bb72b6"
+    },
+    {
+      "path": "E:\\回写\\重写工作区\\主线补齐_20261002\\teacher_revision\\reference_check\\feng_cas.pdf",
+      "matches_20261002_record": true,
+      "sha256": "e5b07fc8f23c9bf54da81a3f1f70f2fff9f988a35ab23ac321c194696540c022"
+    },
+    {
+      "path": "E:\\回写\\重写工作区\\主线补齐_20261002\\teacher_revision\\reference_check\\feng_pub.pdf",
+      "matches_20261002_record": true,
+      "sha256": "e5b07fc8f23c9bf54da81a3f1f70f2fff9f988a35ab23ac321c194696540c022"
+    },
+    {
+      "path": "E:\\回写\\重写工作区\\主线补齐_20261002\\teacher_revision\\reference_check\\hairer_week1.pdf",
+      "matches_20261002_record": true,
+      "sha256": "7e3cefa38e516a46e6e0897e1a2c10e78b213a062d147ca97292f9b0929cdb2d"
+    },
+    {
+      "path": "E:\\回写\\重写工作区\\主线补齐_20261002\\teacher_revision\\reference_check\\hairer_week2.pdf",
+      "matches_20261002_record": true,
+      "sha256": "f4f15ff5124fb685870e13b36e54cbc4edc96744199b518ec12e1c5cf006f0fb"
+    },
+    {
+      "path": "E:\\回写\\重写工作区\\主线补齐_20261002\\teacher_revision\\reference_check\\haro.pdf",
+      "matches_20261002_record": true,
+      "sha256": "ed457633b5c4f0412b7f2c81c3818ef88829dee3420b97864e42223b77eb5241"
+    },
+    {
+      "path": "E:\\回写\\重写工作区\\主线补齐_20261002\\teacher_revision\\reference_check\\hornik.pdf",
+      "matches_20261002_record": true,
+      "sha256": "a2e1741ed36a12a3b2b0adaab4d8e13d0e95c918f3a12010e0eeb3dcad6da59c"
+    },
+    {
+      "path": "E:\\回写\\重写工作区\\主线补齐_20261002\\teacher_revision\\reference_check\\poschel.pdf",
+      "matches_20261002_record": true,
+      "sha256": "95503c181ede41948041b65963390244680457ab9d8d24b1a4716c81c5735d35"
+    },
+    {
+      "path": "E:\\回写\\重写工作区\\主线补齐_20261002\\teacher_revision\\reference_check\\zhang.pdf",
+      "matches_20261002_record": true,
+      "sha256": "3ac34ee91bf3928526c22e180e28f23b2d28c0e4bd00bc7b9c12c50b150f43a7"
+    }
+  ],
+  "all_inherited_pdf_hashes_match": true,
+  "source_references_sha256": "b535a12bbce63bbf92ed2459aa945930b6e4b7a97fd2852bdcf98decf34c651d",
+  "references": [
+    {
+      "key": "abbott",
+      "title": "Magnetic methods in robotics",
+      "doi": "10.1146/annurev-control-081219-082713",
+      "primary_landing_url": "https://www.annualreviews.org/content/journals/10.1146/annurev-control-081219-082713",
+      "primary_document_url": "https://mmrobotics.mech.utah.edu/wp-content/uploads/2023/01/Abbott_ARCRAS20.pdf",
+      "actual_use_zh": "磁驱机器人方法综述与应用背景；不承担本文KAM或控制安全定理。",
+      "status": "verified"
+    },
+    {
+      "key": "antman",
+      "title": "Nonlinear Problems of Elasticity",
+      "doi": "10.1007/0-387-27649-1",
+      "primary_landing_url": "https://link.springer.com/book/10.1007/0-387-27649-1",
+      "primary_document_url": null,
+      "actual_use_zh": "连续杆/弹性背景；第8、16、18章分别涉及空间杆、一般杆理论与动力学；本文的两模态近似及标定参数仍需本稿独立说明。",
+      "status": "verified"
+    },
+    {
+      "key": "biasco2018measure",
+      "title": "Explicit estimates on the measure of primary KAM tori",
+      "doi": "10.1007/s10231-017-0678-8",
+      "primary_landing_url": "https://doi.org/10.1007/s10231-017-0678-8",
+      "primary_document_url": "https://arxiv.org/pdf/1612.01903v1",
+      "actual_use_zh": "借鉴固定相空间域及初级环面补集的Lebesgue测度；不直接提供本模型的数值常数。印刷年份2018，OnlineFirst为2017。",
+      "status": "verified"
+    },
+    {
+      "key": "bounemoura2016torus",
+      "title": "Non-degenerate Liouville tori are KAM stable",
+      "doi": "10.1016/j.aim.2016.01.012",
+      "primary_landing_url": "https://www.sciencedirect.com/science/article/pii/S0001870816000384",
+      "primary_document_url": "https://arxiv.org/pdf/1412.0509",
+      "actual_use_zh": "精确非共振、平均二阶项非退化的拉格朗日环面周围存在密度趋1的KAM族；用于单环面到局部族的推论。",
+      "status": "verified"
+    },
+    {
+      "key": "bounemoura",
+      "title": "Positive measure of KAM tori for finitely differentiable Hamiltonians",
+      "doi": "10.5802/jep.137",
+      "primary_landing_url": "https://numdam.org/articles/10.5802/jep.137/",
+      "primary_document_url": "https://www.numdam.org/item/10.5802/jep.137.pdf",
+      "actual_use_zh": "有限可微KAM桥接，Theorem A；导数范数阈值cγ²与测度损失Cγ必须分清。",
+      "status": "verified"
+    },
+    {
+      "key": "chen2022",
+      "title": "KAM Theory Meets Statistical Learning Theory: Hamiltonian Neural Networks with Non-zero Training Loss",
+      "doi": "10.1609/aaai.v36i6.20582",
+      "primary_landing_url": "https://ojs.aaai.org/index.php/AAAI/article/view/20582",
+      "primary_document_url": "https://cdn.aaai.org/ojs/20582/20582-13-24595-1-2-20220628.pdf",
+      "actual_use_zh": "学习误差到KAM思路的直接先行工作；Theorem11而非Theorem1。本文补足具体特征类的导数/解析范数接口，不把训练置信度当相空间比例。",
+      "status": "verified"
+    },
+    {
+      "key": "chierchia2021measure",
+      "title": "V. I. Arnold’s “Global” KAM Theorem and Geometric Measure Estimates",
+      "doi": "10.1134/S1560354721010044",
+      "primary_landing_url": "https://doi.org/10.1134/S1560354721010044",
+      "primary_document_url": "https://arxiv.org/pdf/2010.13243v1",
+      "actual_use_zh": "附录固定管状域的严格测度估计；全部定理、公式、常数编号锁定arXiv v1，不混用出版版页码。",
+      "status": "verified"
+    },
+    {
+      "key": "das2017quasiperiodicity",
+      "title": "Quantitative quasiperiodicity",
+      "doi": "10.1088/1361-6544/aa84c2",
+      "primary_landing_url": "https://doi.org/10.1088/1361-6544/aa84c2",
+      "primary_document_url": "https://esander1789.github.io/files/DSSY17.pdf",
+      "actual_use_zh": "有限时加权Birkhoff平均与准周期数值诊断的来源；数值快速收敛不等于无限时环面证明。",
+      "status": "verified"
+    },
+    {
+      "key": "desai",
+      "title": "Port-Hamiltonian neural networks for learning explicit time-dependent dynamical systems",
+      "doi": "10.1103/PhysRevE.104.034312",
+      "primary_landing_url": "https://doi.org/10.1103/PhysRevE.104.034312",
+      "primary_document_url": "https://www.robots.ox.ac.uk/~sjrob/Pubs/pHNN_2021.pdf",
+      "actual_use_zh": "显式时变激励与耗散的port-Hamiltonian学习背景；已把不完整作者缩写S/S改为SA/SJ。",
+      "status": "verified"
+    },
+    {
+      "key": "duignan2023flows",
+      "title": "Distinguishing between regular and chaotic orbits of flows by the weighted Birkhoff average",
+      "doi": "10.1016/j.physd.2023.133749",
+      "primary_landing_url": "https://www.sciencedirect.com/science/article/pii/S0167278923001033",
+      "primary_document_url": "https://arxiv.org/pdf/2212.10783",
+      "actual_use_zh": "连续时间流的加权Birkhoff诊断；用于经验分类方法，不把未通过阈值的轨迹自动判为混沌。",
+      "status": "verified"
+    },
+    {
+      "key": "feng",
+      "title": "Construction of canonical difference schemes for Hamiltonian formalism via generating functions",
+      "doi": null,
+      "primary_landing_url": "https://computmath.cjoe.ac.cn/jcm/EN/Y1989/V7/I1/71",
+      "primary_document_url": "https://computmath.cjoe.ac.cn/jcm/EN/PDF/50508",
+      "actual_use_zh": "生成函数/辛映射、截断阶数与中心四阶方法的原始来源。原文p95已给本稿同型四阶式；本稿不可宣称该公式为原创。",
+      "status": "verified"
+    },
+    {
+      "key": "greydanus",
+      "title": "Hamiltonian neural networks",
+      "doi": null,
+      "primary_landing_url": "https://papers.nips.cc/paper/9672-hamiltonian-neural-networks",
+      "primary_document_url": "https://papers.nips.cc/paper/9672-hamiltonian-neural-networks.pdf",
+      "actual_use_zh": "学习实标量Hamiltonian并取辛梯度的HNN基础；本文CHNN标量能量机制不是首次提出HNN。",
+      "status": "verified"
+    },
+    {
+      "key": "hairer",
+      "title": "Geometric Numerical Integration: Structure-Preserving Algorithms for Ordinary Differential Equations",
+      "doi": "10.1007/3-540-30666-8",
+      "primary_landing_url": "https://link.springer.com/book/10.1007/3-540-30666-8",
+      "primary_document_url": "https://link.springer.com/content/pdf/bfm:978-3-540-30666-5/1",
+      "actual_use_zh": "数值辛性/生成函数/后向误差的一般背景。作者顺序依书籍扉页Hairer–Lubich–Wanner；出版社网页的排序不能取代扉页。",
+      "status": "verified"
+    },
+    {
+      "key": "haro2019aposteriori",
+      "title": "A-posteriori KAM theory with optimal estimates for partially integrable systems",
+      "doi": "10.1016/j.jde.2018.08.003",
+      "primary_landing_url": "https://doi.org/10.1016/j.jde.2018.08.003",
+      "primary_document_url": "https://arxiv.org/pdf/1711.05515v1",
+      "actual_use_zh": "实际拟合Hamiltonian有限幅环面的后验存在性定理；Theorem3.1与Tables1–3锁定v1，需检验全部解析/几何/torsion/小性条件。",
+      "status": "verified"
+    },
+    {
+      "key": "hornik",
+      "title": "Approximation capabilities of multilayer feedforward networks",
+      "doi": "10.1016/0893-6080(91)90009-T",
+      "primary_landing_url": "https://www.sciencedirect.com/science/article/pii/089360809190009T",
+      "primary_document_url": "https://web.njit.edu/~usman/courses/cs677/hornik-nn-1991.pdf",
+      "actual_use_zh": "Theorem3的有限阶导数紧集一致逼近背景；不能由此断言固定有限网络、固定训练数据或复条带上的统一误差。",
+      "status": "verified"
+    },
+    {
+      "key": "kim",
+      "title": "Ferromagnetic soft continuum robots",
+      "doi": "10.1126/scirobotics.aax7329",
+      "primary_landing_url": "https://doi.org/10.1126/scirobotics.aax7329",
+      "primary_document_url": "https://imechanica.org/sites/default/files/Ferromagnetic%20soft%20continuum%20robots.pdf",
+      "actual_use_zh": "磁驱柔性连续体机器人的物理背景；不证明本文空间站运行性能或临床效果。",
+      "status": "verified"
+    },
+    {
+      "key": "nasa",
+      "title": "Risk of spaceflight associated neuro-ocular syndrome (SANS)",
+      "doi": null,
+      "primary_landing_url": "https://www.nasa.gov/reference/risk-of-spaceflight-associated-neuro-ocular-syndrome-sans/",
+      "primary_document_url": null,
+      "actual_use_zh": "仅支持微重力相关体液头向转移及SANS背景；不作为磁导管治疗有效性、安全性或在轨验证的证据。页面未明确出版年份，保留n.d.。",
+      "status": "verified"
+    },
+    {
+      "key": "poschel",
+      "title": "A lecture on the classical KAM theorem",
+      "doi": "10.1090/pspum/069/1858551",
+      "primary_landing_url": "https://doi.org/10.1090/pspum/069/1858551",
+      "primary_document_url": "https://arxiv.org/pdf/0908.2234",
+      "actual_use_zh": "经典解析KAM的局部正作用量盒应用；Theorems A/B及从参数频率回到相空间的论证，页码依33页作者预印本。",
+      "status": "verified"
+    },
+    {
+      "key": "simo",
+      "title": "A finite strain beam formulation. The three-dimensional dynamic problem. Part I",
+      "doi": "10.1016/0045-7825(85)90050-7",
+      "primary_landing_url": "https://www.sciencedirect.com/science/article/abs/pii/0045782585900507",
+      "primary_document_url": null,
+      "actual_use_zh": "几何精确梁的动力学背景；本稿不能将其一般理论视作本文模态截断误差已获验证。",
+      "status": "verified"
+    },
+    {
+      "key": "trabelsi",
+      "title": "Deep complex networks",
+      "doi": null,
+      "primary_landing_url": "https://arxiv.org/abs/1705.09792",
+      "primary_document_url": "https://openreview.net/pdf?id=H1T2hmZAb",
+      "actual_use_zh": "复网络结构与实现背景；不能据此宣称任意CHNN比实网络有更好逼近/泛化性能。原稿et al.缩写合法。",
+      "status": "verified"
+    },
+    {
+      "key": "zhang",
+      "title": "Towards understanding theoretical advantages of complex-reaction networks",
+      "doi": "10.1016/j.neunet.2022.03.024",
+      "primary_landing_url": "https://doi.org/10.1016/j.neunet.2022.03.024",
+      "primary_document_url": "https://www.lamda.nju.edu.cn/zhangsq/papers/2022-CRNet-NN.pdf",
+      "actual_use_zh": "zReLU网络逼近和特定分类优化结果；Theorems1/2/3分别为通用逼近、专门radial函数L2复杂度分离和条件性下降/驻点结果，不能直接转成解析Hamiltonian误差。",
+      "status": "verified"
+    },
+    {
+      "key": "zhong",
+      "title": "Dissipative SymODEN: Encoding Hamiltonian dynamics with dissipation and control into deep learning",
+      "doi": null,
+      "primary_landing_url": "https://arxiv.org/abs/2002.08860",
+      "primary_document_url": "https://openreview.net/pdf?id=knjWFNx6CN",
+      "actual_use_zh": "耗散和控制端口的结构化动力学学习背景；实际是ICLR workshop，未误写成主会论文。作者网页及OpenReview原文均确认该归属。",
+      "status": "verified"
+    }
+  ],
+  "citation_inventory_snapshot": {
+    "main.tex": {
+      "cited_keys": [
+        "abbott",
+        "antman",
+        "biasco2018measure",
+        "bounemoura",
+        "bounemoura2016torus",
+        "chen2022",
+        "chierchia2021measure",
+        "das2017quasiperiodicity",
+        "desai",
+        "duignan2023flows",
+        "feng",
+        "greydanus",
+        "hairer",
+        "haro2019aposteriori",
+        "hornik",
+        "kim",
+        "nasa",
+        "poschel",
+        "simo",
+        "trabelsi",
+        "zhang",
+        "zhong"
+      ],
+      "cited_count": 22,
+      "unknown_keys": [],
+      "locations": {
+        "abbott": [
+          {
+            "file": "sections\\core_background.tex",
+            "line": 1
+          }
+        ],
+        "kim": [
+          {
+            "file": "sections\\core_background.tex",
+            "line": 1
+          }
+        ],
+        "nasa": [
+          {
+            "file": "sections\\core_background.tex",
+            "line": 3
+          }
+        ],
+        "simo": [
+          {
+            "file": "sections\\core_background.tex",
+            "line": 10
+          }
+        ],
+        "antman": [
+          {
+            "file": "sections\\core_background.tex",
+            "line": 10
+          }
+        ],
+        "greydanus": [
+          {
+            "file": "sections\\core_background.tex",
+            "line": 12
+          }
+        ],
+        "zhong": [
+          {
+            "file": "sections\\core_background.tex",
+            "line": 12
+          }
+        ],
+        "desai": [
+          {
+            "file": "sections\\core_background.tex",
+            "line": 12
+          }
+        ],
+        "trabelsi": [
+          {
+            "file": "sections\\core_background.tex",
+            "line": 14
+          }
+        ],
+        "zhang": [
+          {
+            "file": "sections\\core_background.tex",
+            "line": 14
+          },
+          {
+            "file": "sections\\core_analysis.tex",
+            "line": 98
+          }
+        ],
+        "hornik": [
+          {
+            "file": "sections\\core_background.tex",
+            "line": 14
+          }
+        ],
+        "feng": [
+          {
+            "file": "sections\\core_background.tex",
+            "line": 21
+          },
+          {
+            "file": "sections\\core_derivation.tex",
+            "line": 142
+          },
+          {
+            "file": "sections\\core_analysis.tex",
+            "line": 16
+          }
+        ],
+        "hairer": [
+          {
+            "file": "sections\\core_background.tex",
+            "line": 21
+          },
+          {
+            "file": "sections\\core_derivation.tex",
+            "line": 144
+          }
+        ],
+        "poschel": [
+          {
+            "file": "sections\\core_background.tex",
+            "line": 23
+          }
+        ],
+        "bounemoura": [
+          {
+            "file": "sections\\core_background.tex",
+            "line": 23
+          },
+          {
+            "file": "sections\\core_kam.tex",
+            "line": 18
+          }
+        ],
+        "chen2022": [
+          {
+            "file": "sections\\core_background.tex",
+            "line": 25
+          },
+          {
+            "file": "sections\\core_kam.tex",
+            "line": 8
+          }
+        ],
+        "haro2019aposteriori": [
+          {
+            "file": "sections\\core_background.tex",
+            "line": 27
+          },
+          {
+            "file": "sections\\core_kam.tex",
+            "line": 140
+          }
+        ],
+        "bounemoura2016torus": [
+          {
+            "file": "sections\\core_background.tex",
+            "line": 27
+          },
+          {
+            "file": "sections\\core_kam.tex",
+            "line": 200
+          }
+        ],
+        "biasco2018measure": [
+          {
+            "file": "sections\\core_background.tex",
+            "line": 27
+          }
+        ],
+        "chierchia2021measure": [
+          {
+            "file": "sections\\core_background.tex",
+            "line": 27
+          },
+          {
+            "file": "sections\\core_kam.tex",
+            "line": 211
+          }
+        ],
+        "das2017quasiperiodicity": [
+          {
+            "file": "sections\\core_background.tex",
+            "line": 27
+          }
+        ],
+        "duignan2023flows": [
+          {
+            "file": "sections\\core_background.tex",
+            "line": 27
+          }
+        ]
+      }
+    },
+    "supplement.tex": {
+      "cited_keys": [
+        "abbott",
+        "antman",
+        "biasco2018measure",
+        "bounemoura",
+        "bounemoura2016torus",
+        "chen2022",
+        "chierchia2021measure",
+        "das2017quasiperiodicity",
+        "duignan2023flows",
+        "feng",
+        "hairer",
+        "haro2019aposteriori",
+        "hornik",
+        "poschel",
+        "simo",
+        "zhang"
+      ],
+      "cited_count": 16,
+      "unknown_keys": [],
+      "locations": {
+        "zhang": [
+          {
+            "file": "supplement.tex",
+            "line": 86
+          },
+          {
+            "file": "sections\\complex_theorem_note.tex",
+            "line": 4
+          }
+        ],
+        "hornik": [
+          {
+            "file": "supplement.tex",
+            "line": 88
+          }
+        ],
+        "feng": [
+          {
+            "file": "supplement.tex",
+            "line": 139
+          }
+        ],
+        "hairer": [
+          {
+            "file": "supplement.tex",
+            "line": 139
+          }
+        ],
+        "simo": [
+          {
+            "file": "sections\\physical_and_safety_mechanics.tex",
+            "line": 5
+          }
+        ],
+        "antman": [
+          {
+            "file": "sections\\physical_and_safety_mechanics.tex",
+            "line": 5
+          }
+        ],
+        "abbott": [
+          {
+            "file": "sections\\physical_and_safety_mechanics.tex",
+            "line": 54
+          }
+        ],
+        "chen2022": [
+          {
+            "file": "sections\\theorem_bridge.tex",
+            "line": 15
+          },
+          {
+            "file": "sections\\measure_persistence.tex",
+            "line": 20
+          }
+        ],
+        "bounemoura": [
+          {
+            "file": "sections\\theorem_bridge.tex",
+            "line": 142
+          },
+          {
+            "file": "sections\\theorem_bridge.tex",
+            "line": 176
+          }
+        ],
+        "poschel": [
+          {
+            "file": "sections\\unified_kam.tex",
+            "line": 168
+          }
+        ],
+        "haro2019aposteriori": [
+          {
+            "file": "sections\\unified_kam.tex",
+            "line": 184
+          }
+        ],
+        "bounemoura2016torus": [
+          {
+            "file": "sections\\unified_kam.tex",
+            "line": 583
+          }
+        ],
+        "biasco2018measure": [
+          {
+            "file": "sections\\measure_persistence.tex",
+            "line": 7
+          },
+          {
+            "file": "sections\\measure_proof.tex",
+            "line": 298
+          }
+        ],
+        "chierchia2021measure": [
+          {
+            "file": "sections\\measure_persistence.tex",
+            "line": 7
+          },
+          {
+            "file": "sections\\measure_persistence.tex",
+            "line": 44
+          },
+          {
+            "file": "sections\\measure_proof.tex",
+            "line": 13
+          },
+          {
+            "file": "sections\\measure_proof.tex",
+            "line": 299
+          }
+        ],
+        "das2017quasiperiodicity": [
+          {
+            "file": "sections\\measure_numerical.tex",
+            "line": 37
+          }
+        ],
+        "duignan2023flows": [
+          {
+            "file": "sections\\measure_numerical.tex",
+            "line": 37
+          }
+        ]
+      }
+    }
+  },
+  "new_findings": [
+    {
+      "id": "NASA_YEAR",
+      "severity": "metadata_correction",
+      "finding": "Official page now explicitly supplies last-updated date 16 May 2025. Replace n.d. by 2025 with updated/accessed dates."
+    },
+    {
+      "id": "ZHANG_SUPPLEMENT",
+      "severity": "theorem_attribution_correction",
+      "finding": "Old supplement conflates Theorem 1 universal approximation with Theorem 2 L2/resource comparison. Separate locators."
+    },
+    {
+      "id": "FENG_VOLUME",
+      "severity": "source_discrepancy_resolved",
+      "finding": "Scan says volume11, canonical publisher page and author institutional list say7; retain7. Scan authorQin differs from landing-page typoQing; retainQin."
+    },
+    {
+      "id": "DEMiR_CACHE",
+      "severity": "evidence_quality",
+      "finding": "Local demir_ijrr.pdf is one image page; do not cite it as full text. Current web tool directly opened correct21-page RWTHPDF."
+    }
+  ],
+  "targeted_online_rechecks": [
+    {
+      "key": "chen2022",
+      "url": "https://ojs.aaai.org/index.php/AAAI/article/view/20582",
+      "result": "publisher metadata matches"
+    },
+    {
+      "key": "haro2019aposteriori",
+      "url": "https://arxiv.org/abs/1711.05515v1",
+      "result": "fixed version/title/authors confirmed"
+    },
+    {
+      "key": "bounemoura2016torus",
+      "url": "https://arxiv.org/abs/1412.0509",
+      "result": "only v1 recorded; analytic/Gevrey premise confirmed"
+    },
+    {
+      "key": "zhang",
+      "url": "https://www.lamda.nju.edu.cn/zhangsq/papers/2022-CRNet-NN.pdf",
+      "result": "requests succeeded; SHA256 identical to prior verified publisher-formatted author PDF"
+    },
+    {
+      "key": "feng",
+      "url": "https://computmath.cjoe.ac.cn/jcm/EN/Y1989/V7/I1/71",
+      "result": "web tool timeout; requests200, metadata volume7 issue1 pp71–096 confirmed"
+    },
+    {
+      "key": "nasa",
+      "url": "https://www.nasa.gov/reference/risk-of-spaceflight-associated-neuro-ocular-syndrome-sans/",
+      "result": "page update date16May2025 observed; context only"
+    },
+    {
+      "key": "bounemoura",
+      "url": "https://www.numdam.org/articles/10.5802/jep.137/",
+      "result": "official article page resolves"
+    },
+    {
+      "key": "chierchia2021measure",
+      "url": "https://arxiv.org/abs/2010.13243v1",
+      "result": "fixed version resolves"
+    },
+    {
+      "key": "biasco2018measure",
+      "url": "https://arxiv.org/abs/1612.01903v1",
+      "result": "fixed version resolves"
+    },
+    {
+      "key": "demir_structure",
+      "url": "https://publications.rwth-aachen.de/record/821205/files/821205.pdf",
+      "result": "web parsed21pages, section2 begins PDFpage4"
+    },
+    {
+      "key": "bruder_structure",
+      "url": "https://ntrs.nasa.gov/citations/20250001907",
+      "result": "official author-manuscript record resolves; cached17pagePDF usable"
+    }
+  ]
+}

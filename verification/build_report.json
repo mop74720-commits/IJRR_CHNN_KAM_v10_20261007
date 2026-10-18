@@ -1,0 +1,43 @@
+{
+  "supplement": {
+    "pages": 40,
+    "warnings": [],
+    "outside": [],
+    "locations": {
+      "Background and research question": [],
+      "Derivation of the complex Hamiltonian": [],
+      "Numerical and approximation analysis": [],
+      "Connection to KAM": [],
+      "Guidance for magnetic": [],
+      "Conclusion": []
+    },
+    "sha256": "f981018d3c3e84d9d5004ea3a61f0bdb56226f6c15229baa7699f780e1b03288",
+    "recompiled_in_prose_revision": false
+  },
+  "main": {
+    "pages": 14,
+    "warnings": [],
+    "outside": [],
+    "locations": {
+      "Background and research question": [
+        1
+      ],
+      "Derivation of the complex Hamiltonian": [
+        4
+      ],
+      "Numerical and approximation analysis": [
+        6
+      ],
+      "Connection to KAM": [
+        8
+      ],
+      "Guidance for magnetic": [
+        10
+      ],
+      "Conclusion": [
+        12
+      ]
+    },
+    "sha256": "379fd96a95cf261c34fbb5689b8901395fe787b952d7d51c3332f12f0fc683ee"
+  }
+}

@@ -1,0 +1,18 @@
+# Generated LaTeX files (keep the delivered PDFs).
+/main.aux
+/main.log
+/main.out
+/supplement.aux
+/supplement.log
+/supplement.out
+
+# Python and Numba caches.
+__pycache__/
+numba_cache/
+*.py[cod]
+*.nbc
+*.nbi
+
+# These original delivery archives are available as GitHub Release assets.
+/S2_citation_revision_20261008.zip
+/S2_reviewer_revision_20261008.zip

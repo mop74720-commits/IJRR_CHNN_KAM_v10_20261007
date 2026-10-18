@@ -1,0 +1,214 @@
+\subsection{Magnetic feedback that preserves the learned KAM dynamics}
+\label{sec:full-fe-kam-control}
+A spatial magnetic-field gradient supplies a tip-force input that, together
+with the transverse field, preserves the certified conservative dynamics
+despite physical damping. Both inputs act through the magnetic dipole
+on the same finite-element beam.
+
+Let $a_j$ be the physical mass-normalized modal positions of the complete
+$64$-mode FE model, with velocities $v_j$, frequencies $\omega_j$,
+tip-displacement participation $b_j$, and tip-rotation participation $t_j$.
+The numerical theorem uses the exported modal coefficients and Hermite
+shape map as the exact definition of the computational model. The
+diagonalization residual relative to the assembled nodal matrices is
+quantified below.
+Write $\vartheta=\sum_jt_ja_j$ and $E_0=\mu B_0$. With transverse tip
+force $F$ and transverse field $B_y$, the modal equations are
+\begin{equation}
+ \begin{aligned}
+ \ddot a_j+\alpha\dot a_j+\omega_j^2a_j&=b_jF+t_jU,\\
+ U&=E_0(\vartheta-\sin\vartheta)+\mu B_y\cos\vartheta.
+ \end{aligned}
+ \label{eq:full-fe-two-port}
+\end{equation}
+The frequencies already include the linear stiffness from $B_0$.
+For the first two modes define
+\begin{equation}
+ A_{\rm mag}=\begin{pmatrix}b_1&t_1\\b_2&t_2\end{pmatrix}.
+ \label{eq:magnetic-authority-matrix}
+\end{equation}
+An interval enclosure of its determinant excludes zero.
+
+Let $h(X,Y)$ be the fitted Hamiltonian used by the KAM
+certificate, including momentum-dependent quartics. Set
+$a_i=S_iX_i$ and recover $Y$ from
+\begin{equation}
+ h_Y(X,Y)=\operatorname{diag}(S_i)^{-1}v_{1:2}/\omega_0.
+ \label{eq:full-fe-legendre}
+\end{equation}
+This implicit velocity-to-momentum map cannot be replaced by $Y_i=v_i/(S_i
+\omega_0\nu_i)$ when the learned momentum quartics are retained. The
+verified lower bound on $h_{YY}$ below makes the map locally invertible and
+injective in $Y$ on the stated real box. Define
+\begin{align}
+ a^{\rm des}_{i,tt}
+ &=S_i\omega_0^2\bigl(h_{YX}h_Y-h_{YY}h_X\bigr)_i,\\
+ \begin{pmatrix}F\\U\end{pmatrix}
+ &=A_{\rm mag}^{-1}
+   \left(a^{\rm des}_{1:2,tt}+\alpha v_{1:2}
+          +\operatorname{diag}(\omega_1^2,\omega_2^2)a_{1:2}\right).
+ \label{eq:full-fe-hamiltonian-feedback}
+\end{align}
+Consequently $\dot X=\omega_0h_Y$ and $\dot Y=-\omega_0h_X$ exactly
+where the implicit inverse is defined. The proof follows by differentiating
+\eqref{eq:full-fe-legendre}: the specified acceleration cancels the $h_{YX}$
+term and invertibility of $h_{YY}$ gives the second canonical equation.
+
+The physical commands realizing \eqref{eq:full-fe-hamiltonian-feedback} are
+\begin{equation}
+ \begin{aligned}
+ B_y&=\frac{U-E_0(\vartheta-\sin\vartheta)}{\mu\cos\vartheta},\\
+ G&=\frac{F}{\mu}
+ \begin{pmatrix}-\sin\vartheta&\cos\vartheta\\
+                 \cos\vartheta&\sin\vartheta\end{pmatrix}.
+ \end{aligned}
+ \label{eq:physical-gradient-command}
+\end{equation}
+Use $B(r)=B_{\rm tip}+G(r-r_{\rm tip})$ locally, with
+$B_{\rm tip}=(B_0,B_y)$. The matrix $G$ is symmetric and traceless,
+so this local planar field satisfies the source-free curl and divergence
+constraints. For dipole $m=\mu(\cos\vartheta,\sin\vartheta)$ it gives
+$Gm=(0,F)$, while the tip torque is
+$\mu(B_y\cos\vartheta-B_0\sin\vartheta)$.
+Moreover $\|G\|_2=|F|/\mu$. The applied mechanical power is
+$F\dot w(L)+\mu B_y\cos\vartheta\,\dot\vartheta$, in addition to
+the static magnetic energy already included in the Hamiltonian.
+The construction assumes these local field and gradient commands are
+available and the required modal and tip states are observed.
+
+\subsection{Lifting a certified torus to the complete controlled FE model}
+\label{sec:full-fe-kam-lift}
+\begin{theorem}[Invariant-torus lift under physical magnetic feedback]
+\label{thm:full-fe-kam-lift}
+Suppose a real analytic embedded two-torus $K_\infty$ of $h$ has frequency
+$\Omega\in\mathbb R^2$ in radians per physical second. Suppose $h_{YY}$
+is positive definite on a neighbourhood of this torus with convex
+$Y$-fibres for each $X$, $A_{\rm mag}$ is invertible,
+$\alpha>0$, and the complete lifted solution has
+$|\vartheta|<\pi/2$. Then the full FE closed loop
+\eqref{eq:full-fe-two-port}--\eqref{eq:physical-gradient-command} has an
+embedded invariant two-torus projecting to $K_\infty$. For a fixed low-mode
+orbit on this torus, each high-mode solution converges exponentially to a
+unique quasiperiodic response, provided the feedback remains in its
+stated field and state domain.
+\end{theorem}
+
+\begin{proof}
+The first two canonical modes follow $h$ exactly. Hence $F$ and $U$ in
+\eqref{eq:full-fe-hamiltonian-feedback} depend only on their torus phase,
+even though the physical field command also uses the complete tip angle.
+For every $j\geq3$, the remaining dynamics are the stable linear equation
+\eqref{eq:full-fe-two-port}, forced by analytic quasiperiodic functions.
+If $F_k,U_k$ denote their Fourier coefficients in the convention
+$e^{ik\cdot\phi}$, the unique response graph is
+\begin{equation}
+ a^*_{j,k}=
+ \frac{b_jF_k+t_jU_k}
+      {\omega_j^2-(k\cdot\Omega)^2+i\alpha(k\cdot\Omega)}.
+ \label{eq:full-fe-lift-fourier}
+\end{equation}
+For real $k\cdot\Omega$, this denominator never vanishes: at zero
+frequency its real part is $\omega_j^2>0$, and at nonzero frequency its
+imaginary part is nonzero. Its inverse is uniformly bounded over real
+frequencies. Exponential Fourier decay is therefore preserved on a
+possibly smaller analytic strip. The velocity graph is obtained by
+multiplication by $ik\cdot\Omega$ and is analytic on a smaller strip.
+Positive definiteness on each convex $Y$-fibre makes
+$Y\mapsto h_Y(X,Y)$ strictly monotone and injective. Thus the physical
+low-mode positions and velocities preserve the injective canonical
+embedding. Differences in the high modes obey the
+homogeneous damped equations and decay exponentially.
+\end{proof}
+
+The lifted closed loop combines Hamiltonian low-mode motion with
+contracting high-mode fibres. The contraction leaves each initial low-mode
+torus invariant; it does not select a unique torus or make the full
+controlled system Hamiltonian. Each lifted two-torus has zero volume in
+the full $128$-dimensional phase space. The KAM-family measure therefore
+refers to the conservative low-mode coordinates.
+
+\paragraph{All-phase response and startup bounds.}
+We bound both the response graph and the startup
+with all high modal positions and velocities initially zero. Write
+$h=h_2+R$, and let the certified torus satisfy
+$\|K_\infty-K_0\|_\infty\leq\epsilon_K$, where
+$K_0=0.1(\cos\phi_1,\cos\phi_2,-\sin\phi_1,-\sin\phi_2)$.
+The first two components of the force demand can be written as
+\begin{align}
+ r_i={}&S_i\bigl\{\omega_0^2[
+ (R_{YX}h_Y)_i-\nu_iR_{X_i}-(R_{YY}h_X)_i]\nonumber\\
+ &\quad+\alpha\omega_0h_{Y_i}
+ +(\omega_i^2-\omega_0^2\nu_i^2)X_i\bigr\},
+ \label{eq:full-fe-small-force}
+\end{align}
+This identity cancels the large linear restoring terms before bounding.
+The linear part on $K_0$ consists of just the two known physical
+frequencies. Each is bounded using its actual damped denominator in
+\eqref{eq:full-fe-lift-fourier}. The remaining terms are bounded on
+$|X_i|,|Y_i|\leq0.1+\epsilon_K$ using every fitted quartic coefficient and
+the complete trigonometric remainder bounds
+$|\sin z-z|\leq|z|^3/6$ and $|1-\cos z|\leq z^2/2$ for real $z$.
+
+For $\beta=\alpha/2$ and
+$\omega_{d,j}=\sqrt{\omega_j^2-\beta^2}>0$, the impulse response
+$g_j(t)=e^{-\beta t}\sin(\omega_{d,j}t)/\omega_{d,j}$ obeys
+\begin{equation}
+ \|g_j\|_{L^1(0,\infty)}\leq\frac{2}{\alpha\omega_{d,j}},
+ \qquad
+ \|g_j'\|_{L^1(0,\infty)}\leq\frac2\alpha+\frac1{\omega_{d,j}}.
+ \label{eq:full-fe-green-bounds}
+\end{equation}
+These estimates include the entire nonlinear forcing remainder and its
+Fourier tail. Let $P_j,V_j$ be the resulting all-phase
+bounds on the graph's position and velocity. Starting high mode $j$ at
+zero adds at most
+\begin{equation}
+ T_j=P_j+\frac{V_j+\beta P_j}{\omega_{d,j}}
+ \label{eq:full-fe-transient}
+\end{equation}
+to its position envelope. This follows from the exact homogeneous
+solution initialized by $(-a_j^*(0),-\dot a_j^*(0))$.
+The bounds sum all $62$ high modes and use the cubic Bernstein
+control rows of every Hermite element to convert these modal envelopes
+into bounds on every centreline point and every phase.
+
+For the two-mode COMSOL integral fit in
+Section~\ref{sec:validated-integral-learning}, which satisfies the
+nonzero-loss and finite-amplitude KAM conditions, 256-bit Arb
+arithmetic encloses $h_{YY}\succeq0.9999999983I$ on the real $0.3$ box.
+The complete response graph has centreline amplitude below $1.922696$ mm.
+Including the zero-high-mode startup yields an all-time bound below $1.970263$ mm,
+strictly inside the $4$ mm net corridor. The latter envelope gives
+$|\vartheta|<0.155261$ and $\cos\vartheta>0.987971$, which closes the
+feedback-domain bootstrap. The required transverse field is below
+$0.921665$ mT and the gradient spectral norm below
+$0.02572538\,\mathrm{T\,m^{-1}}$ at every phase and throughout that
+startup. These bounds validate feasibility under a $20$ mT transverse
+field limit and a $1\,\mathrm{T\,m^{-1}}$ gradient limit; they are
+derived bounds, not the extrema of a simulated time history.
+Applying the same computation to the fit trained on complete COMSOL FE
+trajectories in Section~\ref{sec:comsol-identification} gives graph and
+zero-high-state startup bounds of $1.937308$ mm and $2.014078$ mm,
+respectively.
+
+The theorem applies to initial low states on the exact certified torus.
+The numerical Fourier initial state approximates it within the
+certified KAM correction, and finite-time integration tests the feedback
+implementation. The theorem uses the exported modal FE coefficients and
+fitted weights; independent COMSOL comparisons assess the corresponding
+nodal mechanical implementation.
+To make the modal definition explicit, if $\Phi$ is the stored full
+shape basis, $M,K_b$ are the independently assembled nodal matrices and
+$D_\omega=\operatorname{diag}(\omega_j)$, outward Arb products give
+\begin{align}
+ \|\Phi^{\mathsf T}M\Phi-I\|_\infty&<1.304685\times10^{-14},\\
+ \|D_\omega^{-1}\Phi^{\mathsf T}K_b\Phi D_\omega^{-1}-I\|_\infty
+ &<3.000518\times10^{-9}.
+\end{align}
+These are relative kinetic- and stiffness-energy form bounds. They
+quantify the relationship between the frozen modal model and the
+original assembled FE representation; they are not used to assert
+an exact conjugacy or an unproved persistence result for perturbed
+matrices. The two-mode shape map used for identification differs from the
+reassembled map by at most $1.258\times10^{-14}$ m, and the reference
+frequency $\omega_0$ is unchanged.

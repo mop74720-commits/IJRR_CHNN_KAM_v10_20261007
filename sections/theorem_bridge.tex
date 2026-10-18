@@ -1,0 +1,266 @@
+% Integration fragment; requires amsmath, amssymb, amsthm and natbib.
+% Environments theorem, proposition, corollary, remark are supplied by the main file.
+% Verified primary references: chen2022, zhang,
+% bounemoura, delshams1996, poschel.
+
+\subsection{A statistical bridge in the norm required by KAM theory}
+\label{sec:statistical-bridge}
+
+All Hamiltonians below are real-valued scalar functions, including when their
+parameters and hidden representations are complex. The realification of a complex
+parameter vector has dimension $P$. Let $\mathcal D=\mathbb T^n\times B$,
+where $B$ is a bounded ball in action space, and write $d=2n$.
+Lebesgue measure on $\mathcal D$ is denoted by $dx$.
+The following result completes the derivative-norm interface needed to combine
+the learning argument of \citet{chen2022} with a finite-differentiability KAM
+theorem. It does not infer derivative smallness from function values alone.
+
+\begin{theorem}[Uniform learning-to-$C^\ell$ bound]
+\label{thm:learning-to-cl}
+Fix $d<p<\infty$, an integer $\ell\geq1$, and an integer $s>\ell+d/p$.
+Let $X_1,\ldots,X_N$ be independent samples with density
+$f_\mu\geq m_0>0$ on $\mathcal D$.
+Let $H_\star$ be the target Hamiltonian and
+$\{H_\vartheta:\vartheta\in\Theta\}$ the hypothesis class, with
+$\Theta\subset[-B_\Theta,B_\Theta]^P$.
+Assume that for all $x\in\mathcal D$ and $\vartheta,\eta\in\Theta$,
+\begin{align}
+ \|\nabla H_\vartheta(x)-\nabla H_\star(x)\|_p&\leq Q,\label{eq:residual-bound}\\
+ \|\nabla H_\vartheta(x)-\nabla H_\eta(x)\|_p
+   &\leq L_g\|\vartheta-\eta\|_\infty.\label{eq:parameter-bound}
+\end{align}
+After fixing the additive gauge by
+\begin{align}
+ e_\vartheta&=H_\vartheta-H_\star-
+   \frac{1}{|\mathcal D|}\int_{\mathcal D}(H_\vartheta-H_\star)\,dx,
+ \nonumber\\
+ \sup_{\vartheta\in\Theta}\|e_\vartheta\|_{W^{s,p}(\mathcal D)}&\leq M_s,
+ \label{eq:uniform-sobolev}
+\end{align}
+suppose that $M_s$ is a valid uniform bound. Define
+\begin{align}
+ \widehat R_N(\vartheta)
+ &=\frac1N\sum_{i=1}^N
+    \|\nabla H_\vartheta(X_i)-\nabla H_\star(X_i)\|_p^p,\\
+ L_{\mathrm{par}}&=pQ^{p-1}L_g,\qquad L_{\max}=Q^p.
+\end{align}
+For any fixed $0<a\leq2B_\Theta$ and $0<\delta<1$, put
+\begin{align}
+ \Gamma_N(a,\delta)
+ &=2L_{\mathrm{par}}a\nonumber\\
+ &\quad+\frac{L_{\max}}{\sqrt{2N}}
+ \sqrt{P\log(1+2B_\Theta/a)+\log(1/\delta)},\\
+ S_N(\vartheta)&=\widehat R_N(\vartheta)+\Gamma_N(a,\delta),\\
+ G_N(\vartheta)&=C_{\mathrm P}\,m_0^{-1/p}S_N(\vartheta)^{1/p},\\
+ \alpha&=\frac{\ell-1+d/p}{s-1}\in(0,1).
+\end{align}
+Here $C_{\mathrm P}$ is a Poincare constant chosen so that a mean-zero function
+satisfies $\|e\|_{W^{1,p}}\leq C_{\mathrm P}\|\nabla e\|_{L^p}$.
+With probability at least $1-\delta$, simultaneously for every
+$\vartheta\in\Theta$,
+\begin{equation}
+ \|e_\vartheta\|_{C^\ell(\overline{\mathcal D})}
+ \leq E_N(\vartheta):=
+ C_{\mathrm{GN}}\left[
+ G_N(\vartheta)+M_s^\alpha G_N(\vartheta)^{1-\alpha}\right].
+ \label{eq:learning-cl-bound}
+\end{equation}
+$C_{\mathrm{GN}}$ depends only on the domain and $(d,p,s,\ell)$.
+We use $\|e\|_{C^\ell}=\max_{|a|\leq\ell}\sup|D^ae|$;
+equivalent conventions only change the displayed constants.
+The event is uniform over the hypothesis class and therefore includes parameters
+selected using these same training data.
+\end{theorem}
+
+\begin{proof}
+The loss $r_\vartheta(x)=\|\nabla H_\vartheta(x)-\nabla H_\star(x)\|_p^p$
+lies in $[0,L_{\max}]$ and is $L_{\mathrm{par}}$-Lipschitz in the
+$\ell^\infty$ parameter metric. Partitioning the parameter cube into cells of
+side length $a$ and choosing a representative from each nonempty cell gives
+an $a$-net with at most $(1+2B_\Theta/a)^P$ points.
+The one-sided Hoeffding inequality and a union bound control
+$R(\eta)-\widehat R_N(\eta)$ at every net point by the square-root term in
+$\Gamma_N$, where $R(\eta)=\int r_\eta\,d\mu$.
+The population and empirical losses each change by at most
+$L_{\mathrm{par}}a$ between a parameter and its net representative.
+Consequently $R(\vartheta)\leq S_N(\vartheta)$ uniformly.
+
+The density lower bound gives
+$\|\nabla e_\vartheta\|_{L^p(dx)}\leq m_0^{-1/p}S_N(\vartheta)^{1/p}$.
+The gauge in \eqref{eq:uniform-sobolev} and Poincare's inequality then yield
+$\|e_\vartheta\|_{W^{1,p}}\leq G_N(\vartheta)$.
+Apply the Gagliardo--Nirenberg inequality to $g=\nabla e_\vartheta$,
+with derivative orders $j=\ell-1$, $m=s-1$, and both endpoint
+Lebesgue exponents equal to $p$. Its interpolation identity is
+\[
+ 0=\frac{j}{d}+\alpha\left(\frac1p-\frac{m}{d}\right)
+     +\frac{1-\alpha}{p},
+\]
+which gives the stated $\alpha$.
+The strict inequality $s>\ell+d/p$ ensures $\alpha<1$ and avoids the
+critical Sobolev endpoint. Extension from the smooth bounded action domain,
+together with periodic charts in the angular variables, gives
+\[
+ \|e\|_{C^\ell}
+ \leq C_{\mathrm{GN}}\left(
+ \|e\|_{W^{1,p}}+
+ \|e\|_{W^{1,p}}^{1-\alpha}\|e\|_{W^{s,p}}^\alpha\right).
+\]
+Lower-order derivatives are included by the inhomogeneous term and the
+$W^{1,p}\hookrightarrow C^0$ embedding, which uses $p>d$.
+Substitution proves \eqref{eq:learning-cl-bound}.
+\end{proof}
+
+For instance, one may select an integer $\ell>2(\tau+1)$, $p>2n$, and
+$s=\ell+1$. This makes every exponent explicit, although the resulting
+interpolation bound can be conservative. Bounds on $M_s,Q,L_g$ follow from
+bounded parameters and derivatives of smooth activations on a compact domain;
+the corresponding bounds for $H_\star$ must also be justified. Merely declaring
+the functions smooth does not provide these quantitative bounds.
+Alternatively, a loss containing all spatial derivatives of the vector field
+through order $\ell$ controls $W^{\ell+1,p}$ directly, and Sobolev embedding
+then gives a $C^\ell$ error with exponent $1/p$, without interpolation.
+
+\begin{corollary}[KAM transfer for the target and the trained Hamiltonian]
+\label{cor:common-target-kam}
+Let $n\geq2$, $\tau>n-1$ and an integer $\ell>2(\tau+1)$ be fixed.
+Suppose that, in one specified canonical action--angle chart,
+\[
+ H_\star=h_0(I)+P_\star(I,\varphi),\qquad
+ H_\vartheta=h_0(I)+P_\vartheta(I,\varphi).
+\]
+Assume $h_0\in C^{\ell+2}(\overline B)$ with finite norm, and
+$\nabla h_0:B\to\Omega$ is a diffeomorphism with bounded inverse in $C^\ell$.
+Fix $\gamma>0$ and set
+\begin{equation}
+ \Omega_{\gamma,\tau}=\left\{\omega\in\Omega:\begin{array}{l}
+ |k\cdot\omega|\geq\gamma |k|_1^{-\tau}\ (0\ne k\in\mathbb Z^n),\\
+ \operatorname{dist}(\omega,\partial\Omega)\geq\gamma
+ \end{array}\right\}.
+\end{equation}
+Let $c_{\mathrm K}>0$ be the constant in Theorem A of
+\citet{bounemoura} for this domain and integrable Hamiltonian.
+If a certified bound $\beta_\vartheta\geq
+\|P_\vartheta-\overline P_\vartheta\|_{C^\ell}$ satisfies
+\begin{equation}
+ \beta_\vartheta+E_N(\vartheta)<c_{\mathrm K}\gamma^2,
+ \label{eq:joint-kam-budget}
+\end{equation}
+then, on the event in Theorem~\ref{thm:learning-to-cl}, both $H_\star$ and
+$H_\vartheta$ possess invariant Lagrangian tori for every frequency in
+$\Omega_{\gamma,\tau}$. The flow on each torus is $C^1$-conjugate to the
+linear flow with that frequency. For a piecewise smooth frequency-domain
+boundary, the complement of each family has measure at most $C\gamma$.
+In particular, each family has positive measure when $\gamma$ is small enough.
+\end{corollary}
+
+\begin{proof}
+Write $\overline P$ for the spatial mean over $\mathcal D$.
+The gauge-fixed difference satisfies
+\[
+ P_\star-\overline P_\star
+   =P_\vartheta-\overline P_\vartheta-e_\vartheta.
+\]
+Thus the two perturbation norms are at most $\beta_\vartheta$ and
+$\beta_\vartheta+E_N(\vartheta)$, respectively. Constants added to a
+Hamiltonian do not change its vector field. Apply the cited finite-smoothness
+KAM theorem separately to the two Hamiltonians with the same $h_0$,
+domain, and Diophantine set. The theorem supplies tori of class
+$C^{\tau+1}$ with Lipschitz dependence as invariant graphs on frequency.
+The two systems need not have identical invariant embeddings.
+\end{proof}
+
+The certified budget includes the physical perturbation from $h_0$, any
+normal-form remainder, and the learning error. A small learning error alone
+does not establish that the physical system is close to an integrable one.
+Theorem A in the published 2020 version of \citet{bounemoura} gives
+the measure bound $C\gamma$; the $C\gamma^2$ measure bound printed in the
+2018 preprint should not be used.
+
+\subsection{A coefficient certificate for a finite analytic CHNN}
+\label{sec:coefficient-certificate}
+
+The finite analytic readout used in the experiments yields a stronger certificate
+that avoids a dimension-dependent interpolation loss. Let $\psi_1,\ldots,
+\psi_m$ be real-valued basis functions on the real phase domain. Complex
+features may be converted into this basis by taking their real and imaginary
+parts and collecting equal monomials. The certificate applies to the effective
+coefficients of the actual trained Hamiltonian, irrespective of how they are
+parameterized inside the network.
+
+\begin{proposition}[Deterministic global certificate from sampled gradients]
+\label{prop:gram-certificate}
+Suppose
+\begin{align*}
+ H_\vartheta&=H_{\mathrm{prior}}+\sum_{j=1}^m c_{\vartheta,j}\psi_j,\\
+ H_\star&=H_{\mathrm{prior}}+\sum_{j=1}^m c_{\star,j}\psi_j+R.
+\end{align*}
+The basis contains no constant gauge direction. Let
+\begin{align*}
+ G_N&=\frac1N\sum_{i=1}^N D\psi(X_i)^\top D\psi(X_i),\\
+ \lambda_N&=\lambda_{\min}(G_N)>0,
+\end{align*}
+where the $j$th column of $D\psi$ is $\nabla\psi_j$.
+For gradient observations $Y_i=\nabla H_\star(X_i)+\xi_i$, define
+\begin{align*}
+ r_N&=\left(\frac1N\sum_i\|\nabla H_\vartheta(X_i)-Y_i\|_2^2\right)^{1/2},\\
+ t_N&=\left(\frac1N\sum_i\|\nabla R(X_i)+\xi_i\|_2^2\right)^{1/2}.
+\end{align*}
+Then
+\begin{equation}
+ \|c_\vartheta-c_\star\|_2\leq\frac{r_N+t_N}{\sqrt{\lambda_N}}.
+ \label{eq:coefficient-error}
+\end{equation}
+For any function norm $\|\cdot\|_{\mathcal X}$ satisfying the triangle
+inequality, put $K_{\mathcal X}=(\sum_j\|\psi_j\|_{\mathcal X}^2)^{1/2}$.
+If $\|R\|_{\mathcal X}\leq\varepsilon_R$, then
+\begin{equation}
+ \|H_\vartheta-H_\star\|_{\mathcal X}
+ \leq K_{\mathcal X}\frac{r_N+t_N}{\sqrt{\lambda_N}}+\varepsilon_R.
+ \label{eq:global-coefficient-certificate}
+\end{equation}
+The norm may be $C^\ell$ on a real compact domain or the supremum norm on
+a prescribed complex neighborhood where every basis function and $R$ is
+holomorphic. No independent sampling assumption is needed.
+\end{proposition}
+
+\begin{proof}
+Let $\Delta c=c_\vartheta-c_\star$.
+The empirical norm of $D\psi\Delta c$ is
+$(\Delta c^\top G_N\Delta c)^{1/2}$.
+Since $D\psi\Delta c=(\nabla H_\vartheta-Y)+(\nabla R+\xi)$ at every
+sample, the triangle inequality gives
+$\sqrt{\lambda_N}\|\Delta c\|_2\leq r_N+t_N$.
+Finally,
+$\|\sum_j\Delta c_j\psi_j-R\|_{\mathcal X}
+\leq K_{\mathcal X}\|\Delta c\|_2+\varepsilon_R$ by Cauchy--Schwarz.
+\end{proof}
+
+For raw monomials $\psi_\nu(x)=x^\nu$, an explicit $C^\ell$ bound on
+$[-r,r]^d$ is obtained from
+\[
+ \|\psi_\nu\|_{C^\ell}
+ \leq\max_{|a|\leq\ell,\,a\leq\nu}
+      \frac{\nu!}{(\nu-a)!}\,r^{|\nu|-|a|}.
+\]
+The analytic sup norm on $\{|x_j|\leq r\}\subset\mathbb C^d$ is
+$r^{|\nu|}$. For all 35 degree-four monomials in four variables,
+$K_{\mathrm{an}}\leq\sqrt{35}\,r^4$.
+If a canonical chart $x=\Phi(I,\varphi)$ maps an action--angle complex
+domain into this polydisc, the same analytic bound holds after composition.
+For a $C^\ell$ certificate after composition, the derivative bounds of
+$\Phi$ must instead be included by the chain rule.
+Unmodeled physical terms require the tail bounds $t_N$ and $\varepsilon_R$.
+Their approximation-tail contribution is zero only when the target lies
+exactly in the declared class. The full-cosine feature class below has
+this property for its specified reduced target; it does not remove
+truncation error relative to the full beam.
+
+The statistical result requires independent state samples with the stated
+coverage density. Consecutive states on a trajectory do not satisfy this
+assumption automatically. Accordingly, the trajectory-based experiments
+below use the deterministic Gram certificate, which requires no sampling
+independence. Their implementation divides both squared residuals and the
+Gram matrix by $4N$ rather than $N$; the coefficient bound is unchanged
+provided the noise norm uses that same scalar-observation normalization.
+

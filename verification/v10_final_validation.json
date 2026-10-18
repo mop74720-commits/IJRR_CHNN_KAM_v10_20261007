@@ -1,0 +1,92 @@
+{
+  "version": "v10",
+  "date": "2026-10-08",
+  "status": "PASS",
+  "source_v9_archive": "IJRR_CHNN_KAM_导师意见凝练稿_20261002.zip",
+  "source_v9_archive_sha256": "f335542f8eec42067bda474306ebdcb23dcca0450f132fcba7723621eab34170",
+  "v9_local_files_unchanged_checked": 71,
+  "template_unchanged": true,
+  "all_13_figures_unchanged": true,
+  "six_main_sections": 6,
+  "main_equation_blocks": 33,
+  "supplement_equation_blocks_unchanged": 170,
+  "supplement_labels_preserved": 188,
+  "citations": {
+    "main": [
+      "abbott",
+      "antman",
+      "biasco2018measure",
+      "bounemoura",
+      "bounemoura2016torus",
+      "chen2022",
+      "chierchia2021measure",
+      "das2017quasiperiodicity",
+      "desai",
+      "duignan2023flows",
+      "feng",
+      "greydanus",
+      "hairer",
+      "haro2019aposteriori",
+      "hornik",
+      "kim",
+      "nasa",
+      "poschel",
+      "simo",
+      "trabelsi",
+      "zhang",
+      "zhong"
+    ],
+    "supplement": [
+      "abbott",
+      "antman",
+      "biasco2018measure",
+      "bounemoura",
+      "bounemoura2016torus",
+      "chen2022",
+      "chierchia2021measure",
+      "das2017quasiperiodicity",
+      "duignan2023flows",
+      "feng",
+      "hairer",
+      "haro2019aposteriori",
+      "hornik",
+      "poschel",
+      "simo",
+      "zhang"
+    ]
+  },
+  "reference_entries": 22,
+  "pdf": {
+    "main": {
+      "pages": 14,
+      "sha256": "379fd96a95cf261c34fbb5689b8901395fe787b952d7d51c3332f12f0fc683ee"
+    },
+    "supplement": {
+      "pages": 40,
+      "sha256": "f981018d3c3e84d9d5004ea3a61f0bdb56226f6c15229baa7699f780e1b03288"
+    }
+  },
+  "no_missing_refs_or_cites": true,
+  "no_overfull_or_source_errors": true,
+  "visual_review": {
+    "main": "All 14 pages reviewed after prose cleanup; final page 13 enlarged.",
+    "supplement": "all 40 pages in contact sheets; enlarged pages 8,10,13,20,25,35,37"
+  },
+  "source_changes_vs_v9": [
+    "main.tex",
+    "supplement.tex",
+    "sections/core_analysis.tex",
+    "sections/core_application.tex",
+    "sections/core_background.tex",
+    "sections/core_derivation.tex",
+    "sections/core_kam.tex",
+    "sections/references.tex",
+    "sections/s_path.tex",
+    "sections/unified_kam.tex"
+  ],
+  "initial_validation_date": "2026-10-07",
+  "revision": "prose_cleanup",
+  "initial_scientific_rerun_scope": "New exact algebra, repeated symplectic algebra and five paired contrasts; original evidence identities and numerical bounds checked. No new COMSOL runs, long-trajectory simulations, or complete 512-bit torus computations.",
+  "scientific_rerun_scope": "No scientific computations rerun in this prose revision; mathematical expressions and commands compared to the original v10 archive and unchanged.",
+  "prose_revision_record": "verification/v10_prose_revision.json"
+}

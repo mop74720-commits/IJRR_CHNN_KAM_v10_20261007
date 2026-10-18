@@ -1,0 +1,15 @@
+{
+  "grid_and_thresholds_unchanged": true,
+  "internal_protocol_only": true,
+  "reason": "The pilot found large resonant amplitudes outside the reporting slope screen, so operational contours and startup were resolved with higher-mode and independent periodic computations.",
+  "additions": [
+    "Monodromy matrices at every converged two-mode grid/continuation endpoint; 512 steps per period.",
+    "15 cases with doubled time/resolution, four modes, eight modes.",
+    "Full64 Fourier fixed point at 35 frequency ratios and 31 in-range 4mm roots; 512/1024/2048/4096 phase and 2/4/8/16/32/64 mode comparisons.",
+    "Full64 Radau one-period response checks at r=.8,1,1.2.",
+    "Five from-rest startup roots for 2/8 modes; three doubled time/step/sample checks and full64 first32-period integrations.",
+    "Minimum steady clearance amplitude near first resonance."
+  ],
+  "nonlinear_residual_definition": "Evaluate dotX-omega*Y and dotY+omega*X+alpha*Y-omega0*d*[d.X-sin(d.X)+u*cos(d.X)] from the reconstructed Fourier state; force is recomputed, not reused from the fixed point iterate.",
+  "scope": "No extrapolation from negative FTLE to a continuous-domain theorem; no assertion that forced periodic stability is conservative KAM persistence. Startup contour depends on the stated zero initial condition and 0.25s ramp."
+}

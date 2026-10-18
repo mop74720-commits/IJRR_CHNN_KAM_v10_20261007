@@ -1,0 +1,424 @@
+% Standalone appendix fragment; the root manuscript supplies the section heading.
+% Literature keys: chierchia2021measure, biasco2018measure.
+% All angular variables in this appendix have period 2*pi.
+\label{app:measure-proof}
+\subsection{A fixed-domain bound and its scope}
+\label{sec:measure-fixed-tube}
+
+This appendix quantifies a sufficient local measure bound for the
+Hamiltonian identified from COMSOL integral observations. The construction
+uses the exact finite-amplitude torus and bounds the complete transformed
+Hamiltonian, including the action-domain remainder. The resulting width
+illustrates the conservatism of the explicit constants in
+\citet{chierchia2021measure}.
+
+\begin{samepage}
+\begin{theorem}[Explicit finite-amplitude tubular measure]
+\label{thm:measure-finite-tube}
+Let $h$ be the fitted Hamiltonian certified in
+Section~\ref{sec:validated-integral-learning}, and let $K_\infty$ be its
+exact invariant torus. There is an explicitly constructed analytic
+symplectic chart $\Xi=\Psi\circ\Phi_{\chi}$, specified in
+Sections~\ref{sec:measure-explicit-tube}--\ref{sec:measure-tube-normal-form},
+that fixes this torus at zero action.
+For the fixed domain
+\begin{equation}
+ U_w=\Xi\bigl(\mathbb T^2_{2\pi}\times(-w,w)^2\bigr),
+ \qquad w=10^{-220},
+ \label{eq:measure-fixed-tube}
+\end{equation}
+the KAM fraction satisfies
+\begin{equation}
+ f_{\rm KAM}(U_w)\geq0.9669383.
+ \label{eq:measure-certified-fraction}
+\end{equation}
+The centre torus is the previously certified motion with the
+$1.8977904$ mm tip witness and the $1.8977962$ mm all-phase centreline
+bound. The width $w$ is a dimensionless action half-width, not a
+displacement amplitude.
+\end{theorem}
+\end{samepage}
+
+\begin{proof}
+The explicit chart and a convergent quadratic normalization give
+\[
+ h\circ\Xi=e+\omega\cdot I+\tfrac12 I^\top\overline A I+R_3,
+ \qquad \omega=2\pi\varpi.
+\]
+The outward bounds are
+$\|\overline A\|_\infty\leq3$,
+$\|\overline A^{-1}\|_\infty\leq5100$ and
+$\|R_3\|_{2w,1/128}\leq4\times10^{51}w^3$.
+Use the global KAM theorem with real action radius $w$, complex radius
+$2w$, final angle strip $1/256$, frequency exponent $\tau=2$,
+boundary allowance $\rho=w/500$ and
+$\alpha=w/(1000\times5100)$.
+The dimensionless smallness quantity is at most
+$3.1212\times10^{-155}$, below the theorem threshold
+$7.6577\times10^{-155}$.
+The geometric estimate in Section~\ref{sec:measure-ck-bound} gives
+\begin{equation}
+ \begin{aligned}
+ 1-f_{\rm KAM}(U_w)
+ &\leq\frac{25}{16}\left(
+      \frac{4\rho}{w}+\frac{8\alpha L\zeta(2)}{w}\right)\\
+ &=\frac{25}{16}\left(0.008+0.008\zeta(2)\right)
+ <0.0330617,
+ \end{aligned}
+ \label{eq:measure-budget}
+\end{equation}
+where $L=5100$. The two terms account for the boundary layer and all
+integer resonance strips, respectively. Symplecticity transfers this
+relative measure to $U_w$ without a density correction.
+\end{proof}
+
+\begin{table}[t]
+\centering\small
+\caption{Outward bounds for the explicit finite-amplitude tube.
+The smallness quotient is the tested perturbation divided by the
+sufficient threshold; failure of that test does not imply chaos.}
+\label{tab:measure-tube-certificate}
+\begin{tabular}{lr}
+\hline
+Quantity & Bound or value\\
+\hline
+Initial chart action radius & $10^{-3}$\\
+Quadratic-normalization radius & $10^{-17}$\\
+Certified tube half-width $w$ & $10^{-220}$\\
+$\|\overline A\|_\infty$, $\|\overline A^{-1}\|_\infty$ & $3$, $5100$\\
+Smallness quotient at $w=10^{-220}$ & $<0.407586$\\
+Same quotient at $w=10^{-219}$ & $>4.0758$\\
+Certified fraction in $U_w$ & $>96.6938\%$\\
+\hline
+\end{tabular}
+\end{table}
+
+The width in Table~\ref{tab:measure-tube-certificate} quantifies the
+conservatism of this general theorem. The domain is centred on the exact
+millimetre-amplitude torus, but its thickness is far below any operational
+resolution. In particular, the computed Fourier approximation has a
+certified canonical-embedding error upper bound below
+$2.1\times10^{-41}$. This available guarantee cannot resolve membership
+in a tube whose transverse distance is bounded by
+$41w=4.1\times10^{-219}$; it is not an estimate of the actual embedding error.
+The domain is mathematically specified
+through $K_\infty$; this certificate does not permit an experimental
+initial state to be assigned to that tube from the finite-precision
+approximation. It supplies a concrete fixed-domain measure result while
+leaving the much wider operating-domain question to a separate
+calculation. Section~\ref{sec:measure-numerical} reports that wider-domain
+numerical diagnostic, with its own error checks and interpretation.
+
+\subsection{An explicit symplectic tube at the certified physical amplitude}
+\label{sec:measure-explicit-tube}
+
+Let $K_\infty$ be the exact torus supplied by the integral-COMSOL
+certificate, with its phase normalization fixed by that construction.
+Write $t=2\pi\theta$, $k(t)=K_\infty(t/(2\pi))$, and
+$\omega=2\pi\varpi$. Thus $D_\omega k=X_{h_\eta}(k)$, and the
+already verified Diophantine inequality becomes
+\begin{equation}
+ |\omega\cdot\ell|\geq\gamma_0|\ell|_1^{-3},\qquad
+ \gamma_0=2\pi\frac9{1750},\quad
+ 0\ne\ell\in\mathbb Z^2.
+ \label{eq:measure-centre-frequency}
+\end{equation}
+The exponent $3$ here concerns this fixed central torus. The family
+measure estimate below uses the separate exponent $\tau=2$.
+
+For each coordinate plane, define
+\begin{equation}
+ \begin{aligned}
+ j_a(t)&=\tfrac12(k_{X_a}^2+k_{Y_a}^2),\\
+ F_a(t)&=t_a+\frac{\log(1+u_{a,+})-\log(1+u_{a,-})}{2i},\\
+ u_{a,\pm}(t)&=10(k_{X_a}\mp i k_{Y_a})e^{\mp it_a}-1.
+ \end{aligned}
+ \label{eq:measure-polar-chart-data}
+\end{equation}
+The logarithms use the branches at $1$. On the real torus, $F_a$ is
+the phase of $k_{X_a}-ik_{Y_a}$ and $j_a>0$.
+Set $B(t)=DF(t)^{-\mathsf T}$ and define
+\begin{equation}
+ \begin{aligned}
+ J(t,I)&=j(t)+B(t)I,\\
+ \Psi_{X_a}(t,I)&=\sqrt{2J_a(t,I)}\cos F_a(t),\\
+ \Psi_{Y_a}(t,I)&=-\sqrt{2J_a(t,I)}\sin F_a(t).
+ \end{aligned}
+ \label{eq:measure-explicit-psi}
+\end{equation}
+Equivalently, each pair $(k_{X_a},k_{Y_a})$ is multiplied by
+$\sqrt{1+(BI)_a/j_a}$; this expression is convenient for interval
+evaluation and fixes the square-root branches.
+
+This is an exact symplectic chart. Indeed, polar coordinates have
+canonical one-form $J\cdot dF$, and
+\[
+ \Psi^*(J\cdot dF)=j(t)\cdot DF(t)dt+I\cdot dt.
+\]
+The first term is closed because $k$ is Lagrangian. Taking the exterior
+derivative gives $\sum_a dI_a\wedge dt_a$. This argument requires
+closedness, not exactness, of the first term. Since $DF$ is uniformly
+close to the identity, its real lift is a global diffeomorphism of
+$\mathbb T^2$; positive $J$ then makes $\Psi$ injective on its real
+tube. Moreover $\Psi(t,0)=k(t)$.
+
+The invariant-torus estimates and outward-rounded interval arithmetic
+give the following upper bounds:
+\begin{equation}
+ \begin{gathered}
+ \|k-k_0\|_{1/16}<7\,10^{-6},\\
+ k_0=0.1(\cos t_1,\cos t_2,-\sin t_1,-\sin t_2),\\
+ \|u_\pm\|_{1/16}<1/5000,\qquad
+ \|j-0.005\mathbf1\|_{1/16}<3\,10^{-6},\\
+ \|F-t\|_{1/16}<0.000201,\\
+ \max\{\|DF-\mathrm{Id}\|_\infty,
+             \|DF-\mathrm{Id}\|_1\}_{1/32}<0.013,\\
+ \|B\|_{1/32,\infty}<1.014.
+ \end{gathered}
+ \label{eq:measure-chart-bounds}
+\end{equation}
+Here a subscript is the complex angular strip width in radians;
+vector norms are maximum norms and matrix norms are induced norms.
+The first bound includes the a posteriori correction to the numerical
+embedding. For example, Cauchy's estimate bounds each entry of
+$D(F-t)$ by $0.000201/(1/32)$, so both row and column sums are below
+$0.013$. For $R_0=10^{-3}$, $|I|_\infty<R_0$ therefore implies
+\[
+ \begin{gathered}
+ |(BI)_a/j_a|<\frac{1.014\,10^{-3}}{0.005-3\,10^{-6}}<\tfrac14,
+ \\ \|\Psi\|_{1/32,R_0}<0.12.
+ \end{gathered}
+\]
+All logarithms, square roots and inverses above are thus holomorphic
+on the declared domain.
+
+Write $h_\eta=h_2+h_{\mathrm{nl}}$. The full cosine and the exact
+exported quartic coefficients give
+\begin{equation}
+ \|h_{\mathrm{nl}}\circ\Psi\|_{1/32,R_0}<10^{-6},\qquad
+ \|h_\eta\circ\Psi\|_{1/32,R_0}<0.05.
+ \label{eq:measure-chart-hamiltonian-bounds}
+\end{equation}
+The second estimate uses the identity $h_2\circ\Psi=\nu\cdot(j+BI)$,
+whose norm is less than $7.153(0.005003+0.001014)<0.044$.
+Invariance and symplecticity give the exact expansion
+\begin{equation}
+ h_\eta\circ\Psi=e+\omega\cdot I
+                 +\tfrac12 I^\mathsf T A(t)I+O(|I|^3).
+ \label{eq:measure-tube-hamiltonian}
+\end{equation}
+Only $h_{\mathrm{nl}}\circ\Psi$ contributes to $A$: Cauchy bounds
+on its diagonal and off-diagonal second derivatives give
+$\|A\|_{1/32,\infty}\leq3$.
+
+The averaged matrix $\overline A$ is nonsingular. To check the
+normalization, the tangent frame with radian angles is the certified
+cycle-angle frame divided by $2\pi$; a symplectically dual normal
+frame is multiplied by $2\pi$. Replacing that normal frame by
+$\partial_I\Psi(t,0)$ adds a symmetric tangential shear. Its contribution
+to the torsion is a directional derivative with zero angular average.
+Consequently
+\begin{equation}
+ \overline A=(2\pi)^2\langle T_\infty\rangle,\qquad
+ \|\overline A^{-1}\|_\infty
+ \leq\frac{2\,10^5}{(2\pi)^2}<5100.
+ \label{eq:measure-twist-normalization}
+\end{equation}
+The inverse-torsion bound applies to the exact final torus through
+the uniform a posteriori iteration.
+
+\subsection{A complete analytic remainder on a fixed tube}
+\label{sec:measure-tube-normal-form}
+
+Let $S$ be the symmetric, zero-average solution of
+$D_\omega S=A-\overline A$. Its Fourier coefficients for $\ell\ne0$
+are $S_\ell=A_\ell/(i\omega\cdot\ell)$. Equation
+\eqref{eq:measure-centre-frequency} and the angular strip loss
+$\delta=1/64$ imply
+\begin{equation}
+ \begin{aligned}
+ \|S\|_{1/64,\infty}
+ &\leq\frac{3}{\gamma_0}
+       4\sum_{m\geq1}m^4e^{-m/64}\\
+ &\leq\frac{288e^{1/64}64^5}{\gamma_0}<10^{13}=:T.
+ \end{aligned}
+ \label{eq:measure-homological-bound}
+\end{equation}
+There are $4m$ integer vectors of one-norm $m$. The second inequality
+uses $\sum_{m\geq1}m^4e^{-\delta m}
+\leq e^\delta\Gamma(5)\delta^{-5}$, obtained by integrating on
+each interval $[m,m+1]$.
+
+Use the exact time-one flow $\Phi_\chi$ of
+$\chi(t,I)=\tfrac12 I^\mathsf TS(t)I$, not a truncated Lie series.
+Fix $R_1=10^{-17}$. On the intermediate strip $3/256$, Cauchy's
+estimate from the strip $1/64$ gives
+$\|\partial_{t_a}S\|_\infty\leq256T$. As long as
+$|I|_\infty<2R_1$, the flow satisfies
+\[
+ \begin{aligned}
+ |\dot t|_\infty&\leq2TR_1=2\,10^{-4}<1/256,\\
+ |\dot I|_\infty&\leq1024TR_1^2
+       =0.1024R_1<R_1.
+ \end{aligned}
+\]
+These strict bounds close the continuation argument from the initial
+strip $1/128$ and action polydisc $R_1$: throughout the unit time
+interval, the angle stays inside $3/256$ and the action inside
+$2R_1<R_0$. The flow is holomorphic on the initial domain and
+symplectic on its real part.
+
+With the pullback convention $L_\chi H=\{H,\chi\}$,
+$\{\omega\cdot I,\chi\}=-D_\omega\chi$. Hence the exact transformed
+Hamiltonian has the form
+\begin{equation}
+ h_\eta\circ\Psi\circ\Phi_\chi
+ =e+\omega\cdot I+\tfrac12I^\mathsf T\overline A I+\mathcal R_3,
+ \label{eq:measure-complete-tube-normal-form}
+\end{equation}
+where $\mathcal R_3$ starts at total action degree three. The complete
+left-hand side remains bounded by $0.05$ on the strip $1/128$ and
+radius $R_1$. Cauchy's coefficient estimate in the two action
+variables therefore yields, for $0<r\leq R_1/2$,
+\begin{equation}
+ \begin{aligned}
+ \|\mathcal R_3\|_{1/128,r}
+ &\leq0.05\sum_{m\geq3}(m+1)(r/R_1)^m\\
+ &\leq\frac{0.5}{R_1^3}r^3=5\,10^{50}r^3.
+ \end{aligned}
+ \label{eq:measure-complete-cauchy-remainder}
+\end{equation}
+This bound includes the full magnetic cosine, all fitted quartics,
+the exact chart and the exact normalization flow.
+
+\subsection{A quantitative measure bound with all resonances included}
+\label{sec:measure-ck-bound}
+
+The action-domain dependence of KAM measure estimates is central in
+\citet{biasco2018measure}. We use the fully quantified formulation
+of \citet[Theorems~1 and~3, Eqs.~(4), (9), (13)--(14)]{chierchia2021measure}.
+Consider a Hamiltonian $K(I)+\mathcal R(I,t)$ on
+$B_R(I_c)\times\mathbb T_s^2$, with
+$K=e+\omega\cdot I+\tfrac12I^\mathsf TAI$, real symmetric invertible
+$A$, and $\|\mathcal R\|_{R,s}\leq E$.
+Let $M\geq\|A\|_\infty$, $L\geq\|A^{-1}\|_\infty$,
+$\vartheta=ML$, and $\epsilon=ME/\alpha^2$.
+For $0<\rho<r\leq R$, $0<s_*<s\leq1$, and $\tau>1$, the sufficient
+conditions are
+\begin{equation}
+ \alpha\leq c_0\rho/L,\qquad
+ \epsilon\leq\epsilon_*:=
+ \frac{(s-s_*)^{7(\tau+1)+10}}{c_*\vartheta^6}.
+ \label{eq:measure-ck-smallness}
+\end{equation}
+Here $c_0,c_*$ are exactly the constants in their Appendix~A,
+Remark~A.4, Eq.~(A.38), evaluated for $d=2$ and the chosen $\tau$.
+Upper bounds on $M,L,E,c_*$, and a lower bound on $c_0$, are used
+in the appropriate directions. The normalization is
+$H=K+\varepsilon P$ with $\varepsilon\|P\|\leq E$.
+
+Take the centre set in that theorem to be the singleton $\{I_c\}$.
+The real domain is precisely $D=B_r(I_c)$, the inner domain is
+$B_{r-\rho}(I_c)$, and the boundary layer in Theorem~3 is
+$B_{r+\rho}(I_c)\setminus B_{r-\rho}(I_c)$, of area $16r\rho$.
+Let $\mathcal K\subset D\times\mathbb T^2$ be the certified KAM set.
+The Lipschitz estimate in their Eq.~(9) is at most $1/8$, so the
+factor multiplying the bad action measure in Eq.~(14) is bounded
+by $(25/16)(2\pi)^2$.
+
+For completeness the remaining estimate includes every integer
+resonance. For $m=|\ell|_1$, the strip
+\[
+ |\ell\cdot(\omega+AI)|<\alpha/m^\tau
+\]
+has intersection with $D$ of area at most
+$4r\alpha/(m^\tau\|A\ell\|_\infty)$. Since
+$\|A\ell\|_\infty\geq m/(2L)$ and there are $4m$ vectors on the
+shell, summing over all shells gives
+\[
+ \operatorname{meas}(R_\alpha)\leq32r\alpha L\zeta(\tau).
+\]
+Counting both signs of each resonance gives a conservative upper
+bound. Dividing Theorem~3's bound by
+$\operatorname{meas}(D\times\mathbb T^2)=4r^2(2\pi)^2$ proves
+\begin{equation}
+ \frac{\operatorname{meas}(\mathcal K)}{4r^2(2\pi)^2}
+ \geq1-\frac{25}{16}
+ \left(\frac{4\rho}{r}+
+       \frac{8\alpha L\zeta(\tau)}{r}\right).
+ \label{eq:measure-ck-relative-lower-bound}
+\end{equation}
+The estimate therefore includes resonances of every integer order.
+
+Apply this result to \eqref{eq:measure-complete-tube-normal-form}, with
+\begin{equation}
+ \begin{gathered}
+ I_c=0,\quad r=w,\quad R=2w,\\
+ s=1/128,\quad s_*=1/256,\quad \tau=2,\\
+ M=3,\quad L=5100,\quad\vartheta=15300,\\
+ E=4\,10^{51}w^3,\\
+ \rho=w/500,\qquad\alpha=w/(1000L).
+ \end{gathered}
+ \label{eq:measure-tube-instantiation}
+\end{equation}
+Any specified positive $w\leq R_1/4$ satisfying
+\begin{equation}
+ 4\,10^{57}M L^2w
+ \leq \frac{256^{-31}}{c_*\vartheta^6}
+ \label{eq:measure-explicit-w-condition}
+\end{equation}
+passes the smallness condition. The first condition in
+\eqref{eq:measure-ck-smallness} follows already from $c_0>1$.
+For every such fixed $w$, define the physical canonical tube
+\begin{equation}
+ U_w=(\Psi\circ\Phi_\chi)
+       (\mathbb T^2\times B_w(0)).
+ \label{eq:measure-physical-tube}
+\end{equation}
+It is an injective symplectic image of a declared domain, so its
+Liouville volume is $4w^2(2\pi)^2$. Equations
+\eqref{eq:measure-ck-relative-lower-bound} and
+\eqref{eq:measure-tube-instantiation} give the explicit bound
+\begin{equation}
+ \begin{aligned}
+ \frac{\mu_L(U_w\cap\mathcal K_{h_\eta})}{\mu_L(U_w)}
+ &\geq1-\frac{25}{16}
+       \left(\frac4{500}+\frac8{1000}\frac{\pi^2}{6}\right)\\
+ &>0.9669383.
+ \end{aligned}
+ \label{eq:measure-fixed-tube-percentage}
+\end{equation}
+The numerical certificate takes the exact value $w=10^{-220}$.
+It encloses $\epsilon_*$ above $7.6577\,10^{-155}$ and the
+smallness ratio $\epsilon/\epsilon_*$ below $0.40759$, verifying
+\eqref{eq:measure-explicit-w-condition} with outward rounding.
+
+The transverse size of this particular tube is also bounded. For any
+real point of $U_w$, write $(t',I')=\Phi_\chi(t,I)$. The same flow
+estimate on the smaller action domain gives $|I'|_\infty<2w$.
+Comparison with the central point $k(t')$, rather than with a fixed
+phase label before the flow, eliminates the irrelevant phase shift.
+For real $q>-1$, $|\sqrt{1+q}-1|
+=|q|/(1+\sqrt{1+q})\leq|q|$; hence
+\begin{equation}
+ \begin{aligned}
+ \|\Psi(t',I')-k(t')\|_\infty
+ &\leq\frac{0.100007\,(1.014)\,2w}{0.005-3\,10^{-6}}\\
+ &<41w=4.1\,10^{-219}.
+ \end{aligned}
+ \label{eq:measure-tube-transverse-width}
+\end{equation}
+This is a bound in the dimensionless Cartesian canonical variables;
+the SI displacement bound follows by applying the fixed modal
+reconstruction matrix. The millimetre value describes the amplitude
+of the central motion, not the thickness in
+\eqref{eq:measure-tube-transverse-width}.
+
+The fraction concerns the conservative Hamiltonian on a four-dimensional
+symplectic tube. The constant SI scaling cancels from the ratio.
+As quantified in Section~\ref{sec:measure-fixed-tube}, the transverse width
+is far below operational resolution and the available embedding-error
+guarantee. The exact set is mathematically defined, but membership cannot
+be resolved from the computed torus approximation. The lift to the damped
+closed loop carries only the low-mode parameter measure specified in
+Section~\ref{sec:measure-definition}.

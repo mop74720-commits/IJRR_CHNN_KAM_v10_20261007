@@ -1,0 +1,228 @@
+% Integration fragment; theorem/proof environments must be defined by the host.
+% All variables in the learning and safety subsections are dimensionless.
+
+\subsection{Rod mechanics and a variationally consistent reduction}
+Following the spatial rod formulation \citep{simo,antman}, let $s\in[0,L]$ denote reference arclength, $r(s,t)\in\mathbb R^3$
+the centreline and $D(s,t)\in SO(3)$ its director frame. Define
+\begin{equation}
+ \Gamma=D^{\mathsf T}r_s,\quad
+ D_s=D\widehat\kappa,\quad D_t=D\widehat\omega_b.
+\end{equation}
+The hat map is defined by $\widehat a b=a\times b$.
+The extensible, unshearable Kirchhoff specialization has
+$\Gamma=(0,0,1+e)^{\mathsf T}$; inextensibility additionally sets $e=0$.
+Transverse internal forces are then constraint reactions. They must not
+be set to zero by substituting zero shear into a shearable constitutive law.
+In spatial components the balances are
+\begin{align}
+ \rho A r_{tt}&=n_s+f_{\rm mag}+f_{\rm h}+f_{\rm c}+\rho A g,\\
+ \partial_t(D\mathcal J_b\omega_b)&=m_s+r_s\times n+\tau_{\rm ext}.
+\end{align}
+For constant body inertia, the left side of the second equation is
+$D(\mathcal J_b\dot\omega_b+\omega_b\times\mathcal J_b\omega_b)$.
+With stored energy density $W(\Gamma,\kappa)$, unconstrained components
+of $D^{\mathsf T}n$ and $D^{\mathsf T}m$ are its strain derivatives.
+A fixed base specifies position and orientation; a free tip specifies
+the appropriate force and moment resultants, including any concentrated
+magnetic load.
+
+For a body-fixed magnetic moment density $\mu_b(s)$ and a static applied
+field $B_0(r)$, neglecting magnetic interactions between distinct
+material elements gives the applied-field potential
+\begin{equation}
+ V_{\rm mag}=-\int_0^L(D\mu_b)\cdot B_0(r)\,ds.
+\end{equation}
+Its translational and rotational variations give
+$f_{\rm mag}=\nabla_r(\mu\cdot B_0)$ at fixed orientation and
+$\tau_{\rm mag}=\mu\times B_0$, where $\mu=D\mu_b$.
+Thus static magnetic loading belongs to the conservative energy.
+Field modulation supplies explicit time-dependent work or an input port.
+The permanent-dipole load is the leading term of the Maxwell-stress
+resultant derived below; it is counted once in the force balance.
+
+For a complete localized magnetic element, the magnetostatic force
+can be evaluated on a surrounding vacuum control surface $\Sigma$:
+\begin{equation}
+ F_{\rm mag}=\int_\Sigma T_Mn_\Sigma\dd A,\qquad
+ T_M=\mu_0^{-1}(BB^{\mathsf T}-\tfrac12|B|^2I).
+\end{equation}
+Here $B$ is the total field, including the element's self-field.
+The associated moment integrates the moment arm crossed with
+$T_Mn_\Sigma$. To recover the permanent-dipole approximation, represent
+the element by its complete localized steady current $j(\xi)$,
+including bound currents, with $\xi=x-r$. The prescribed magnetization
+is unaffected by the applied field $B_{\rm ext}$, whose sources lie
+outside $\Sigma$. Current closure gives $\nabla\cdot j=0$ and no flux
+through the boundary. The identity $\nabla\cdot T_M=j\times B$ and
+symmetry of $T_M$ convert the stress resultants into Lorentz force and
+moment. The self-field has zero net force and moment, as seen by taking
+its stress surface to infinity; the applied-field-only stress also has
+zero resultant in this source-free volume. The remaining interaction is
+\begin{equation}
+\begin{aligned}
+ m_{\rm d}&=\tfrac12\int\xi\times j(\xi)\,\dd V,\\
+ F_{\rm mag}&=\int j(\xi)\times B_{\rm ext}(r+\xi)\,\dd V\\
+ &=\nabla_r\!\left(m_{\rm d}\cdot B_{\rm ext}(r)\right)+R_F,\\
+ \tau_{\rm mag}&=\int\xi\times[j(\xi)\times B_{\rm ext}(r+\xi)]\,\dd V\\
+ &=m_{\rm d}\times B_{\rm ext}(r)+R_\tau .
+\end{aligned}
+\label{eq:stress-dipole-reduction}
+\end{equation}
+The gradient holds the moment orientation fixed.
+Integration by parts gives $\int j\,\dd V=0$ and
+$\int\xi_i j_j\,\dd V=\epsilon_{ijk}(m_{\rm d})_k$.
+Taylor expansion of $B_{\rm ext}$ and $\nabla\cdot B_{\rm ext}=0$
+then give \eqref{eq:stress-dipole-reduction}.
+For $J_2=\int|\xi|^2|j(\xi)|\,\dd V$, the remainders obey
+$|R_F|\le\tfrac12J_2\sup\|D^2B_{\rm ext}\|$ and
+$|R_\tau|\le J_2\sup\|DB_{\rm ext}\|$, with operator norms taken over
+the element and its Taylor segments. Surface-current contributions are
+included in these integrals when present. Neglecting the higher
+multipoles recovers the permanent-dipole force and torque used in
+magnetic robotics \citep[Section~4.1, Eqs.~(12) and~(16)]{abbott}.
+
+A modified Morison-type local closure, stated per unit reference length,
+is
+\begin{align}
+ f_{\rm h}={}&m_f a_f+m_a(a_f-r_{tt})
+             -c_1v_r-c_2|v_r|v_r,\\
+ v_r={}&r_t-v_f,\qquad c_1,c_2\ge0.
+\end{align}
+Here $m_f=\rho_f A_f$ and $m_a$ are displaced-fluid and added mass
+per unit length; $a_f$ is the prescribed fluid acceleration.
+This is a reduced closure requiring calibration, not a solved
+Navier--Stokes interaction. In still fluid its drag power is
+$-c_1|r_t|^2-c_2|r_t|^3$. In moving fluid it is dissipative relative to
+the fluid velocity and can do positive work on the rod. A constant
+added mass may be moved to the inertial side exactly once.
+
+For a stationary wall, define penetration $\delta(r)$ positive inside
+the wall and $n_c=\nabla\delta$. One nonadhesive penalty model is
+\begin{align}
+ V_c&=\frac{k_c}{m+1}[\delta]_+^{m+1},\\
+ f_c&=-k_c[\delta]_+^m n_c
+       -c_c\mathbf1_{\{\delta>0\}}[\dot\delta]_+n_c.
+\end{align}
+The elastic term is included through $V_c$ and the second term dissipates
+power during compression. Friction can be added as a dissipative port.
+This switching law is used for force accounting outside the contact-free
+KAM domain, not as an analytic perturbation through an impact.
+
+Choose a configuration map $(r(s,q),D(s,q))$ that satisfies the essential
+boundary conditions and the rod constraints. A linear centreline
+ansatz alone is insufficient to specify rotational inertia. Define
+\begin{equation}
+ r_i=\partial_{q_i}r,\qquad
+ a_i=\operatorname{vee}(D^{\mathsf T}\partial_{q_i}D).
+\end{equation}
+Then $\omega_b=\sum_i a_i\dot q_i$ and the reduced kinetic energy is
+\begin{align}
+ T_N&=\tfrac12\dot q^{\mathsf T}M(q)\dot q,\\
+ M_{ij}(q)&=\int_0^L\left(\rho A r_i\cdot r_j+
+                 a_i^{\mathsf T}\mathcal J_ba_j\right)ds.
+\end{align}
+An added-fluid-mass contribution may be included when its consistent
+kinetic metric and associated inertial terms are specified. Otherwise
+hydrodynamic inertia remains in the generalized force balance and is
+not also included in $M$. Galerkin projection of the virtual-work
+identity gives
+\begin{equation}
+ M(q)\ddot q+C(q,\dot q)\dot q+\nabla V_N(q)=Q_{\rm nc},
+\end{equation}
+\begin{equation}
+ Q_i=\int_0^L(f\cdot r_i+\tau\cdot Da_i)ds+Q_i^\partial.
+\end{equation}
+Here $C\dot q$ denotes the Christoffel contribution of $M$, and $V_N$
+contains elastic, static magnetic and retained gravitational potentials.
+Microgravity reduces the last contribution; it does not eliminate
+fluid drag or establish a particular blood-flow profile.
+Relative-flow drag, moving-base work and contact losses are retained in
+$Q_{\rm nc}$. A stationary-fluid quadratic drag, for example, has
+nonpositive power; a moving fluid may inject energy. Contact switching
+is excluded from the analytic neighbourhood used for KAM analysis.
+
+For $M(q)\succ0$, the Legendre transform yields
+\begin{equation}
+ p=M(q)\dot q,\qquad
+ H_N(q,p)=\tfrac12p^{\mathsf T}M(q)^{-1}p+V_N(q).
+\end{equation}
+In particular,
+$\dot p_i=-\tfrac12p^{\mathsf T}\partial_{q_i}(M^{-1})p
+-\partial_{q_i}V_N+(Q_{\rm nc})_i$.
+The configuration dependence of inertia is retained. Potential forces
+appear either in $V_N$ or in $Q_{\rm nc}$, never both.
+
+\subsection{Complex energy--dissipation representation with an explicit decoder}
+Energy and Rayleigh dissipation have different physical units. Let $E_0$
+and $t_0$ be reference energy and time, and choose diagonal position and
+momentum scales $Q_0,P_0$ with $Q_0^{\mathsf T}P_0=E_0t_0I$.
+Set $q=Q_0x$, $p=P_0y$, $\tau=t/t_0$ and
+\begin{align}
+ h(x,y)&=H_N(Q_0x,P_0y)/E_0,\\
+ d(x,v)&=\frac{t_0}{E_0}\mathcal D_N(Q_0x,Q_0v/t_0).
+\end{align}
+Here $v=dx/d\tau$ and $\mathcal D_N$ is a Rayleigh dissipation potential.
+The two entries of $h+id$ are now dimensionless. A complex network
+provides coupled features and two physically decoded real readouts,
+\begin{align}
+ \mathcal H_\theta(x,y,v)&=h_\theta(x,y)+i d_\theta(x,v),\\
+ h_\theta&=h_{\rm prior}+h_{{\rm res},\theta}.
+\end{align}
+One admissible dissipative head is
+\begin{equation}
+ d_\theta(x,v)=\tfrac12v^{\mathsf T}D_\theta(x)v,
+ \qquad D_\theta(x)=L_\theta(x)L_\theta(x)^{\mathsf T}\succeq0.
+\end{equation}
+More general heads may be used if $d_\theta(x,\cdot)$ is differentiable,
+convex and minimized at zero. The decoder is
+\begin{align}
+ v&=\partial_y h_\theta,\qquad x'=v,\\
+ y'&=-\partial_x h_\theta-\partial_vd_\theta(x,v)+B(x)u.
+ \label{eq:fragment-decoder}
+\end{align}
+The derivative of $d_\theta$ is taken with respect to its independent
+velocity argument before substituting $v=\partial_yh_\theta$.
+It is not a total derivative through this substitution.
+
+\begin{proposition}[Power-consistent complex representation]
+For a differentiable $h_\theta$, the decoded system satisfies
+\begin{equation}
+ \frac{d h_\theta}{d\tau}
+ =-v^{\mathsf T}\partial_vd_\theta(x,v)
+   +u^{\mathsf T}B(x)^{\mathsf T}v+\partial_\tau h_\theta.
+ \label{eq:fragment-power}
+\end{equation}
+For the quadratic head, the first term equals
+$-v^{\mathsf T}D_\theta(x)v\le0$. For the convex head it is also
+nonpositive.
+\end{proposition}
+\begin{proof}
+Apply the chain rule to $h_\theta$ and substitute
+\eqref{eq:fragment-decoder}. The two canonical terms cancel.
+Convexity and the minimum at zero imply
+$v^{\mathsf T}\partial_vd_\theta(x,v)
+\ge d_\theta(x,v)-d_\theta(x,0)\ge0$.
+\end{proof}
+
+With $z=(x+iy)/\sqrt2$, the canonical convention is
+$\{z_j,\bar z_k\}=-i\delta_{jk}$ and
+\begin{equation}
+ z'=-i\partial_{\bar z}h_\theta
+       -\frac{i}{\sqrt2}\partial_vd_\theta
+       +\frac{i}{\sqrt2}B(x)u.
+\end{equation}
+This is a unified complex representation of conservative and
+nonconservative dynamics with a specified physical decoder. The rule
+$z'=-i\partial_{\bar z}(h_\theta+i d_\theta)$ would generally produce
+a different vector field and has no automatic dissipativity guarantee.
+Real analyticity in $(x,y)$, and a controlled analytic extension to a
+complex neighbourhood, are the relevant requirements for analytic KAM.
+Holomorphicity in $z$ alone is not required of a nonconstant real energy
+$h_\theta(z,\bar z)$. In particular, ReLU or modReLU features require a
+separate smooth approximation or a theorem of appropriate regularity;
+their ordinary piecewise-smooth implementation is not analytic.
+
+
+The dimensional specialization below uses explicit SI units. The learning
+and KAM statements use dimensionless canonical variables, with their
+energy and time scales declared before fitting.

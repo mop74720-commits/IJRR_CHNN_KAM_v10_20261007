@@ -1,0 +1,642 @@
+[
+  {
+    "frequency_ratio": 0.8,
+    "full_FE_root_mT": 13.636162705190408,
+    "modal_results": [
+      {
+        "amplitude_mT": 13.636162705190408,
+        "frequency_ratio": 0.8,
+        "modes": 2,
+        "phase_samples": 1024,
+        "iterations": 5,
+        "iteration_residual_rad": 2.0539125955565396e-14,
+        "ODE_residual_per_s": 1.7763568394002505e-15,
+        "whole_bound_mm": 3.9505405381313317,
+        "tip_peak_mm": 3.9505405381313317,
+        "slope_bound_rad": 0.07200814872630636
+      },
+      {
+        "amplitude_mT": 13.636162705190408,
+        "frequency_ratio": 0.8,
+        "modes": 4,
+        "phase_samples": 1024,
+        "iterations": 5,
+        "iteration_residual_rad": 3.877453913503359e-14,
+        "ODE_residual_per_s": 2.220446049250313e-15,
+        "whole_bound_mm": 3.9874739357425972,
+        "tip_peak_mm": 3.9874739357425972,
+        "slope_bound_rad": 0.07587430596657496
+      },
+      {
+        "amplitude_mT": 13.636162705190408,
+        "frequency_ratio": 0.8,
+        "modes": 8,
+        "phase_samples": 1024,
+        "iterations": 5,
+        "iteration_residual_rad": 5.3138049516121555e-14,
+        "ODE_residual_per_s": 1.6370368602358631e-15,
+        "whole_bound_mm": 3.997055489946332,
+        "tip_peak_mm": 3.997055489946332,
+        "slope_bound_rad": 0.0778569903600975
+      },
+      {
+        "amplitude_mT": 13.636162705190408,
+        "frequency_ratio": 0.8,
+        "modes": 16,
+        "phase_samples": 1024,
+        "iterations": 5,
+        "iteration_residual_rad": 6.217248937900877e-14,
+        "ODE_residual_per_s": 2.6645352591003757e-15,
+        "whole_bound_mm": 3.9993828425811646,
+        "tip_peak_mm": 3.9993828425811646,
+        "slope_bound_rad": 0.0789299613882489
+      },
+      {
+        "amplitude_mT": 13.636162705190408,
+        "frequency_ratio": 0.8,
+        "modes": 32,
+        "phase_samples": 1024,
+        "iterations": 5,
+        "iteration_residual_rad": 6.71962485654376e-14,
+        "ODE_residual_per_s": 2.1846217965978173e-15,
+        "whole_bound_mm": 3.9999094996753883,
+        "tip_peak_mm": 3.9999094996753883,
+        "slope_bound_rad": 0.07949802918812825
+      },
+      {
+        "amplitude_mT": 13.636162705190408,
+        "frequency_ratio": 0.8,
+        "modes": 64,
+        "phase_samples": 1024,
+        "iterations": 5,
+        "iteration_residual_rad": 7.25669524470618e-14,
+        "ODE_residual_per_s": 1.0083199483559521e-14,
+        "whole_bound_mm": 3.9999999999999933,
+        "tip_peak_mm": 3.9999999999999933,
+        "slope_bound_rad": 0.07983070574793365
+      }
+    ],
+    "phase_results": [
+      {
+        "amplitude_mT": 13.636162705190408,
+        "frequency_ratio": 0.8,
+        "modes": 64,
+        "phase_samples": 512,
+        "iterations": 5,
+        "iteration_residual_rad": 7.25669524470618e-14,
+        "ODE_residual_per_s": 1.3182638687525265e-14,
+        "whole_bound_mm": 3.9999645529772003,
+        "tip_peak_mm": 3.9999645529772003,
+        "slope_bound_rad": 0.07983070574793363
+      },
+      {
+        "amplitude_mT": 13.636162705190408,
+        "frequency_ratio": 0.8,
+        "modes": 64,
+        "phase_samples": 1024,
+        "iterations": 5,
+        "iteration_residual_rad": 7.25669524470618e-14,
+        "ODE_residual_per_s": 1.0083199483559521e-14,
+        "whole_bound_mm": 3.9999999999999933,
+        "tip_peak_mm": 3.9999999999999933,
+        "slope_bound_rad": 0.07983070574793365
+      },
+      {
+        "amplitude_mT": 13.636162705190408,
+        "frequency_ratio": 0.8,
+        "modes": 64,
+        "phase_samples": 2048,
+        "iterations": 5,
+        "iteration_residual_rad": 7.25669524470618e-14,
+        "ODE_residual_per_s": 1.1405593977962505e-14,
+        "whole_bound_mm": 4.000001103616248,
+        "tip_peak_mm": 4.000001103616248,
+        "slope_bound_rad": 0.07983070574793365
+      },
+      {
+        "amplitude_mT": 13.636162705190408,
+        "frequency_ratio": 0.8,
+        "modes": 64,
+        "phase_samples": 4096,
+        "iterations": 5,
+        "iteration_residual_rad": 7.25669524470618e-14,
+        "ODE_residual_per_s": 1.4530695153487338e-14,
+        "whole_bound_mm": 4.000005258597062,
+        "tip_peak_mm": 4.000005258597062,
+        "slope_bound_rad": 0.07983070574793365
+      }
+    ]
+  },
+  {
+    "frequency_ratio": 0.9,
+    "full_FE_root_mT": 7.500495134369403,
+    "modal_results": [
+      {
+        "amplitude_mT": 7.500495134369403,
+        "frequency_ratio": 0.9,
+        "modes": 2,
+        "phase_samples": 1024,
+        "iterations": 5,
+        "iteration_residual_rad": 8.715250743307479e-15,
+        "ODE_residual_per_s": 1.7763568394002505e-15,
+        "whole_bound_mm": 3.9731959508366357,
+        "tip_peak_mm": 3.9731959508366357,
+        "slope_bound_rad": 0.06989836516327005
+      },
+      {
+        "amplitude_mT": 7.500495134369403,
+        "frequency_ratio": 0.9,
+        "modes": 4,
+        "phase_samples": 1024,
+        "iterations": 5,
+        "iteration_residual_rad": 1.2490009027033011e-14,
+        "ODE_residual_per_s": 1.7763568394002505e-15,
+        "whole_bound_mm": 3.993181522881842,
+        "tip_peak_mm": 3.993181522881842,
+        "slope_bound_rad": 0.07193450102535145
+      },
+      {
+        "amplitude_mT": 7.500495134369403,
+        "frequency_ratio": 0.9,
+        "modes": 8,
+        "phase_samples": 1024,
+        "iterations": 5,
+        "iteration_residual_rad": 1.4988010832439613e-14,
+        "ODE_residual_per_s": 1.7763568394002505e-15,
+        "whole_bound_mm": 3.9983803791204964,
+        "tip_peak_mm": 3.9983803791204964,
+        "slope_bound_rad": 0.07293942085700483
+      },
+      {
+        "amplitude_mT": 7.500495134369403,
+        "frequency_ratio": 0.9,
+        "modes": 16,
+        "phase_samples": 1024,
+        "iterations": 5,
+        "iteration_residual_rad": 1.6417422976644502e-14,
+        "ODE_residual_per_s": 1.5543122344752192e-15,
+        "whole_bound_mm": 3.9996514191275874,
+        "tip_peak_mm": 3.9996514191275874,
+        "slope_bound_rad": 0.07343384955849638
+      },
+      {
+        "amplitude_mT": 7.500495134369403,
+        "frequency_ratio": 0.9,
+        "modes": 32,
+        "phase_samples": 1024,
+        "iterations": 5,
+        "iteration_residual_rad": 1.7166823518266483e-14,
+        "ODE_residual_per_s": 1.7763568394002505e-15,
+        "whole_bound_mm": 3.999943410340345,
+        "tip_peak_mm": 3.999943410340345,
+        "slope_bound_rad": 0.07374148946695631
+      },
+      {
+        "amplitude_mT": 7.500495134369403,
+        "frequency_ratio": 0.9,
+        "modes": 64,
+        "phase_samples": 1024,
+        "iterations": 5,
+        "iteration_residual_rad": 1.7943979635504093e-14,
+        "ODE_residual_per_s": 4.8727316965385094e-15,
+        "whole_bound_mm": 3.9999999999999973,
+        "tip_peak_mm": 3.9999999999999973,
+        "slope_bound_rad": 0.07387619848376203
+      }
+    ],
+    "phase_results": [
+      {
+        "amplitude_mT": 7.500495134369403,
+        "frequency_ratio": 0.9,
+        "modes": 64,
+        "phase_samples": 512,
+        "iterations": 5,
+        "iteration_residual_rad": 1.7943979635504093e-14,
+        "ODE_residual_per_s": 4.563788466159777e-15,
+        "whole_bound_mm": 3.9999999999999973,
+        "tip_peak_mm": 3.9999999999999973,
+        "slope_bound_rad": 0.07387619848376205
+      },
+      {
+        "amplitude_mT": 7.500495134369403,
+        "frequency_ratio": 0.9,
+        "modes": 64,
+        "phase_samples": 1024,
+        "iterations": 5,
+        "iteration_residual_rad": 1.7943979635504093e-14,
+        "ODE_residual_per_s": 4.8727316965385094e-15,
+        "whole_bound_mm": 3.9999999999999973,
+        "tip_peak_mm": 3.9999999999999973,
+        "slope_bound_rad": 0.07387619848376203
+      },
+      {
+        "amplitude_mT": 7.500495134369403,
+        "frequency_ratio": 0.9,
+        "modes": 64,
+        "phase_samples": 2048,
+        "iterations": 5,
+        "iteration_residual_rad": 1.7957857423311907e-14,
+        "ODE_residual_per_s": 5.392872183074273e-15,
+        "whole_bound_mm": 3.9999999999999973,
+        "tip_peak_mm": 3.9999999999999973,
+        "slope_bound_rad": 0.07387653834621795
+      },
+      {
+        "amplitude_mT": 7.500495134369403,
+        "frequency_ratio": 0.9,
+        "modes": 64,
+        "phase_samples": 4096,
+        "iterations": 5,
+        "iteration_residual_rad": 1.7957857423311907e-14,
+        "ODE_residual_per_s": 5.398502788269032e-15,
+        "whole_bound_mm": 3.9999999999999973,
+        "tip_peak_mm": 3.9999999999999973,
+        "slope_bound_rad": 0.07387653834621796
+      }
+    ]
+  },
+  {
+    "frequency_ratio": 1.0,
+    "full_FE_root_mT": 1.9168489122265309,
+    "modal_results": [
+      {
+        "amplitude_mT": 1.9168489122265309,
+        "frequency_ratio": 1.0,
+        "modes": 2,
+        "phase_samples": 1024,
+        "iterations": 4,
+        "iteration_residual_rad": 1.0373646386341306e-14,
+        "ODE_residual_per_s": 2.220446049250313e-15,
+        "whole_bound_mm": 3.999913684650035,
+        "tip_peak_mm": 3.999913684650035,
+        "slope_bound_rad": 0.06745117891131591
+      },
+      {
+        "amplitude_mT": 1.9168489122265309,
+        "frequency_ratio": 1.0,
+        "modes": 4,
+        "phase_samples": 1024,
+        "iterations": 4,
+        "iteration_residual_rad": 1.2378986724570495e-14,
+        "ODE_residual_per_s": 1.7763568394002505e-15,
+        "whole_bound_mm": 3.9999692144685737,
+        "tip_peak_mm": 3.9999692144685737,
+        "slope_bound_rad": 0.0674603268243352
+      },
+      {
+        "amplitude_mT": 1.9168489122265309,
+        "frequency_ratio": 1.0,
+        "modes": 8,
+        "phase_samples": 1024,
+        "iterations": 4,
+        "iteration_residual_rad": 1.3350431871117507e-14,
+        "ODE_residual_per_s": 2.220446049250313e-15,
+        "whole_bound_mm": 3.999987915175844,
+        "tip_peak_mm": 3.999987915175844,
+        "slope_bound_rad": 0.06746032468285161
+      },
+      {
+        "amplitude_mT": 1.9168489122265309,
+        "frequency_ratio": 1.0,
+        "modes": 16,
+        "phase_samples": 1024,
+        "iterations": 4,
+        "iteration_residual_rad": 1.3822276656583199e-14,
+        "ODE_residual_per_s": 2.220446049250313e-15,
+        "whole_bound_mm": 3.9999948250962687,
+        "tip_peak_mm": 3.9999948250962687,
+        "slope_bound_rad": 0.06745942260236301
+      },
+      {
+        "amplitude_mT": 1.9168489122265309,
+        "frequency_ratio": 1.0,
+        "modes": 32,
+        "phase_samples": 1024,
+        "iterations": 4,
+        "iteration_residual_rad": 1.4058199049316045e-14,
+        "ODE_residual_per_s": 2.220446049250313e-15,
+        "whole_bound_mm": 3.999997652330474,
+        "tip_peak_mm": 3.999997652330474,
+        "slope_bound_rad": 0.06745961869153952
+      },
+      {
+        "amplitude_mT": 1.9168489122265309,
+        "frequency_ratio": 1.0,
+        "modes": 64,
+        "phase_samples": 1024,
+        "iterations": 4,
+        "iteration_residual_rad": 1.427330476033717e-14,
+        "ODE_residual_per_s": 1.942189689313165e-15,
+        "whole_bound_mm": 4.000000000000003,
+        "tip_peak_mm": 4.000000000000003,
+        "slope_bound_rad": 0.06745956782450174
+      }
+    ],
+    "phase_results": [
+      {
+        "amplitude_mT": 1.9168489122265309,
+        "frequency_ratio": 1.0,
+        "modes": 64,
+        "phase_samples": 512,
+        "iterations": 4,
+        "iteration_residual_rad": 1.4280243654241076e-14,
+        "ODE_residual_per_s": 2.7469601617563254e-15,
+        "whole_bound_mm": 3.9999291313640457,
+        "tip_peak_mm": 3.9999291313640457,
+        "slope_bound_rad": 0.06745950530340297
+      },
+      {
+        "amplitude_mT": 1.9168489122265309,
+        "frequency_ratio": 1.0,
+        "modes": 64,
+        "phase_samples": 1024,
+        "iterations": 4,
+        "iteration_residual_rad": 1.427330476033717e-14,
+        "ODE_residual_per_s": 1.942189689313165e-15,
+        "whole_bound_mm": 4.000000000000003,
+        "tip_peak_mm": 4.000000000000003,
+        "slope_bound_rad": 0.06745956782450174
+      },
+      {
+        "amplitude_mT": 1.9168489122265309,
+        "frequency_ratio": 1.0,
+        "modes": 64,
+        "phase_samples": 2048,
+        "iterations": 4,
+        "iteration_residual_rad": 1.426636586643326e-14,
+        "ODE_residual_per_s": 2.744251713523295e-15,
+        "whole_bound_mm": 4.000000000000003,
+        "tip_peak_mm": 4.000000000000003,
+        "slope_bound_rad": 0.06745985405273466
+      },
+      {
+        "amplitude_mT": 1.9168489122265309,
+        "frequency_ratio": 1.0,
+        "modes": 64,
+        "phase_samples": 4096,
+        "iterations": 4,
+        "iteration_residual_rad": 1.427330476033717e-14,
+        "ODE_residual_per_s": 2.739886187604027e-15,
+        "whole_bound_mm": 4.000000000000003,
+        "tip_peak_mm": 4.000000000000003,
+        "slope_bound_rad": 0.06745985405273466
+      }
+    ]
+  },
+  {
+    "frequency_ratio": 1.1,
+    "full_FE_root_mT": 8.790914125548873,
+    "modal_results": [
+      {
+        "amplitude_mT": 8.790914125548873,
+        "frequency_ratio": 1.1,
+        "modes": 2,
+        "phase_samples": 1024,
+        "iterations": 5,
+        "iteration_residual_rad": 9.076073226310655e-15,
+        "ODE_residual_per_s": 2.6645352591003757e-15,
+        "whole_bound_mm": 4.031077345163054,
+        "tip_peak_mm": 4.031077345163054,
+        "slope_bound_rad": 0.06474471359396457
+      },
+      {
+        "amplitude_mT": 8.790914125548873,
+        "frequency_ratio": 1.1,
+        "modes": 4,
+        "phase_samples": 1024,
+        "iterations": 5,
+        "iteration_residual_rad": 5.35682609381638e-15,
+        "ODE_residual_per_s": 2.6645352591003757e-15,
+        "whole_bound_mm": 4.007900673007035,
+        "tip_peak_mm": 4.007900673007035,
+        "slope_bound_rad": 0.06497377784040281
+      },
+      {
+        "amplitude_mT": 8.790914125548873,
+        "frequency_ratio": 1.1,
+        "modes": 8,
+        "phase_samples": 1024,
+        "iterations": 5,
+        "iteration_residual_rad": 4.045375145977914e-15,
+        "ODE_residual_per_s": 2.220446049250313e-15,
+        "whole_bound_mm": 4.001876034916936,
+        "tip_peak_mm": 4.001876034916936,
+        "slope_bound_rad": 0.06505575210132433
+      },
+      {
+        "amplitude_mT": 8.790914125548873,
+        "frequency_ratio": 1.1,
+        "modes": 16,
+        "phase_samples": 1024,
+        "iterations": 5,
+        "iteration_residual_rad": 3.497202527569243e-15,
+        "ODE_residual_per_s": 1.7763568394002505e-15,
+        "whole_bound_mm": 4.000403343649561,
+        "tip_peak_mm": 4.000403343649561,
+        "slope_bound_rad": 0.06504015295869031
+      },
+      {
+        "amplitude_mT": 8.790914125548873,
+        "frequency_ratio": 1.1,
+        "modes": 32,
+        "phase_samples": 1024,
+        "iterations": 5,
+        "iteration_residual_rad": 3.25434124093249e-15,
+        "ODE_residual_per_s": 1.7763568394002505e-15,
+        "whole_bound_mm": 4.000065213619759,
+        "tip_peak_mm": 4.000065213619759,
+        "slope_bound_rad": 0.06509175438597789
+      },
+      {
+        "amplitude_mT": 8.790914125548873,
+        "frequency_ratio": 1.1,
+        "modes": 64,
+        "phase_samples": 1024,
+        "iterations": 5,
+        "iteration_residual_rad": 3.0322966360074588e-15,
+        "ODE_residual_per_s": 1.0709449474846281e-14,
+        "whole_bound_mm": 4.0,
+        "tip_peak_mm": 4.0,
+        "slope_bound_rad": 0.06508435349569598
+      }
+    ],
+    "phase_results": [
+      {
+        "amplitude_mT": 8.790914125548873,
+        "frequency_ratio": 1.1,
+        "modes": 64,
+        "phase_samples": 512,
+        "iterations": 5,
+        "iteration_residual_rad": 3.0253577421035516e-15,
+        "ODE_residual_per_s": 8.005352205220523e-15,
+        "whole_bound_mm": 4.0,
+        "tip_peak_mm": 4.0,
+        "slope_bound_rad": 0.06508420583725381
+      },
+      {
+        "amplitude_mT": 8.790914125548873,
+        "frequency_ratio": 1.1,
+        "modes": 64,
+        "phase_samples": 1024,
+        "iterations": 5,
+        "iteration_residual_rad": 3.0322966360074588e-15,
+        "ODE_residual_per_s": 1.0709449474846281e-14,
+        "whole_bound_mm": 4.0,
+        "tip_peak_mm": 4.0,
+        "slope_bound_rad": 0.06508435349569598
+      },
+      {
+        "amplitude_mT": 8.790914125548873,
+        "frequency_ratio": 1.1,
+        "modes": 64,
+        "phase_samples": 2048,
+        "iterations": 5,
+        "iteration_residual_rad": 3.0322966360074588e-15,
+        "ODE_residual_per_s": 1.0485130440874084e-14,
+        "whole_bound_mm": 4.0,
+        "tip_peak_mm": 4.0,
+        "slope_bound_rad": 0.06508458601680212
+      },
+      {
+        "amplitude_mT": 8.790914125548873,
+        "frequency_ratio": 1.1,
+        "modes": 64,
+        "phase_samples": 4096,
+        "iterations": 5,
+        "iteration_residual_rad": 3.039235529911366e-15,
+        "ODE_residual_per_s": 1.0760589704459135e-14,
+        "whole_bound_mm": 4.000001242328698,
+        "tip_peak_mm": 4.000001242328698,
+        "slope_bound_rad": 0.06508458601680212
+      }
+    ]
+  },
+  {
+    "frequency_ratio": 1.2,
+    "full_FE_root_mT": 18.59355728127578,
+    "modal_results": [
+      {
+        "amplitude_mT": 18.59355728127578,
+        "frequency_ratio": 1.2,
+        "modes": 2,
+        "phase_samples": 1024,
+        "iterations": 5,
+        "iteration_residual_rad": 8.645861804268407e-15,
+        "ODE_residual_per_s": 2.6645352591003757e-15,
+        "whole_bound_mm": 4.067727044946559,
+        "tip_peak_mm": 4.067727044946559,
+        "slope_bound_rad": 0.0627027299712363
+      },
+      {
+        "amplitude_mT": 18.59355728127578,
+        "frequency_ratio": 1.2,
+        "modes": 4,
+        "phase_samples": 1024,
+        "iterations": 5,
+        "iteration_residual_rad": 5.6343818499726694e-15,
+        "ODE_residual_per_s": 2.6645352591003757e-15,
+        "whole_bound_mm": 4.017330227815416,
+        "tip_peak_mm": 4.017330227815416,
+        "slope_bound_rad": 0.06563799512775871
+      },
+      {
+        "amplitude_mT": 18.59355728127578,
+        "frequency_ratio": 1.2,
+        "modes": 8,
+        "phase_samples": 1024,
+        "iterations": 5,
+        "iteration_residual_rad": 4.6351811278100286e-15,
+        "ODE_residual_per_s": 2.761679773755077e-15,
+        "whole_bound_mm": 4.0041780063451915,
+        "tip_peak_mm": 4.0041780063451915,
+        "slope_bound_rad": 0.06501228102948267
+      },
+      {
+        "amplitude_mT": 18.59355728127578,
+        "frequency_ratio": 1.2,
+        "modes": 16,
+        "phase_samples": 1024,
+        "iterations": 5,
+        "iteration_residual_rad": 4.2049697057677804e-15,
+        "ODE_residual_per_s": 3.552713678800501e-15,
+        "whole_bound_mm": 4.0009321283597306,
+        "tip_peak_mm": 4.0009321283597306,
+        "slope_bound_rad": 0.06507631198529998
+      },
+      {
+        "amplitude_mT": 18.59355728127578,
+        "frequency_ratio": 1.2,
+        "modes": 32,
+        "phase_samples": 1024,
+        "iterations": 5,
+        "iteration_residual_rad": 4.003741782554471e-15,
+        "ODE_residual_per_s": 3.1086244689504383e-15,
+        "whole_bound_mm": 4.0001705490950545,
+        "tip_peak_mm": 4.0001705490950545,
+        "slope_bound_rad": 0.06506096324673692
+      },
+      {
+        "amplitude_mT": 18.59355728127578,
+        "frequency_ratio": 1.2,
+        "modes": 64,
+        "phase_samples": 1024,
+        "iterations": 5,
+        "iteration_residual_rad": 3.795574965437254e-15,
+        "ODE_residual_per_s": 1.7347224039507332e-14,
+        "whole_bound_mm": 4.000000000000016,
+        "tip_peak_mm": 4.000000000000016,
+        "slope_bound_rad": 0.06507504277901845
+      }
+    ],
+    "phase_results": [
+      {
+        "amplitude_mT": 18.59355728127578,
+        "frequency_ratio": 1.2,
+        "modes": 64,
+        "phase_samples": 512,
+        "iterations": 5,
+        "iteration_residual_rad": 3.802513859341161e-15,
+        "ODE_residual_per_s": 1.3797205037209843e-14,
+        "whole_bound_mm": 3.9999456535237226,
+        "tip_peak_mm": 3.9999456535237226,
+        "slope_bound_rad": 0.06507504277901845
+      },
+      {
+        "amplitude_mT": 18.59355728127578,
+        "frequency_ratio": 1.2,
+        "modes": 64,
+        "phase_samples": 1024,
+        "iterations": 5,
+        "iteration_residual_rad": 3.795574965437254e-15,
+        "ODE_residual_per_s": 1.7347224039507332e-14,
+        "whole_bound_mm": 4.000000000000016,
+        "tip_peak_mm": 4.000000000000016,
+        "slope_bound_rad": 0.06507504277901845
+      },
+      {
+        "amplitude_mT": 18.59355728127578,
+        "frequency_ratio": 1.2,
+        "modes": 64,
+        "phase_samples": 2048,
+        "iterations": 5,
+        "iteration_residual_rad": 3.809452753245068e-15,
+        "ODE_residual_per_s": 1.50948816146694e-14,
+        "whole_bound_mm": 4.000000000000016,
+        "tip_peak_mm": 4.000000000000016,
+        "slope_bound_rad": 0.06507519871210422
+      },
+      {
+        "amplitude_mT": 18.59355728127578,
+        "frequency_ratio": 1.2,
+        "modes": 64,
+        "phase_samples": 4096,
+        "iterations": 5,
+        "iteration_residual_rad": 3.802513859341161e-15,
+        "ODE_residual_per_s": 2.0650204691598022e-14,
+        "whole_bound_mm": 4.0000005335632345,
+        "tip_peak_mm": 4.0000005335632345,
+        "slope_bound_rad": 0.06507519871210422
+      }
+    ]
+  }
+]

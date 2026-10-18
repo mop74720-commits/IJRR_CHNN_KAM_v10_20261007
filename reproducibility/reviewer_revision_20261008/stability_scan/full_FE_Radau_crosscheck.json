@@ -1,0 +1,26 @@
+[
+  {
+    "frequency_ratio": 0.8,
+    "amplitude_mT": 13.636162705190408,
+    "maximum_tip_difference_m": 8.87933451201726e-13,
+    "maximum_state_difference": 6.29516438976907e-11,
+    "nfev": 2101,
+    "periodic_endpoint_state_residual": 9.452161275902426e-13
+  },
+  {
+    "frequency_ratio": 1.0,
+    "amplitude_mT": 1.9168489122265309,
+    "maximum_tip_difference_m": 1.1020960632255451e-12,
+    "maximum_state_difference": 8.167871934361415e-11,
+    "nfev": 1989,
+    "periodic_endpoint_state_residual": 1.3109513474773848e-12
+  },
+  {
+    "frequency_ratio": 1.2,
+    "amplitude_mT": 18.59355728127578,
+    "maximum_tip_difference_m": 8.043255130479376e-13,
+    "maximum_state_difference": 7.610467811502986e-11,
+    "nfev": 2157,
+    "periodic_endpoint_state_residual": 5.983546991217281e-13
+  }
+]

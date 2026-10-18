@@ -1,0 +1,597 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8">
+<title>四项问题修订：源码红线</title><style>
+body{max-width:1100px;margin:35px auto;padding:0 22px;font:16px/1.65 system-ui,sans-serif;color:#202124}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f6f7f8;padding:18px;font:13px/1.65 Consolas,monospace}
+.add{color:#b00020;background:#fff0f1}.del{color:#666;text-decoration:line-through}.context{color:#333}
+h2{font-size:19px;margin-top:35px}</style>
+<h1>四项审阅问题修订：源码红线</h1>
+<p>相对本轮修改前备份。红色为新增或改写的源码行，灰色删除线为删去的行；英文 PDF 为干净版。
+本文件展示 LaTeX 源码差异，不是渲染后的 PDF 叠加比较。原证明与历史实验结果的保留检查见配套验证记录。</p><h2>main.tex</h2><pre><span class="del">--- before/main.tex</span>
+<span class="add">+++ after/main.tex</span>
+<span class="context">@@ -31,7 +31,7 @@</span>
+<span class="context"> \title{Complex Hamiltonian learning and KAM-preserving magnetic control of a catheter model}</span>
+<span class="context"> \author{Anonymous authors}</span>
+<span class="context"> \begin{abstract}</span>
+<span class="del">-A learned model of a magnetic catheter should connect accurate prediction to bounded motion and realizable actuation. We develop this connection for a clamped--free beam in four steps. First, we derive its complex Hamiltonian representation and the complete fourth-order central symplectic update. Second, matched learning and integration comparisons quantify approximation and numerical errors. Third, nonzero-loss, state-only two-mode COMSOL identification yields coefficient and analytic-error bounds that support an a posteriori KAM proof for the fitted Hamiltonian at approximately $1.9$ mm amplitude. Fourth, magnetic force-and-torque feedback realizes that conservative motion in the damped $64$-mode plant. For zero higher-mode startup, the whole-centreline bound is below $1.971$ mm. An input-work constraint additionally guarantees clearance during driven motion, and an S-shaped endpoint task achieves $6.419\,\mu$m RMS tracking error. Classical symplectic and KAM results underpin the analysis; the contributions are the model-specific error bounds, magnetic realization and full-model motion guarantees under stated sensing and actuation assumptions.</span>
+<span class="add">+A learned model of a magnetic catheter should connect accurate prediction to bounded motion and realizable actuation. We develop this connection for a clamped--free beam in four steps. First, we derive its complex Hamiltonian representation and the complete fourth-order central symplectic update. Second, matched learning and integration comparisons quantify approximation and numerical errors. Third, nonzero-loss, state-only two-mode COMSOL identification yields coefficient and analytic-error bounds that support an a posteriori KAM proof for the fitted Hamiltonian at approximately $1.9$ mm amplitude. Fourth, magnetic force-and-torque feedback realizes that conservative motion in the damped $64$-mode plant. For zero higher-mode startup, the whole-centreline bound is below $1.971$ mm. An input-work constraint additionally guarantees clearance during driven motion, including a quantified nonzero-error envelope over $4$ s. Frequency continuation resolves a resonance-induced clearance boundary, and an S-shaped endpoint task achieves $6.419\,\mu$m RMS tracking error. Classical symplectic and KAM results underpin the analysis; the contributions are the model-specific error bounds, magnetic realization and full-model motion guarantees under stated sensing and actuation assumptions.</span>
+<span class="context"> \end{abstract}</span>
+<span class="context"> \keywords{magnetic catheter robots, complex Hamiltonian learning, symplectic integration, KAM theory, magnetic control}</span>
+<span class="context"> \maketitle</span>
+<span class="context">@@ -51,14 +51,15 @@</span>
+<span class="context"> \section{Guidance for magnetic actuation and clearance}</span>
+<span class="context"> \label{sec:application}</span>
+<span class="context"> \input{sections/core_application}</span>
+<span class="add">+\clearpage</span>
+<span class="context"> \section{Conclusion}</span>
+<span class="context"> \label{sec:conclusion}</span>
+<span class="del">-We connected an identified magnetic energy to numerical prediction, nonlinear persistence and physical actuation in four steps. The complex representation and classical central symplectic update preserve the model&#x27;s structure; the approximation analysis carries nonzero identification error into the KAM hypotheses; and magnetic feedback realizes the resulting finite-amplitude torus in the damped full beam. The model-specific realization and lift yield explicit centreline, field and gradient bounds. Input-work control extends clearance guarantees to driven motions beyond that torus.</span>
+<span class="add">+We connected an identified magnetic energy to numerical prediction, nonlinear persistence and physical actuation in four steps. The complex representation and classical central symplectic update preserve the model&#x27;s structure; the approximation analysis carries nonzero identification error into the KAM hypotheses; and magnetic feedback realizes the resulting finite-amplitude torus in the damped full beam. The model-specific realization and lift yield explicit centreline, field and gradient bounds. Input-work control extends clearance guarantees to driven motions beyond that torus, with explicit nonzero initialization, sensing and actuation tolerances over a prescribed finite horizon. The frequency study identifies a resonance-induced clearance boundary; no chaotic transition is detected under its sampled protocol.</span>
+<span class="context"> </span>
+<span class="context"> The numerical comparisons define the scope of this result: real and complex implementations have equivalent resolved accuracy, and the known-physics inverse performs best on the slow nominal tracking task. Extending the analysis to partial sensing, calibrated actuators and three-dimensional contact requires corresponding mechanical models and error bounds.</span>
+<span class="context"> </span>
+<span class="context"> \section*{Data and code availability}</span>
+<span class="del">-The article and Supplement are accompanied by editable sources and figures. A separate complete computational archive contains native COMSOL models, construction and learning code, matrices, trajectories, fitted coefficients and interval records. It distinguishes full-FE identification data from the two-mode integral data used for the learning-to-KAM proof.</span>
+<span class="add">+The supplied materials comprise two identified archives. Archive S1 is the complete computational record dated 2 October 2026, containing native COMSOL models, construction and learning code, trajectories, fitted coefficients and interval records. Archive S2, \texttt{S2\_reviewer\_revision\_20261008.zip}, contains the revised article and Supplement, the additional stability and tolerance studies, frozen inputs, raw numerical outputs and reproduction commands. The accompanying \texttt{reproducibility/ARTIFACT\_INDEX.md} identifies the archives and maps results to files and checksums; its source map separates full-FE identification from the two-mode integral data used for the KAM proof.</span>
+<span class="context"> \section*{Declarations}</span>
+<span class="context"> This work reports mathematical analysis and computer-generated mechanical data. No human, animal or in-orbit experiment was performed.</span>
+<span class="context"> \input{sections/references}</span></pre>
+<h2>sections/core_application.tex</h2><pre><span class="del">--- before/sections/core_application.tex</span>
+<span class="add">+++ after/sections/core_application.tex</span>
+<span class="context">@@ -80,6 +80,11 @@</span>
+<span class="context"> \label{fig:core-kam-control}</span>
+<span class="context"> \end{figure*}</span>
+<span class="context"> </span>
+<span class="add">+\subsection{Frequency continuation and the clearance boundary}</span>
+<span class="add">+To test where driven motion changes character, we vary a single sinusoidal transverse field from $1$ to $20$ mT and its frequency ratio $r=\omega_f/\omega_0$ from $0.7$ to $1.3$. The two-mode physical model is evaluated at $1{,}029$ independently initialized points and $686$ upward/downward continuation points. Each run discards $128$ forcing periods and diagnoses the next $64$ periods. All tested responses converge to forcing-periodic motion; their numerical Floquet spectral radii range from $0.803809$ to $0.889055$. These observations locate no quasiperiodic or chaotic transition within the sampled protocol. Large-deflection extrapolations are separately flagged, and this finite scan does not establish global absence of chaos or breakup of the conservative KAM tori.</span>
+<span class="add">+</span>
+<span class="add">+A distinct practical boundary appears when periodic bending reaches the $4$ mm clearance. Solving for periodic responses with all $64$ modes gives threshold amplitudes of approximately $7.5005$, $1.91685$ and $8.7909$ mT at $r=0.9$, $1$ and $1.1$, respectively. These are numerical steady-response thresholds; the specified startup ramp can cross the clearance earlier. Supplement~\ref{S-sec:stability-boundary} reports the initial states, continuation protocol, transient thresholds, modal and temporal refinement, and independent full-model checks. The resonance boundary motivates a work constraint that covers transients as well as settled motion.</span>
+<span class="add">+</span>
+<span class="context"> \subsection{Clearance beyond the invariant torus}</span>
+<span class="context"> Tracking a prescribed path need not keep the state on a conservative torus. We therefore derive a clearance condition from the physical energy itself. For the clamped small-slope beam, $w(s)=\int_0^s(s-\xi)w_{ss}(\xi)\,d\xi$. Since the static magnetic energy is nonnegative, Cauchy--Schwarz gives</span>
+<span class="context"> \begin{equation}</span>
+<span class="context">@@ -104,9 +109,14 @@</span>
+<span class="context"> \begin{figure*}[t]</span>
+<span class="context"> \centering</span>
+<span class="context"> \includegraphics[width=\textwidth]{figures/fig_s_path_tracking.pdf}</span>
+<span class="del">-\caption{S-shaped endpoint tracking through axial base feed and transverse magnetic actuation. The same full beam and input limits are used for the matched controls. Base work is included in the energy balance. The known-physics inverse achieves the smallest error on this slow nominal task.}</span>
+<span class="add">+\caption{S-shaped endpoint tracking through axial base feed and transverse magnetic actuation. The same full beam and input limits are used for the matched controls. Base work is included in the energy balance.}</span>
+<span class="context"> \label{fig:core-s-path}</span>
+<span class="context"> \end{figure*}</span>
+<span class="add">+</span>
+<span class="add">+\subsection{Nonzero sensing, initialization and actuation tolerances}</span>
+<span class="add">+The extremely narrow action tube in the KAM measure estimate is a proof domain, rather than an initialization tolerance. A separate physical-energy argument yields a nonzero operating tolerance about the exported finite Fourier reference. In the frozen full nodal model, let $Q(e)=\tfrac12 e_v^{\mathsf T}Me_v+\tfrac12 e_q^{\mathsf T}K_be_q$. The initialization set $Q(e)\leq5$ pJ implies a tip-position error below $56.006\,\mu$m; this is a projection of an energy ellipsoid, not a box of independently admissible coordinate errors.</span>
+<span class="add">+</span>
+<span class="add">+For the two work ports, bound tip-angle, angular-rate and tip-velocity measurement errors by $1$ mrad, $0.01$ rad/s and $0.1$ mm/s. Allow $1\%$ multiplicative error in both applied inputs, together with additive errors of $0.5$ nN in force and $0.05\,\mu$T in field. A worst-case measured-power bound and a dissipation-based reserve of $0.096780$ nJ cover these additive errors over $4$ s. The resulting $22.66$ nJ energy cap bounds the whole centreline below $3.898405$ mm throughout that interval. Supplement~\ref{S-sec:operational-tolerances} gives the proof, directed-rounding certificate, actuator derating and full-model refinement. The governor can alter the requested motion substantially: this guarantee concerns clearance under the stated errors and does not preserve exact torus membership or certify tracking accuracy.</span>
+<span class="context"> </span>
+<span class="context"> \subsection{Endpoint tracking and practical scope}</span>
+<span class="context"> We next combine axial base translation with magnetic bending to trace an S-shaped endpoint path (Figure~\ref{fig:core-s-path}). The tip advances $48$ mm over a $12$ s stroke with lateral extrema $\pm1.5$ mm. Axial acceleration ends before bending begins, and the model has no axial drag or guide contact. With base kinetic energy and work accounted for separately, the transverse governor bounds clearance in the straight corridor (Supplement~\ref{S-sec:s-path}). The prescribed S shape is the moving endpoint trajectory.</span>
+<span class="context">@@ -132,6 +142,4 @@</span>
+<span class="context"> </span>
+<span class="context"> The learned command peaks at $12.9177$ mT and the centreline at $1.48892$ mm. The maximum recorded work-based energy estimate is $4.84997$ nJ, and the governor remains inactive for this request. An independent COMSOL replay of the field agrees with the predicted tip to within $4.038\times10^{-10}$ m. The replay tests this task&#x27;s mechanical response; the torus experiment above additionally tests online feedback.</span>
+<span class="context"> </span>
+<span class="del">-</span>
+<span class="del">-</span>
+<span class="del">-The resulting design guidance is to preserve the fitted energy derivatives in the command law, check actuation rank and momentum invertibility, and budget all input work during manoeuvres. The proved envelopes assume full-state projections, measured tip motion and available local field/gradient authority. A device implementation must account for sensing error and coil limitations; large rotations, flow and wall contact require corresponding mechanical extensions.</span>
+<span class="add">+The resulting design guidance is to preserve fitted energy derivatives, check actuation rank and momentum invertibility, and budget all input work. The envelopes require the stated state estimates and local field/gradient authority. Device implementation requires calibrated hardware and verified error bounds; partial sensing, large rotations, flow and wall contact need corresponding extensions.</span></pre>
+<h2>sections/core_background.tex</h2><pre><span class="del">--- before/sections/core_background.tex</span>
+<span class="add">+++ after/sections/core_background.tex</span>
+<span class="context">@@ -6,7 +6,7 @@</span>
+<span class="context"> </span>
+<span class="context"> The main difficulty is preserving this connection through learning and actuation. Low prediction error alone leaves the Hamiltonian&#x27;s nonlinear derivatives undetermined. Even with accurate derivatives, a numerical solver can introduce an error comparable to the difference between two learned models. Finally, damping removes the recurrent motion of a conservative system unless a controller supplies the appropriate work. We address these issues in sequence: construct a power-consistent learned energy, resolve its approximation and integration errors, establish an invariant motion of the fitted function, and realize that motion with the available magnetic force and torque.</span>
+<span class="context"> </span>
+<span class="del">-This formulation fixes what information must pass between the four steps. The identification input is a set of observed states with a declared mechanical normalization and error budget. The fitted object is an energy function, so a control decision can use derivatives evaluated away from the observed trajectories. The stability output must then specify a state set and a physical amplitude, rather than only a reconstruction error. Finally, the actuation output must include commands and bounds for the full body. These requirements determine the quantities measured in the experiments: held-out state and tip errors for prediction, step-refinement errors for integration, analytic and nondegeneracy bounds for persistence, and centreline and magnetic-command envelopes for operation. These quantities connect learning accuracy to an admissible motion or command, following the four steps in Table~\ref{tab:core-roadmap}.</span>
+<span class="add">+Recent magnetic-robot control studies address shape regulation and lumen navigation directly. \citet{francescon2025shape} combine a pseudo-rigid-link model with vision feedback and homogeneous fields to control a robot with a prescribed lengthwise magnetization profile, demonstrating navigation in a soft pancreatic-duct phantom under varied insertion poses. \citet{tong2025navigation} use a geometrically nonlinear magnetic-rod simulation with reduced contact handling to compute fields that reduce distal-tip constraint forces, with planar phantom experiments and three-dimensional numerical demonstrations. These studies establish practical routes from a mechanical model to magnetic commands. The question pursued here is how a learned energy, with a quantified identification error, can support both persistent motion and bounds on the entire centreline. For the stated planar beam, we connect analytic error and twist bounds to a finite-amplitude invariant torus, realize its low-mode dynamics in the damped full finite-element plant, and bound driven motion through supplied work. Table~\ref{tab:core-roadmap} summarizes the objects passed between these steps.</span>
+<span class="context"> </span>
+<span class="context"> \begin{table*}[t]</span>
+<span class="context"> \centering</span>
+<span class="context">@@ -51,6 +51,6 @@</span>
+<span class="context"> \subsection{Contributions and study design}</span>
+<span class="context"> The work contributes three model-specific results. First, it derives the complex magnetic Hamiltonian, implements the classical fourth-order central update for the learned nonseparable energy, and resolves representation, prior and integration effects through matched comparisons. Second, it converts nonzero state-only identification error into computable analytic and twist bounds, then verifies a finite-amplitude invariant torus of that fitted function. Third, it constructs magnetic feedback and a full-model torus lift, together with an energy-based clearance condition for driven motion. The general approximation and KAM theorems are established results, cited with their hypotheses and identifiers where applied; the coefficient bounds, mechanical constructions and application proofs are developed here.</span>
+<span class="context"> </span>
+<span class="del">-The quantitative results make the connection operational within the stated model. Starting the low state on the certified torus and all higher states at zero gives a whole-centreline bound below $1.971$ mm, a transverse-field bound below $0.922$ mT and a gradient bound below $0.02573$ T/m. A separate S-shaped endpoint task achieves $6.419\,\mu$m RMS error with the learned controller. The known-physics inverse is more accurate on that slow nominal task, and the matched real/complex tests show no resolved representation advantage.</span>
+<span class="add">+The quantitative results make the connection operational within the stated model. Starting the low state on the certified torus and all higher states at zero gives a whole-centreline bound below $1.971$ mm, a transverse-field bound below $0.922$ mT and a gradient bound below $0.02573$ T/m. A separate S-shaped endpoint task achieves $6.419\,\mu$m RMS error with the learned controller.</span>
+<span class="context"> </span>
+<span class="context"> Two COMSOL identification settings serve distinct purposes within this common mechanical model: full finite-element observations test prediction and tracking, whereas the two-mode integral observations supply the learning-to-KAM proof and the associated magnetic realization. Their fitted coefficients and error budgets are specified separately. Section~\ref{sec:conclusion} brings the results together.</span></pre>
+<h2>sections/operational_tolerances.tex</h2><pre><span class="del">--- before/sections/operational_tolerances.tex</span>
+<span class="add">+++ after/sections/operational_tolerances.tex</span>
+<span class="context">@@ -0,0 +1,289 @@</span>
+<span class="add">+\subsection{Finite initialization and port-error tolerances}</span>
+<span class="add">+\label{sec:operational-tolerances}</span>
+<span class="add">+</span>
+<span class="add">+The transverse action half-width $10^{-220}$ in</span>
+<span class="add">+Appendix~\ref{app:measure-proof} quantifies local invariant-torus measure.</span>
+<span class="add">+For operation, we instead construct a finite energy set and a robust</span>
+<span class="add">+input-work constraint on the same full beam. This construction accepts</span>
+<span class="add">+an ordinary finite-precision initial state, explicit sensing errors and</span>
+<span class="add">+bounded command errors. It preserves clearance when the safety filter</span>
+<span class="add">+changes the KAM-realizing request; exact quasiperiodic motion is then no</span>
+<span class="add">+longer asserted.</span>
+<span class="add">+</span>
+<span class="add">+\paragraph{Physical object and a measurable initialization set.}</span>
+<span class="add">+For this calculation the mathematical plant is the frozen, symmetric</span>
+<span class="add">+nodal $64\times64$ matrices $M,K$ supplied with the independent FE</span>
+<span class="add">+comparison. All of their exported binary entries are treated as exact.</span>
+<span class="add">+This retains the complete physical energy</span>
+<span class="add">+\begin{equation}</span>
+<span class="add">+ \begin{aligned}</span>
+<span class="add">+ E(q,v)&amp;=\tfrac12v^{\mathsf T}Mv+\tfrac12q^{\mathsf T}Kq</span>
+<span class="add">+                 +E_0(1-\cos\vartheta),\\</span>
+<span class="add">+ \dot E&amp;=-\alpha v^{\mathsf T}Mv</span>
+<span class="add">+          +Fv_w+\mu B\cos\vartheta\,v_\vartheta,</span>
+<span class="add">+ \end{aligned}</span>
+<span class="add">+ \label{eq:operational-physical-power}</span>
+<span class="add">+\end{equation}</span>
+<span class="add">+where $v=\dot q$, $\vartheta=e_\vartheta^{\mathsf T}q$,</span>
+<span class="add">+$v_w=e_w^{\mathsf T}v$, $v_\vartheta=e_\vartheta^{\mathsf T}v$,</span>
+<span class="add">+$E_0=\mu B_0$, and $F,B$ are the actual transverse tip force and field.</span>
+<span class="add">+The same two physical ports appear in</span>
+<span class="add">+\eqref{eq:physical-gradient-command}. The use of nodal matrices here</span>
+<span class="add">+includes their small diagonalization discrepancy relative to the frozen</span>
+<span class="add">+modal plant in Theorem~\ref{thm:full-fe-kam-lift}; no exact conjugacy between</span>
+<span class="add">+these two finite-precision definitions is required for the work bound.</span>
+<span class="add">+</span>
+<span class="add">+Let $b_r$ list the four cubic Bernstein control rows on every Hermite</span>
+<span class="add">+element, including the fixed zero base coordinates, and define</span>
+<span class="add">+\begin{equation}</span>
+<span class="add">+ C_w=\max_r b_rK^{-1}b_r^{\mathsf T},\qquad</span>
+<span class="add">+ E_c=\frac{c^2}{2C_w},\qquad c=4\,\mathrm{mm}.</span>
+<span class="add">+ \label{eq:operational-fe-compliance}</span>
+<span class="add">+\end{equation}</span>
+<span class="add">+The Bernstein convex-hull property and Cauchy--Schwarz in the $K$ metric</span>
+<span class="add">+give $\sup_s|w(s)|\leq\sqrt{2C_wE}$ for every FE state, including all</span>
+<span class="add">+higher modes. Thus $E&lt;E_c$ is a whole-centreline clearance condition.</span>
+<span class="add">+Using exact Hermite coefficients $\ell/3=1/1200$ m, $256$-bit ball</span>
+<span class="add">+matrix inverses and positive LDL pivots gives</span>
+<span class="add">+$C_w&lt;335.338810137\,\mathrm{m\,N^{-1}}$ and</span>
+<span class="add">+$E_c&gt;23.85646921\,\mathrm{nJ}$. This discrete certificate agrees with</span>
+<span class="add">+the continuum compliance while avoiding an unbudgeted matrix-rounding step.</span>
+<span class="add">+</span>
+<span class="add">+Set $K_b=K+E_0e_\vartheta e_\vartheta^{\mathsf T}$ and</span>
+<span class="add">+\begin{equation}</span>
+<span class="add">+ Q(q,v)=\tfrac12v^{\mathsf T}Mv+\tfrac12q^{\mathsf T}K_bq.</span>
+<span class="add">+ \label{eq:operational-initial-metric}</span>
+<span class="add">+\end{equation}</span>
+<span class="add">+For full-state estimates $(\widehat q,\widehat v)$, require the initialization</span>
+<span class="add">+error to satisfy $Q(q-\widehat q,v-\widehat v)\leq\mathcal E_{\rm init}$.</span>
+<span class="add">+Since $1-\cos\vartheta\leq\vartheta^2/2$ and $\sqrt Q$ is a norm,</span>
+<span class="add">+\begin{equation}</span>
+<span class="add">+ E(q,v)\leq Q(q,v)\leq\overline E_0</span>
+<span class="add">+ :=\left[\sqrt{Q(\widehat q,\widehat v)}</span>
+<span class="add">+                  +\sqrt{\mathcal E_{\rm init}}\right]^2.</span>
+<span class="add">+ \label{eq:operational-initial-energy}</span>
+<span class="add">+\end{equation}</span>
+<span class="add">+This specifies a nonzero finite-dimensional admissible initialization</span>
+<span class="add">+region with nonempty interior, without deciding membership in an exact</span>
+<span class="add">+invariant torus.</span>
+<span class="add">+The energy-error bound is a full-state condition; tip sensing alone does</span>
+<span class="add">+not bound unobserved bending or kinetic energy.</span>
+<span class="add">+</span>
+<span class="add">+\paragraph{Sensing and execution error envelopes.}</span>
+<span class="add">+Let $u=(u_F,u_B)$ be the commanded ports and suppose that, throughout the</span>
+<span class="add">+specified interval,</span>
+<span class="add">+\begin{equation}</span>
+<span class="add">+ \begin{aligned}</span>
+<span class="add">+ F&amp;=(1+g_F)u_F+e_F,\\</span>
+<span class="add">+ B&amp;=(1+g_B)u_B+e_B,\\</span>
+<span class="add">+ |g_i|&amp;\leq\eta_i,\qquad |e_i|\leq\epsilon_i.</span>
+<span class="add">+ \end{aligned}</span>
+<span class="add">+ \label{eq:operational-actuator-envelope}</span>
+<span class="add">+\end{equation}</span>
+<span class="add">+Assume available estimates obey</span>
+<span class="add">+$|v_w-\widehat v_w|\leq\delta_v$,</span>
+<span class="add">+$|\vartheta-\widehat\vartheta|\leq\delta_\vartheta$ and</span>
+<span class="add">+$|v_\vartheta-\widehat v_\vartheta|\leq\delta_\omega$.</span>
+<span class="add">+Define the estimated power coefficients and their error bounds by</span>
+<span class="add">+\begin{equation}</span>
+<span class="add">+ \begin{aligned}</span>
+<span class="add">+ \widehat a_F&amp;=\widehat v_w,&amp;\Delta_F&amp;=\delta_v,\\</span>
+<span class="add">+ \widehat a_B&amp;=\mu\cos\widehat\vartheta\,\widehat v_\vartheta,</span>
+<span class="add">+ &amp;\Delta_B&amp;=\mu(\delta_\omega+</span>
+<span class="add">+                         |\widehat v_\vartheta|\delta_\vartheta).</span>
+<span class="add">+ \end{aligned}</span>
+<span class="add">+ \label{eq:operational-port-estimation}</span>
+<span class="add">+\end{equation}</span>
+<span class="add">+The cosine is one-Lipschitz on the real line, hence $|a_i-\widehat a_i|</span>
+<span class="add">+\leq\Delta_i$. Both sensing error and relative execution error are covered</span>
+<span class="add">+by the convex, positively homogeneous function</span>
+<span class="add">+\begin{equation}</span>
+<span class="add">+ P^+(u)=\sum_{i\in\{F,B\}}</span>
+<span class="add">+ \left\{\widehat a_i u_i+</span>
+<span class="add">+ [\Delta_i+\eta_i(|\widehat a_i|+\Delta_i)]|u_i|\right\}.</span>
+<span class="add">+ \label{eq:operational-robust-power}</span>
+<span class="add">+\end{equation}</span>
+<span class="add">+In particular, $P^+(0)=0$. There is no division by a measured velocity,</span>
+<span class="add">+so a zero or incorrectly signed noisy velocity creates no singularity.</span>
+<span class="add">+</span>
+<span class="add">+The independent additive errors need a separate energy allowance.</span>
+<span class="add">+For $\alpha&gt;0$, write $m_F=e_w^{\mathsf T}M^{-1}e_w$ and</span>
+<span class="add">+$m_\vartheta=e_\vartheta^{\mathsf T}M^{-1}e_\vartheta$, and put</span>
+<span class="add">+\begin{equation}</span>
+<span class="add">+ p_e=\frac{(\epsilon_F\sqrt{m_F}</span>
+<span class="add">+                    +\mu\epsilon_B\sqrt{m_\vartheta})^2}{4\alpha},</span>
+<span class="add">+ \qquad R_T=Tp_e.</span>
+<span class="add">+ \label{eq:operational-additive-reserve}</span>
+<span class="add">+\end{equation}</span>
+<span class="add">+For time-dependent bounds one may instead integrate their corresponding</span>
+<span class="add">+$p_e(t)$. With $r=e_we_F+\mu e_\vartheta e_B\cos\vartheta$, completion of</span>
+<span class="add">+the square gives</span>
+<span class="add">+\begin{equation}</span>
+<span class="add">+ r^{\mathsf T}v-\alpha v^{\mathsf T}Mv</span>
+<span class="add">+ \leq\frac{r^{\mathsf T}M^{-1}r}{4\alpha}\leq p_e.</span>
+<span class="add">+ \label{eq:operational-damping-reserve-proof}</span>
+<span class="add">+\end{equation}</span>
+<span class="add">+All quantities in these equations use SI units: $P^+,p_e$ are powers,</span>
+<span class="add">+and $Q,E,R_T$ are energies. No dissipated energy needs to be measured.</span>
+<span class="add">+</span>
+<span class="add">+\begin{proposition}[Robust finite-horizon work and clearance]</span>
+<span class="add">+\label{prop:operational-robust-work}</span>
+<span class="add">+Fix $T&gt;0$ and $\overline E_0&lt;C:=E_{\max}-R_T&lt;E_c-R_T$.</span>
+<span class="add">+Initialize $W(0)=\overline E_0$ and integrate $\dot W=P^+(u)$.</span>
+<span class="add">+Clip a requested force and field to symmetric command limits, then apply</span>
+<span class="add">+$u=\sigma u_{\rm req}$, with $\sigma=1$ if</span>
+<span class="add">+$P^+(u_{\rm req})\leq\kappa(C-W)$, and otherwise</span>
+<span class="add">+\begin{equation}</span>
+<span class="add">+ \sigma=\frac{\kappa(C-W)}{P^+(u_{\rm req})},\qquad \kappa&gt;0.</span>
+<span class="add">+ \label{eq:operational-radial-governor}</span>
+<span class="add">+\end{equation}</span>
+<span class="add">+For solutions satisfying the mechanical power identity and the stated</span>
+<span class="add">+error envelopes, throughout $0\leq t\leq T$,</span>
+<span class="add">+\begin{equation}</span>
+<span class="add">+ \begin{aligned}</span>
+<span class="add">+ E(t)&amp;\leq W(t)+tp_e\leq C+R_T=E_{\max},\\</span>
+<span class="add">+ \sup_s|w(s,t)|&amp;\leq\sqrt{2C_wE_{\max}}&lt;c.</span>
+<span class="add">+ \end{aligned}</span>
+<span class="add">+ \label{eq:operational-robust-clearance}</span>
+<span class="add">+\end{equation}</span>
+<span class="add">+Zero command remains feasible, even with nonzero sensing errors. To enforce</span>
+<span class="add">+actual actuator limits $F_{\lim},B_{\lim}$, use command limits</span>
+<span class="add">+$(F_{\lim}-\epsilon_F)/(1+\eta_F)$ and</span>
+<span class="add">+$(B_{\lim}-\epsilon_B)/(1+\eta_B)$, respectively.</span>
+<span class="add">+\end{proposition}</span>
+<span class="add">+\begin{proof}</span>
+<span class="add">+The two non-additive port powers are at most $P^+(u)$, by</span>
+<span class="add">+\eqref{eq:operational-port-estimation} and</span>
+<span class="add">+\eqref{eq:operational-actuator-envelope}. Equation</span>
+<span class="add">+\eqref{eq:operational-damping-reserve-proof} bounds the remaining power</span>
+<span class="add">+and damping together. Thus $\dot E\leq\dot W+p_e$, and integration with</span>
+<span class="add">+\eqref{eq:operational-initial-energy} proves $E\leq W+tp_e$.</span>
+<span class="add">+Positive homogeneity makes the radial choice satisfy</span>
+<span class="add">+$\dot W\leq\kappa(C-W)$; consequently</span>
+<span class="add">+$C-W(t)\geq(C-W(0))e^{-\kappa t}&gt;0$.</span>
+<span class="add">+The spatial compliance bound completes the proof. The amplitude limits</span>
+<span class="add">+follow directly from $|F|\leq(1+\eta_F)|u_F|+\epsilon_F$ and its field</span>
+<span class="add">+counterpart. If additive errors vanish, $R_T=0$ and the same argument</span>
+<span class="add">+holds for all time and for any $\alpha\geq0$. A constant nonzero additive</span>
+<span class="add">+error allowance has the stated finite horizon; it is not an all-time KAM</span>
+<span class="add">+or clearance assertion.</span>
+<span class="add">+\end{proof}</span>
+<span class="add">+</span>
+<span class="add">+\paragraph{Sampled sensing and delayed execution.}</span>
+<span class="add">+The sensing bounds must cover the age of the data, not only sensor</span>
+<span class="add">+quantization. For a sample at $t_k$ used for an interval of length $h_k$,</span>
+<span class="add">+let the maximum age including sensing latency be $\ell_k$.</span>
+<span class="add">+If valid bounds $|\dot v_w|\leq A_w$,</span>
+<span class="add">+$|v_\vartheta|\leq V_\vartheta$ and</span>
+<span class="add">+$|\dot v_\vartheta|\leq A_\vartheta$ hold on that interval, replace</span>
+<span class="add">+\begin{equation}</span>
+<span class="add">+ \delta_v\mapsto\delta_v+A_w\ell_k,\quad</span>
+<span class="add">+ \delta_\vartheta\mapsto\delta_\vartheta+V_\vartheta\ell_k,\quad</span>
+<span class="add">+ \delta_\omega\mapsto\delta_\omega+A_\vartheta\ell_k.</span>
+<span class="add">+ \label{eq:operational-sensor-age}</span>
+<span class="add">+\end{equation}</span>
+<span class="add">+Compute $P_k^+$ with this interval envelope. A fully discrete sufficient</span>
+<span class="add">+rule is to hold $u_k$ such that</span>
+<span class="add">+$h_kP_k^+(u_k)\leq C-W_k$ and set</span>
+<span class="add">+$W_{k+1}=W_k+h_kP_k^+(u_k)$. Linear interpolation of $W$ proves the same</span>
+<span class="add">+within-interval energy bound; $u_k=0$ remains feasible. This rule does</span>
+<span class="add">+not treat a value at one sample as an interval guarantee.</span>
+<span class="add">+</span>
+<span class="add">+Similarly, if a continuously specified command has a verified slew bound</span>
+<span class="add">+$|\dot u_i|\leq S_i$ and the applied copy is delayed by at most $d_i$,</span>
+<span class="add">+including a zero-order-hold age when applicable, it suffices to use</span>
+<span class="add">+\begin{equation}</span>
+<span class="add">+ \epsilon_i\geq\epsilon_{i,0}+(1+\eta_i)S_id_i</span>
+<span class="add">+ \label{eq:operational-execution-age}</span>
+<span class="add">+\end{equation}</span>
+<span class="add">+in the additive reserve. This is an explicit joint delay/slew budget.</span>
+<span class="add">+The radial governor alone does not impose a slew limit. A controller</span>
+<span class="add">+that also enforces slew must verify its feasibility, or use the discrete</span>
+<span class="add">+interval-power rule above. The numerical experiment below uses continuous</span>
+<span class="add">+bounded port estimates and the declared direct execution-error envelope;</span>
+<span class="add">+it does not identify a hardware latency or an unmeasured acceleration bound.</span>
+<span class="add">+</span>
+<span class="add">+\paragraph{A nonzero SI budget next to the finite-amplitude reference.}</span>
+<span class="add">+The reference $(\widehat q,\widehat v)$ is the frozen nodal reconstruction</span>
+<span class="add">+of phase $(0,0)$ of the computed Fourier candidate for the integral-COMSOL</span>
+<span class="add">+fit, with the learned velocity $h_Y$, rather than an assumed exact torus</span>
+<span class="add">+point. Its quadratic energy is below $21.45855219$ nJ.</span>
+<span class="add">+For $\mathcal E_{\rm init}=5$ pJ, ball evaluation of</span>
+<span class="add">+\eqref{eq:operational-initial-energy} gives</span>
+<span class="add">+$\overline E_0&lt;22.11866366$ nJ. This full-state ellipsoid implies, among</span>
+<span class="add">+other coordinate bounds, an initial tip-displacement error below</span>
+<span class="add">+$56.006$ $\mu$m and tip-angle error below $1.19851$ mrad.</span>
+<span class="add">+It also implies mass-weighted RMS velocity error below $0.316981$ mm/s,</span>
+<span class="add">+where the squared RMS is $\delta v^{\mathsf T}M\delta v/(\rho A_cL)$.</span>
+<span class="add">+These are projections of one energy ellipsoid; their endpoints cannot</span>
+<span class="add">+be independently combined as a Cartesian error box.</span>
+<span class="add">+</span>
+<span class="add">+\begin{table}[t]</span>
+<span class="add">+\centering\small</span>
+<span class="add">+\caption{One sufficient operational budget for the full nodal FE plant.</span>
+<span class="add">+Bounds are deterministic hypotheses; they are not measured sensor specifications.}</span>
+<span class="add">+\label{tab:operational-tolerances}</span>
+<span class="add">+\setlength{\tabcolsep}{3pt}</span>
+<span class="add">+\begin{tabular}{lr}</span>
+<span class="add">+\hline</span>
+<span class="add">+Quantity &amp; Value or outward bound\\</span>
+<span class="add">+\hline</span>
+<span class="add">+Horizon $T$ &amp; $4$ s\\</span>
+<span class="add">+Energy cap $E_{\max}$ &amp; $22.66$ nJ\\</span>
+<span class="add">+Initialization error $\mathcal E_{\rm init}$ &amp; $5$ pJ\\</span>
+<span class="add">+Angle / angular-rate error &amp; $1$ mrad / $0.01$ rad/s\\</span>
+<span class="add">+Tip-velocity error &amp; $0.1$ mm/s\\</span>
+<span class="add">+Relative force and field execution error &amp; $1\%$ each\\</span>
+<span class="add">+Additive force / field error &amp; $0.5$ nN / $0.05$ $\mu$T\\</span>
+<span class="add">+Additive work reserve $R_T$ &amp; $&lt;0.09677917$ nJ\\</span>
+<span class="add">+Available commanded-work cap $C$ &amp; $&gt;22.56322083$ nJ\\</span>
+<span class="add">+Initial commanded-work margin &amp; $&gt;0.44455717$ nJ\\</span>
+<span class="add">+Whole-centreline displacement bound &amp; $&lt;3.898405$ mm\\</span>
+<span class="add">+Minimum net wall clearance &amp; $&gt;0.101595$ mm\\</span>
+<span class="add">+\hline</span>
+<span class="add">+\end{tabular}</span>
+<span class="add">+\end{table}</span>
+<span class="add">+The declared actual limits are $20$ mT and $20$ $\mu$N; the latter</span>
+<span class="add">+corresponds to a gradient norm $1$ T/m in the ideal local magnetic</span>
+<span class="add">+realization. The command bounds reserve the relative and additive errors</span>
+<span class="add">+before clipping. Matrix ball arithmetic, rather than a two-mode estimate</span>
+<span class="add">+of unobserved velocity, gives $m_F&lt;4.452635925\,10^6$ and</span>
+<span class="add">+$m_\vartheta&lt;3.940922387\,10^{13}$ in their respective SI inverse-mass</span>
+<span class="add">+units, which establish the work reserve in the table.</span>
+<span class="add">+</span>
+<span class="add">+\paragraph{Full-model numerical check.}</span>
+<span class="add">+The reproducibility directory</span>
+<span class="add">+\texttt{reviewer\_revision\_20261008/robustness} contains the complete</span>
+<span class="add">+input matrices, learned coefficients, finite initial reference, original-file</span>
+<span class="add">+hashes, code and trajectories. The physical integrator retains</span>
+<span class="add">+$\Phi^{\mathsf T}M\Phi$ and $\Phi^{\mathsf T}K_b\Phi$ in full, so it</span>
+<span class="add">+integrates the frozen nodal plant in a well-scaled modal basis instead of</span>
+<span class="add">+discarding diagonalization residuals. The requesting controller uses the</span>
+<span class="add">+same fitted $h_Y,h_{YX},h_{YY}$ and velocity-to-momentum inverse as</span>
+<span class="add">+\eqref{eq:full-fe-hamiltonian-feedback}, with an additional bounded</span>
+<span class="add">+low-state perturbation. Independent deterministic sinusoids supply the</span>
+<span class="add">+stated port-sensor, gain and additive execution errors. The full-state</span>
+<span class="add">+initialization error is verified by direct Arb matrix products, including</span>
+<span class="add">+the modal-to-nodal transformation.</span>
+<span class="add">+</span>
+<span class="add">+The initialized energy is $21.743724$ nJ, with a $46.354$ $\mu$m tip</span>
+<span class="add">+position error and a $0.347654$ mm/s tip velocity error; its combined</span>
+<span class="add">+initial error energy is below $4.951$ pJ. Over $4$ s the saved-time</span>
+<span class="add">+Bernstein centreline bound is below $1.944145$ mm and the physical</span>
+<span class="add">+energy is below $21.744899$ nJ. The work filter is active at $97.8011\%$</span>
+<span class="add">+of the $2001$ saved times, illustrating its conservative use of work</span>
+<span class="add">+without crediting dissipated energy. Its activation changes the desired</span>
+<span class="add">+Hamiltonian trajectory. Clearance follows from</span>
+<span class="add">+Proposition~\ref{prop:operational-robust-work}, while invariant-torus</span>
+<span class="add">+persistence remains the separate conservative and ideal-feedback result.</span>
+<span class="add">+</span>
+<span class="add">+The Radau run uses relative tolerance $2\,10^{-8}$ and componentwise</span>
+<span class="add">+absolute tolerances $2\,10^{-13}$ for modal positions,</span>
+<span class="add">+$2\,10^{-11}$ for modal velocities and $2\,10^{-13}$ for normalized</span>
+<span class="add">+energy states. Simultaneously reducing them tenfold changes the saved tip</span>
+<span class="add">+trajectory by less than $0.010$ $\mu$m and the energy by less than</span>
+<span class="add">+$3.2\,10^{-15}$ J; the refined energy-ledger residual is below</span>
+<span class="add">+$3\,10^{-16}$ J. These are numerical implementation checks, not a</span>
+<span class="add">+validated enclosure of the integrated trajectory. The continuous-time</span>
+<span class="add">+clearance statement uses the analytic work proof and its independently</span>
+<span class="add">+validated initialization and parameter bounds.</span></pre>
+<h2>sections/references.tex</h2><pre><span class="del">--- before/sections/references.tex</span>
+<span class="add">+++ after/sections/references.tex</span>
+<span class="context">@@ -60,6 +60,12 @@</span>
+<span class="context"> \textit{Journal of Computational Mathematics} 7(1): 71--96.</span>
+<span class="context"> \url{https://computmath.cjoe.ac.cn/jcm/EN/Y1989/V7/I1/71}.</span>
+<span class="context"> </span>
+<span class="add">+\bibitem[Francescon et~al.(2025)]{francescon2025shape}</span>
+<span class="add">+Francescon V, Murasovs N, Lloyd P, Onaizah O, Chathuranga DS and Valdastri P (2025)</span>
+<span class="add">+Closed-loop shape-forming control of a magnetic soft continuum robot.</span>
+<span class="add">+\textit{IEEE Robotics and Automation Letters} 10(6): 6071--6078.</span>
+<span class="add">+\doi{10.1109/LRA.2025.3565124}</span>
+<span class="add">+</span>
+<span class="context"> \bibitem[Greydanus et~al.(2019)]{greydanus}</span>
+<span class="context"> Greydanus S, Dzamba M and Yosinski J (2019) Hamiltonian neural networks.</span>
+<span class="context"> In: \textit{Advances in Neural Information Processing Systems}, vol. 32.</span>
+<span class="context">@@ -100,6 +106,12 @@</span>
+<span class="context"> Part I. \textit{Computer Methods in Applied Mechanics and Engineering} 49(1): 55--70.</span>
+<span class="context"> \doi{10.1016/0045-7825(85)90050-7}</span>
+<span class="context"> </span>
+<span class="add">+\bibitem[Tong et~al.(2025)]{tong2025navigation}</span>
+<span class="add">+Tong D, Hao Z, Li J, Sun B, Liu M, Wang L and Huang W (2025)</span>
+<span class="add">+Real-time simulation enabled navigation control of magnetic soft continuum robots in confined lumens.</span>
+<span class="add">+\textit{Journal of the Mechanics and Physics of Solids} 203: 106198.</span>
+<span class="add">+\doi{10.1016/j.jmps.2025.106198}</span>
+<span class="add">+</span>
+<span class="context"> \bibitem[Trabelsi et~al.(2018)]{trabelsi}</span>
+<span class="context"> Trabelsi C, Bilaniuk O, Zhang Y et~al. (2018) Deep complex networks.</span>
+<span class="context"> In: \textit{International Conference on Learning Representations}.</span></pre>
+<h2>sections/stability_boundary.tex</h2><pre><span class="del">--- before/sections/stability_boundary.tex</span>
+<span class="add">+++ after/sections/stability_boundary.tex</span>
+<span class="context">@@ -0,0 +1,162 @@</span>
+<span class="add">+\subsection{Forced-response stability and clearance boundaries}</span>
+<span class="add">+\label{sec:stability-boundary}</span>
+<span class="add">+To distinguish resonance amplification from a dynamical loss of stability,</span>
+<span class="add">+we additionally scan the same nominal beam under a prescribed transverse</span>
+<span class="add">+field. This experiment concerns attracting responses of a driven, damped</span>
+<span class="add">+system; it does not measure destruction of the conservative KAM torus.</span>
+<span class="add">+The physical parameters, frozen static-field modes and mass-drag coefficient</span>
+<span class="add">+$\alpha=0.5555852368\,\mathrm{s}^{-1}$ are unchanged. No field-gradient</span>
+<span class="add">+input, learned-model substitution, governor or contact force is used.</span>
+<span class="add">+In physical time, the retained modal equations are</span>
+<span class="add">+\begin{equation}</span>
+<span class="add">+\begin{aligned}</span>
+<span class="add">+ \dot X_j&amp;=\omega_jY_j,\\</span>
+<span class="add">+ \dot Y_j&amp;=-\omega_jX_j-\alpha Y_j\\</span>
+<span class="add">+ &amp;\quad+\omega_0d_j[\vartheta-\sin\vartheta+u(t)\cos\vartheta],</span>
+<span class="add">+\end{aligned}</span>
+<span class="add">+\label{eq:boundary-modal-plant}</span>
+<span class="add">+\end{equation}</span>
+<span class="add">+where $\vartheta=d^{\mathsf T}X$, $u=B_y/B_0$, $B_0=30$ mT and</span>
+<span class="add">+$\omega_0=11.417287283\,\mathrm{rad\,s^{-1}}$.</span>
+<span class="add">+</span>
+<span class="add">+\paragraph{Fixed protocol and stability diagnostics.}</span>
+<span class="add">+Independent runs use</span>
+<span class="add">+$B_y=A[1-\exp(-(t/(0.25\,\mathrm{s}))^2)]\sin(r\omega_0t)$.</span>
+<span class="add">+The amplitude set is $A\in\{1,2,4,6,10,15,20\}$ mT.</span>
+<span class="add">+The frequency set contains the $0.02$ grid over $[0.70,1.30]$ and</span>
+<span class="add">+the $0.005$ grid over $[0.94,1.06]$, giving $49$ distinct ratios.</span>
+<span class="add">+For each pair, the initial low state is either zero or</span>
+<span class="add">+$\pm(0.18,0.04,0,0)$, giving $1029$ independent integrations.</span>
+<span class="add">+Increasing- and decreasing-frequency continuations add $686$ runs.</span>
+<span class="add">+Each continuation changes frequency at the zero-field phase and inherits</span>
+<span class="add">+the previous endpoint; the ramp is applied only at its first frequency.</span>
+<span class="add">+Each run discards $128$ forcing periods and measures the next $64$,</span>
+<span class="add">+for a total duration of $81.28$--$150.95$ s. Fixed-step DOP853 uses</span>
+<span class="add">+$256$ steps per forcing period in the two-mode grid.</span>
+<span class="add">+</span>
+<span class="add">+We integrate the analytic variational equation simultaneously, renormalize</span>
+<span class="add">+one tangent vector every period, and average its logarithmic growth over</span>
+<span class="add">+the last $64$ periods. These conditional finite-time Lyapunov exponents</span>
+<span class="add">+hold the prescribed forcing phase fixed. We also integrate the complete</span>
+<span class="add">+$4\times4$ fundamental matrix over a further period with $512$ steps,</span>
+<span class="add">+and calculate the Floquet multipliers of every converged two-mode orbit.</span>
+<span class="add">+The nontrivial Jacobian block is</span>
+<span class="add">+\begin{equation}</span>
+<span class="add">+ D_X\dot Y=-\operatorname{diag}(\omega_j)</span>
+<span class="add">+ +\omega_0[1-\cos\vartheta-u\sin\vartheta]dd^{\mathsf T}.</span>
+<span class="add">+\label{eq:boundary-variational-block}</span>
+<span class="add">+\end{equation}</span>
+<span class="add">+The identity $\det\mathcal M=\exp(-2\alpha T)$ for its monodromy</span>
+<span class="add">+matrix supplies an independent numerical check.</span>
+<span class="add">+</span>
+<span class="add">+All $1715$ runs converge to forcing-periodic responses. The largest</span>
+<span class="add">+single-period canonical residual is $6.65\times10^{-11}$; the maximum</span>
+<span class="add">+endpoint differences among the three initial states and between the two</span>
+<span class="add">+continuation directions are $2.31\times10^{-11}$ and</span>
+<span class="add">+$4.01\times10^{-11}$, respectively. Conditional exponents in the</span>
+<span class="add">+independent grid range from $-0.28046$ to $-0.27044\,\mathrm{s}^{-1}$.</span>
+<span class="add">+Floquet spectral radii range from $0.803809$ to $0.889055$, with the</span>
+<span class="add">+determinant identity accurate to $1.41\times10^{-14}$.</span>
+<span class="add">+Fifteen cases at amplitudes $2$, $6$ and $20$ mT and frequency ratios</span>
+<span class="add">+$0.8$, $0.95$, $1$, $1.05$ and $1.2$ retain periodic recurrence and</span>
+<span class="add">+negative conditional exponents when both the integration time and</span>
+<span class="add">+steps per period are doubled, and separately with four and eight modes.</span>
+<span class="add">+The latter use $1024$ and $4096$ steps per period. Time refinement</span>
+<span class="add">+changes the sampled two-mode steady peak by at most</span>
+<span class="add">+$3.81\times10^{-7}$ mm. An independently written adaptive DOP853</span>
+<span class="add">+implementation also agrees in canonical state to $3.13\times10^{-13}$</span>
+<span class="add">+on three twelve-period checks.</span>
+<span class="add">+</span>
+<span class="add">+These are numerical local-stability and basin checks at specified points,</span>
+<span class="add">+not a proof over a continuous parameter set. Of the $1029$ independent</span>
+<span class="add">+runs, $550$ keep their sampled whole-beam slope bound below $0.1$ rad</span>
+<span class="add">+throughout startup and measurement. We use this value as a conservative</span>
+<span class="add">+reporting screen for the small-slope model, not as a calibrated physical</span>
+<span class="add">+validity threshold. Large-amplitude rows are retained in the data and</span>
+<span class="add">+marked in Figure~\ref{fig:stability-boundaries}, but do not establish</span>
+<span class="add">+physical device performance. No resolved multistability or chaos is</span>
+<span class="add">+detected in this scan; neither a chaos threshold nor conservative-torus</span>
+<span class="add">+breakup is inferred from it.</span>
+<span class="add">+</span>
+<span class="add">+\paragraph{Full-model resonance and clearance contours.}</span>
+<span class="add">+To resolve the operational boundary without high-mode truncation, we</span>
+<span class="add">+separately calculate periodic responses using all $64$ frozen FE modes.</span>
+<span class="add">+For $f=\vartheta-\sin\vartheta+u\cos\vartheta$ with Fourier coefficients</span>
+<span class="add">+$f_k$ and $\Omega=r\omega_0$, the exact linear modal response is</span>
+<span class="add">+\begin{equation}</span>
+<span class="add">+ X_{j,k}=\frac{\omega_0\omega_jd_j f_k}</span>
+<span class="add">+ {\omega_j^2-(k\Omega)^2+\mathrm i\alpha k\Omega}.</span>
+<span class="add">+\label{eq:boundary-fourier-response}</span>
+<span class="add">+\end{equation}</span>
+<span class="add">+Iterating this response with the nonlinear force gives a numerical</span>
+<span class="add">+periodic solution; its full nonlinear ODE residual is checked after</span>
+<span class="add">+reconstructing $\vartheta=d^{\mathsf T}X$. Amplitude root-finding then</span>
+<span class="add">+locates a $4$ mm peak-displacement crossing at $31$ of $35$ frequency</span>
+<span class="add">+ratios; the remaining four ratios, $1.225$--$1.30$, have no such crossing</span>
+<span class="add">+below $20$ mT on the calculated branch. Cubic-Hermite Bernstein bounds</span>
+<span class="add">+cover every centreline point at each sampled phase. At every reported</span>
+<span class="add">+crossing these spatial upper bounds equal the actual tip peak to</span>
+<span class="add">+$8.9\times10^{-16}$ mm, so the contour also locates a tip reaching</span>
+<span class="add">+$4$ mm in the numerical periodic solution.</span>
+<span class="add">+</span>
+<span class="add">+\begin{table}[t]</span>
+<span class="add">+\centering\small</span>
+<span class="add">+\caption{Numerical $4$ mm crossing amplitudes in mT. Steady crossings</span>
+<span class="add">+use all $64$ modes. Startup crossings use eight modes, zero initial</span>
+<span class="add">+state, the stated $0.25$ s ramp, and $192$ forcing periods. They are</span>
+<span class="add">+protocol-dependent response contours, not certified safe-field limits.}</span>
+<span class="add">+\label{tab:stability-boundaries}</span>
+<span class="add">+\begin{tabular}{rrr}</span>
+<span class="add">+\toprule</span>
+<span class="add">+$\Omega/\omega_0$ &amp; Steady &amp; Startup\\</span>
+<span class="add">+\midrule</span>
+<span class="add">+$0.8$ &amp; $13.6362$ &amp; $8.6513$\\</span>
+<span class="add">+$0.9$ &amp; $7.5005$ &amp; $5.1882$\\</span>
+<span class="add">+$1.0$ &amp; $1.9168$ &amp; $1.9169$\\</span>
+<span class="add">+$1.1$ &amp; $8.7909$ &amp; $5.7662$\\</span>
+<span class="add">+$1.2$ &amp; $18.5936$ &amp; $10.4455$\\</span>
+<span class="add">+\bottomrule</span>
+<span class="add">+\end{tabular}</span>
+<span class="add">+\end{table}</span>
+<span class="add">+</span>
+<span class="add">+The steady contour has a numerical minimum near</span>
+<span class="add">+$r=0.999245$ ($\Omega=11.408664\,\mathrm{rad\,s^{-1}}$), at</span>
+<span class="add">+$A=1.915911$ mT and a spatial slope bound of $0.06750$ rad.</span>
+<span class="add">+Thus a $20$ mT actuator limit alone cannot ensure clearance near resonance.</span>
+<span class="add">+At five representative crossings, increasing the Fourier phase grid</span>
+<span class="add">+from $1024$ to $4096$ changes the peak by at most $0.00526\,\mu$m.</span>
+<span class="add">+Comparisons with $2$, $4$, $8$, $16$ and $32$ modes are retained:</span>
+<span class="add">+at these same inputs the two-mode peak differs from the full FE peak</span>
+<span class="add">+by up to $67.73\,\mu$m, whereas the eight-mode discrepancy is below</span>
+<span class="add">+$4.18\,\mu$m. Independent full-FE Radau integration from the computed</span>
+<span class="add">+periodic states at $r=0.8,1,1.2$ agrees in tip position to</span>
+<span class="add">+$1.11\times10^{-12}$ m over one period.</span>
+<span class="add">+</span>
+<span class="add">+Startup overshoot imposes a different contour. The eight-mode startup</span>
+<span class="add">+roots in Table~\ref{tab:stability-boundaries} use $512$ observation</span>
+<span class="add">+phases per cycle; doubling time, integration resolution and observation</span>
+<span class="add">+resolution at $r=0.8,1,1.2$ changes the peak by at most</span>
+<span class="add">+$0.0678\,\mu$m. Full-FE integration from rest over the first $32$</span>
+<span class="add">+periods, combined with the separately computed periodic response,</span>
+<span class="add">+changes the checked peak by at most $2.44\,\mu$m. At $r=0.8$, the</span>
+<span class="add">+approximately $8.6513$ mT request has a $2.5411$ mm full-FE steady</span>
+<span class="add">+amplitude but reaches $4.0020$ mm during startup. This is a numerical</span>
+<span class="add">+overshoot example with no wall-contact force. The continuous-time</span>
+<span class="add">+input-work governor of Section~\ref{sec:unifiedsafety} remains the</span>
+<span class="add">+proved clearance mechanism; the response contours explain why both</span>
+<span class="add">+frequency and startup must enter a practical operating choice.</span>
+<span class="add">+</span>
+<span class="add">+\begin{figure*}[t]</span>
+<span class="add">+\centering</span>
+<span class="add">+\includegraphics[width=\textwidth]{reproducibility/reviewer_revision_20261008/stability_scan/fig_stability_boundaries.pdf}</span>
+<span class="add">+\caption{Driven-response and clearance study of the same magnetic beam.</span>
+<span class="add">+(a) Two-mode steady peak on the from-rest grid; hatching marks sampled</span>
+<span class="add">+startup slopes above the $0.1$ rad reporting screen. The white line is</span>
+<span class="add">+the independently computed full-FE steady $4$ mm contour.</span>
+<span class="add">+(b) Full-FE steady and eight-mode startup contours under the fixed ramp.</span>
+<span class="add">+(c) Floquet multipliers of the two-mode periodic responses from all</span>
+<span class="add">+independent and continuation runs. (d) Full-FE startup overshoot near</span>
+<span class="add">+the eight-mode numerical crossing. Stability of an attracting forced</span>
+<span class="add">+periodic response is distinct from conservative KAM-torus persistence.}</span>
+<span class="add">+\label{fig:stability-boundaries}</span>
+<span class="add">+\end{figure*}</span></pre>
+<h2>supplement.tex</h2><pre><span class="del">--- before/supplement.tex</span>
+<span class="add">+++ after/supplement.tex</span>
+<span class="context">@@ -103,6 +103,7 @@</span>
+<span class="context"> \input{sections/unified_experiments}</span>
+<span class="context"> \input{sections/measure_numerical}</span>
+<span class="context"> \input{sections/robustness_and_adaptation}</span>
+<span class="add">+\input{sections/stability_boundary}</span>
+<span class="context"> </span>
+<span class="context"> \section{Preserving KAM dynamics through magnetic actuation}</span>
+<span class="context"> \label{sec:kam-actuation}</span>
+<span class="context">@@ -112,6 +113,7 @@</span>
+<span class="context"> \section{Clearance guarantees and magnetic safety control}</span>
+<span class="context"> \label{sec:safety}</span>
+<span class="context"> \input{sections/unified_safety}</span>
+<span class="add">+\input{sections/operational_tolerances}</span>
+<span class="context"> \input{sections/s_path}</span>
+<span class="context"> </span>
+<span class="context"> \section{Structure-preserving time integration}</span></pre></html>

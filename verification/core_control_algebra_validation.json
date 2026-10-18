@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "checks": [
+    "magnetic_force",
+    "symmetric_traceless_gradient",
+    "gradient_spectral_norm",
+    "magnetic_torque_command",
+    "nonseparable_Hamiltonian_acceleration",
+    "clamped_beam_Cauchy_Schwarz_kernel"
+  ],
+  "clearance_energy_nJ": 23.856469213197492,
+  "energy_cap_centerline_mm": 3.898717737923586,
+  "scope": "Exact algebra and parameter substitution for main application equations; model assumptions and proof hypotheses remain necessary."
+}

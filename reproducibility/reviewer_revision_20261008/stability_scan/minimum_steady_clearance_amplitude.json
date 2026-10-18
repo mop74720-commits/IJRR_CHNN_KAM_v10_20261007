@@ -1,0 +1,18 @@
+{
+  "amplitude_mT": 1.9159113133958303,
+  "frequency_ratio": 0.9992447220439369,
+  "modes": 64,
+  "phase_samples": 4096,
+  "iterations": 4,
+  "iteration_residual_rad": 1.484923295436147e-14,
+  "ODE_residual_per_s": 2.4131052118069083e-15,
+  "whole_bound_mm": 3.999999999993089,
+  "tip_peak_mm": 3.999999999993089,
+  "slope_bound_rad": 0.06749202190267829,
+  "purpose": "Minimum of numerical steady 4mm amplitude contour near first resonance; not a chaos threshold or rigorous safe input.",
+  "search_interval_ratio": [
+    0.98,
+    1.02
+  ],
+  "physical_frequency_rad_s": 11.40866405744968
+}

@@ -1,0 +1,149 @@
+{
+  "revision_date": "2026-10-08",
+  "status": "PASS",
+  "scope": "New computations, mathematical QA, raw-output consistency, source preservation and compiled layout; historical COMSOL study not rerun.",
+  "baseline_sha256": "e5a0531fcfa82a70626c2a5168f0982af8de40335094f5b8e10f72f83483b73a",
+  "changed_tex_files": [
+    "main.tex",
+    "sections/core_application.tex",
+    "sections/core_background.tex",
+    "sections/operational_tolerances.tex",
+    "sections/references.tex",
+    "sections/stability_boundary.tex",
+    "supplement.tex"
+  ],
+  "baseline_identical_core_and_template_files": [
+    "sagej.cls",
+    "SageH.bst",
+    "SageV.bst",
+    "sections/core_derivation.tex",
+    "sections/core_analysis.tex",
+    "sections/core_kam.tex",
+    "sections/theorem_bridge.tex",
+    "sections/integral_comsol_to_kam.tex",
+    "sections/measure_proof.tex"
+  ],
+  "stability_raw_output_checks": {
+    "manifest_files_verified": 58,
+    "independent_runs": 1029,
+    "continuation_runs": 686,
+    "floquet_radius_min": 0.8038091240725593,
+    "floquet_radius_max": 0.8890547397454454,
+    "max_periodic_residual": 6.64686639062495e-11,
+    "full_modal_steady_crossings": 31,
+    "r1_steady_amplitude_mT": 1.9168489122265309,
+    "minimum_steady_crossing": {
+      "amplitude_mT": 1.9159113133958303,
+      "frequency_ratio": 0.9992447220439369,
+      "modes": 64,
+      "phase_samples": 4096,
+      "iterations": 4,
+      "iteration_residual_rad": 1.484923295436147e-14,
+      "ODE_residual_per_s": 2.4131052118069083e-15,
+      "whole_bound_mm": 3.999999999993089,
+      "tip_peak_mm": 3.999999999993089,
+      "slope_bound_rad": 0.06749202190267829,
+      "purpose": "Minimum of numerical steady 4mm amplitude contour near first resonance; not a chaos threshold or rigorous safe input.",
+      "search_interval_ratio": [
+        0.98,
+        1.02
+      ],
+      "physical_frequency_rad_s": 11.40866405744968
+    },
+    "claim": "Numerical response and clearance contours; no detected chaos under this sampled protocol, no global absence or conservative-torus breakup theorem."
+  },
+  "operational_tolerance_checks": {
+    "analytic_certificate": {
+      "precision_bits": 256,
+      "duration_s": 4.0,
+      "initial_error_Q_J": 5e-12,
+      "compliance_centerline_m_per_N_upper": 335.3388101360137,
+      "slope_compliance_upper": 157190.0672512561,
+      "critical_energy_J_lower": 2.3856469213197226e-08,
+      "energy_cap_J": 2.2659999999999996e-08,
+      "reference_quadratic_energy_J": 2.1458552180018966e-08,
+      "initial_energy_bound_J": 2.2118663654197505e-08,
+      "command_work_cap_J": 2.256322083116219e-08,
+      "additive_power_reserve_W": 2.419479220945204e-11,
+      "additive_work_reserve_J": 9.677916883780816e-11,
+      "mass_inverse_force_port_upper": 4452635.924077259,
+      "mass_inverse_rotation_port_upper": 39409223860002.91,
+      "shape_bound_m": 0.0038984041446935873,
+      "tip_slope_bound_rad": 0.08440292558807976,
+      "error_set_implied_tip_m_upper": 5.60056063463958e-05,
+      "error_set_implied_tip_angle_rad_upper": 0.001198509730062561,
+      "error_set_implied_mass_weighted_rms_velocity_m_s_upper": 0.000316980449692576,
+      "sensor_angle_error_rad": 0.001,
+      "sensor_angular_rate_error_rad_s": 0.01,
+      "sensor_tip_velocity_error_m_s": 0.0001,
+      "relative_force_error": 0.01,
+      "relative_field_error": 0.01,
+      "additive_force_error_N": 5e-10,
+      "additive_field_error_T": 5e-08,
+      "strict_positive_initial_work_margin_J": 4.4455717696469043e-10,
+      "balls": {
+        "Cw_upper": "[335.3388101360136280014863949845313601179192065278638889349592240868136948617 +/- 2.24e-75]",
+        "Ec_lower": "[2.385646921319722900849823874194635733633851889102466865731340986585540313370e-8 +/- 1.25e-84]",
+        "Ecap": "[2.266000000000000000000000000000000000000000000000000000000000000000000000000e-8 +/- 2.71e-85]",
+        "Q_reference": "[2.14585521800189618798561116591901321314046855218759142617984095392816940622e-8 +/- 4.68e-83]",
+        "W0_upper": "[2.211866365419750138866438348391648677173035564100171904278484765305227077342e-8 +/- 2.02e-84]",
+        "additive_reserve_upper": "[9.677916883780815301971630407241821741198360188371464210940295106541296056409e-11 +/- 2.64e-87]",
+        "command_cap_lower": "[2.256322083116219184698028369592758178258801639811628535789059704893458703944e-8 +/- 4.66e-84]"
+      },
+      "initialization_scope": "Full-state energy ellipsoid about finite exported Fourier reference; no exact-torus membership required."
+    },
+    "raw_trajectory_checks": {
+      "primary": {
+        "saved_times": 2001,
+        "recomputed_maximum_energy_J": 2.1744897938056985e-08,
+        "energy_ledger_residual_J": 4.752488695982579e-15
+      },
+      "refined": {
+        "saved_times": 2001,
+        "recomputed_maximum_energy_J": 2.1744897926469604e-08,
+        "energy_ledger_residual_J": 2.480243958190763e-16
+      }
+    },
+    "scope": "Strict analytic work theorem for stated deterministic envelopes over 4 seconds; sampled integration is an implementation check and does not certify KAM tracking."
+  },
+  "independent_qa_record": "reproducibility/reviewer_revision_20261008/independent_qa.json",
+  "documents": {
+    "main": {
+      "pages": 15,
+      "sha256": "7e2a1c37d4b1d3c83bf15501481ae67214f4aaa79c890ca63a6f0ca0746ca2a4",
+      "log_errors_undefined_references_overfull": 0
+    },
+    "supplement": {
+      "pages": 45,
+      "sha256": "78296623feec460db3f11f355a2dd59c7f2f6ab807aa27ad387d192b3c2adf33",
+      "log_errors_undefined_references_overfull": 0
+    }
+  },
+  "layout": {
+    "figure_2_page": 13,
+    "conclusion_start_page": 14,
+    "background_starts_page": 1,
+    "derivation_starts_page": 4,
+    "visual_check": "All main pages reviewed in overview; new equations, tolerance table, response figure, tracking figure and conclusion inspected at reading scale; no clipped material or orphan blank page."
+  },
+  "references": {
+    "unique_bibliography_entries": 24,
+    "new_primary_publications": 2,
+    "verification_record": "reproducibility/reviewer_revision_20261008/literature/related_work_patch.json"
+  },
+  "algebra_validation": "Six existing SymPy control/clearance algebra checks executed and passed.",
+  "not_rerun": [
+    "All historical COMSOL model solves",
+    "Original neural fitting",
+    "Hardware, contact or in-orbit experiments"
+  ],
+  "core_file_hashes": {
+    "main.tex": "2900b53cd9be166ce862223d8f4c9d4f20f7e51f4814b8012e207d9d06217d1e",
+    "supplement.tex": "a23682fcfba70076244a5c3aa017697000d9045adae68a27f28918865330b5f6",
+    "sagej.cls": "3d355246afa097b6dc8b637ff49d74fccaf8886f9331b3a97bb1b0a3b22b9e23",
+    "SageH.bst": "70e72e23674f828550e55eadc0de8f110c4d6683c12288d58f6a583ae48a3f71",
+    "SageV.bst": "113da1cae672949bb2e496e095507e3897a7e20206ac7186e0870b9ee63abfaa",
+    "sections/operational_tolerances.tex": "d1ed126d5cad6f358a772584fe619a55b8b1f107ffba02d569375df6e6eb1a4d",
+    "sections/stability_boundary.tex": "f020dc45d36457e2332b6809578822598545744d13406ecd43da7cbff6950aac"
+  }
+}

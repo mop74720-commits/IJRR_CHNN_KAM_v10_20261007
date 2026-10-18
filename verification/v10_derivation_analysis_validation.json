@@ -1,0 +1,83 @@
+{
+  "scope": "Read-only symbolic checks, original algebra rerun with output redirected here, and recomputed stored comparisons; no new COMSOL/trajectory simulation.",
+  "checks": {
+    "inverse_complex_chart": true,
+    "explicit_complex_energy_identity": true,
+    "complex_poisson_tensor": true,
+    "both_complex_canonical_equations": true,
+    "nonseparable_decoder_power_identity": true,
+    "complex_port_decoder": true,
+    "canonical_scale_product": true,
+    "central_scheme_six_original_checks_recomputed": true,
+    "original_verifier_unchanged": true,
+    "prior_improves_two_seeds_worsens_one": true,
+    "five_comparison_numbers_unchanged": true,
+    "core_derivation.tex_no_bad_control_chars": true,
+    "core_derivation.tex_unique_local_labels": true,
+    "core_analysis.tex_no_bad_control_chars": true,
+    "core_analysis.tex_unique_local_labels": true
+  },
+  "all_checks_pass": true,
+  "comparison_source": "E:\\回写\\稿件版本\\IJRR_CHNN_KAM_主线补齐稿_20261002\\reproducibility\\unified_model\\learning\\results.json",
+  "comparison_source_sha256": "8ece411ec7511c43100400e205ff421d21795765d961862a74a8f93058962919",
+  "five_paired_comparisons": {
+    "R-GR": {
+      "values": [
+        2.3491383423088495e-05,
+        -4.879763529147341e-06,
+        1.3837845637197104e-05
+      ],
+      "mean": 1.0816488510379419e-05,
+      "sample_sd": 1.4424872408869661e-05
+    },
+    "C-GC": {
+      "values": [
+        2.3491384157116954e-05,
+        -4.8797636601548674e-06,
+        1.3837846307892188e-05
+      ],
+      "mean": 1.0816488934951424e-05,
+      "sample_sd": 1.4424872872876195e-05
+    },
+    "R-C": {
+      "values": [
+        -7.335312336655044e-13,
+        1.338541738115772e-13,
+        -6.718031350400749e-13
+      ],
+      "mean": -4.2382673163133405e-13,
+      "sample_sd": 4.839510138037699e-13
+    },
+    "GR-GC": {
+      "values": [
+        4.972252806972194e-16,
+        2.8466473427600503e-15,
+        -1.1080512321483965e-15
+      ],
+      "mean": 7.452737971029577e-16,
+      "sample_sd": 1.988983724031959e-15
+    },
+    "(GR-GC)-(R-C)": {
+      "values": [
+        7.340284589462016e-13,
+        -1.3100752646881715e-13,
+        6.706950838079265e-13
+      ],
+      "mean": 4.24572005428437e-13,
+      "sample_sd": 4.821869360517562e-13
+    }
+  },
+  "word_counts": {
+    "core_derivation.tex": {
+      "v9_prose_words_approx": 543,
+      "v10_prose_words_approx": 555,
+      "new_sha256": "059661be95e1a49461c354de87c14a06a6063d747e39889fe92b380ba74c1b30"
+    },
+    "core_analysis.tex": {
+      "v9_prose_words_approx": 1400,
+      "v10_prose_words_approx": 1042,
+      "new_sha256": "2ed2e109bfce2e6d2a7ab448ee412d6701d73ec444142ddca4f11c6ffd8a4f25"
+    }
+  },
+  "script_sha256": "7d5f39f3b98ad9c020002b6e6eca524d3078944d60f10abc769e69de291ebef0"
+}

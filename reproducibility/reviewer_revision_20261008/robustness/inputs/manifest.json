@@ -1,0 +1,29 @@
+{
+  "model_matrices.npz": {
+    "source_archive_relative": "unified_model/learning/raw/model_matrices.npz",
+    "sha256": "ae1b221b5f67ff455c478c17552bc26ce4d8c155169b9e2682f53b992cca4288"
+  },
+  "integral_fit.npz": {
+    "source_archive_relative": "mainline_completion/integral_certificate/comsol_integral_certificate_fit.npz",
+    "sha256": "a9bc1c23a811d1200b42ea4ff065e1d455e49d3dc33177e2e5d653dd581a8b85"
+  },
+  "feature_model.py": {
+    "source_archive_relative": "unified_model/learning/feature_model.py",
+    "sha256": "60becfbe1d1f04c135b01245cae0858968c14d778caf9810d87dc2cfa693c3f2"
+  },
+  "finite_fourier_initial_state.npz": {
+    "source_archive_relative": "mainline_completion/integral_certificate/torus_COMSOL_integral_geometry.npz",
+    "source_sha256": "c46423e0c2d9b55027b198eb5741839a8ce078f8c0032fd1bd4da294cf40cfde",
+    "extraction": "state[0,0] and frequency_cycles; finite floating-point initial reference, no exact-torus membership asserted",
+    "sha256": "724fbe80f49ada68892a7da737079bc75a1f24a95e890efc96b0eb3656575e87"
+  },
+  "reference_nodal_state.npz": {
+    "sha256": "98127ee121bd6044d1c8cf0e8e5453cf87f2d97f228b9fe4e1e35ff93d9f9321",
+    "derived_from": [
+      "finite_fourier_initial_state.npz",
+      "model_matrices.npz",
+      "integral_fit.npz"
+    ],
+    "definition": "Frozen dyadic nodal position/velocity reference; all runtime initialization bounds use these arrays directly."
+  }
+}

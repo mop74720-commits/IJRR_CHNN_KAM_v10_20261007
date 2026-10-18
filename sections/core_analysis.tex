@@ -1,0 +1,226 @@
+\subsection{Symplecticity, order and phase accuracy}
+\label{sec:core-integrator-analysis}
+For a differentiable local solution of~\eqref{eq:central4}, set
+$C_\Delta=J\mathcal S_\Delta''(m)/2$. Differentiating the implicit map gives
+\begin{equation}
+ D\Psi_\Delta=(I-C_\Delta)^{-1}(I+C_\Delta).
+ \label{eq:core-step-tangent}
+\end{equation}
+Since $\mathcal S_\Delta''$ is symmetric,
+$C_\Delta^{\mathsf T}J+JC_\Delta=0$, so this Cayley transform satisfies
+$(D\Psi_\Delta)^{\mathsf T}JD\Psi_\Delta=J$.
+The odd dependence $\mathcal S_{-\Delta}=-\mathcal S_\Delta$ also gives
+$\Psi_{-\Delta}=\Psi_\Delta^{-1}$. The local defect $O(\Delta^5)$ in
+\eqref{eq:core-exact-displacement} implies fourth-order convergence on
+fixed intervals with bounded derivatives and locally unique implicit
+steps. These classical properties \citep[Theorems~17--18 and 23--24]{feng}
+hold for the complete fitted energy; the computation below measures the
+additional error from finite Newton solves.
+
+The linear oscillator makes the phase improvement explicit. For
+$h=\nu(X^2+Y^2)/2$, put $a=\nu\Delta+(\nu\Delta)^3/12$.
+The step is a rotation with eigenvalues
+$(1\pm\mathrm ia/2)/(1\mp\mathrm ia/2)$ and phase magnitude
+\begin{equation}
+ \theta_\Delta=2\arctan(a/2)
+ =\nu\Delta-\frac{(\nu\Delta)^5}{120}+O(\Delta^7).
+ \label{eq:core-linear-phase}
+\end{equation}
+Its modulus is one for every real step. Implicit midpoint instead has
+$\theta_\Delta=\nu\Delta-(\nu\Delta)^3/12+O(\Delta^5)$.
+Both preserve the quadratic energy exactly while accumulating different
+phase errors. For a nonlinear energy, symplecticity preserves canonical
+structure and does not imply exact energy conservation.
+
+We test this distinction on the prior-informed complex fit from training
+seed $17$ (GC17, defined in Section~\ref{sec:core-learning-comparisons}),
+retaining its complete cosine and quartic terms. From initial state
+$(0.1,0.06,0,0.02)$ we integrate to $\tau=10$ against a DOP853 reference
+whose tolerance refinement changes each component by at most
+$8.32\times10^{-14}$. Table~\ref{tab:core-integrator} confirms the
+predicted orders.
+
+\begin{table}[t]
+\centering
+\caption{Endpoint errors for the complete fitted GC17 energy. The state
+error is Euclidean; orders use successive step halvings.}
+\label{tab:core-integrator}
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{rcc}
+\toprule
+$\Delta$ & Midpoint error (order) & Central4 error (order)\\
+\midrule
+$0.08$ & $7.1351\times10^{-2}$ (---) & $1.8346\times10^{-3}$ (---)\\
+$0.04$ & $1.9383\times10^{-2}$ ($1.8802$) & $1.1784\times10^{-4}$ ($3.9606$)\\
+$0.02$ & $4.8966\times10^{-3}$ ($1.9849$) & $7.4149\times10^{-6}$ ($3.9902$)\\
+$0.01$ & $1.2265\times10^{-3}$ ($1.9972$) & $4.6422\times10^{-7}$ ($3.9976$)\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The maximum implicit residual is $2.00\times10^{-15}$ and the maximum
+symplectic defects are $3.34\times10^{-16}$ for Central4 and
+$2.24\times10^{-16}$ for midpoint. An independent finite-difference
+tangent agrees within $1.39\times10^{-12}$. These results confirm fourth-order convergence
+and structure preservation at the measured solve accuracy. The comparison
+uses equal step sizes; Central4 requires higher derivatives.
+Supplementary Section~\ref{S-app:unified-integrator-check} gives the
+solver tolerances and complete checks.
+
+\subsection{Complex features and derivative approximation}
+\label{sec:core-approximation}
+Having controlled integration error, we next control the learned energy
+and its derivatives. The complex form~\eqref{eq:core-complex-energy}
+suggests retaining the magnetic cosine and learning a quartic residual.
+For two modes, let $m_4(x)$ list the $35$ degree-four monomials,
+$v_4$ contain the coefficients of $-(d^{\mathsf T}X)^4/24$, and the
+$34$ columns of $U$ span its orthogonal complement. Define
+\begin{align}
+ F(x)&=\begin{pmatrix}g(d^{\mathsf T}X)/\|v_4\|_2\\
+                           U^{\mathsf T}m_4(x)\end{pmatrix},\nonumber\\
+ h_\eta(x)&=h_2(x)+\eta^{\mathsf T}F(x)
+          =h_2+a\,g(d^{\mathsf T}X)+m_4(x)^{\mathsf T}Uc,
+ \label{eq:unified-feature-readout}
+\end{align}
+where $\eta=(a\|v_4\|_2,c)$. This class contains the target at $a=1,c=0$
+without duplicating its leading quartic direction. Substituting
+\eqref{eq:core-complex-chart} realizes each monomial with complex affine
+forms and their conjugates; square activations implement products via
+$uv=[(u+v)^2-(u-v)^2]/4$. The cosine and these polynomial features give
+a finite analytic complex network with a real linear readout and allow
+momentum-dependent residuals.
+
+More generally, increasing the polynomial degree approximates an
+analytic target and each fixed order of its derivatives on a compact
+polydisk inside the power-series convergence domain. The fixed class
+above instead admits a quantitative coefficient bound. This derivative
+requirement differs from the $L^2$ comparison for the particular
+function classes in \citet[Theorem~2]{zhang}.
+
+For an in-class target $h_*=h_2+\eta_*^{\mathsf T}F$, define
+$B_r(D)=\max_{|\beta|\le r}\sup_{x\in D}\|\partial^\beta F(x)\|_2$.
+For conservative derivative labels, let $\ell$ be the mean over $N$
+observations of the squared Euclidean residual of each four-component
+vector, and $\epsilon_{\rm rms}$ the corresponding label-error bound.
+With $DF\in\mathbb R^{35\times4}$ and
+$G=N^{-1}\sum_i DF(x_i)DF(x_i)^{\mathsf T}$, the triangle inequality gives
+\begin{align}
+ \|h_\eta-h_*\|_{C^r(D)}
+ &\le B_r(D)\|\eta-\eta_*\|_2\nonumber\\
+ &\le \frac{B_r(D)(\sqrt\ell+\epsilon_{\rm rms})}
+              {\sqrt{\lambda_{\min}(G)}},
+ \label{eq:core-feature-error}
+\end{align}
+provided $G$ is positive definite; the $C^r$ norm is the maximum over
+scalar coordinate derivatives. Indeed, orthogonality of $J$ equates the
+vector-field coefficient error to the derivative-feature error, and
+the least eigenvalue of $G$ bounds its empirical squared norm from
+below. This model-specific estimate includes nonzero fitting and label
+errors. A target outside the class requires an additional approximation
+defect in both the label budget and function error.
+Section~\ref{sec:kam} uses these quantities to test KAM conditions.
+
+\subsection{Matched identification and long-time prediction}
+\label{sec:core-learning-comparisons}
+Five paired comparisons separate representation from the mechanical
+prior. R and C denote real and complex features; G fixes the physical
+quadratic energy and B fits its $10$ coefficients. Thus GR and GC fit
+$35$ real parameters, and BR and BC fit $45$, using the fixed
+chart~\eqref{eq:unified-scale}. Within each prior choice, both
+representations use identical function classes, data and regularizers
+in common real coordinates.
+
+For each seed in $\{17,43,91\}$, the two-mode Galerkin model generates
+$12$ conservative $4$ s trajectories with $129$ observations each.
+States are noiseless; vector-field components receive uniform noise
+in $[-10^{-6},10^{-6}]$. Regularized least squares fits the readout,
+and eight independently initialized $16$ s trajectories are held out
+in full. Supplementary Section~\ref{S-sec:unified-learning-protocol}
+specifies initial-state sampling, regularization and solver tolerances.
+
+Abbreviating BR and BC as R and C, R$-$GR and C$-$GC measure the prior
+effect, R$-$C and GR$-$GC compare representations, and
+(GR$-$GC)$-$(R$-$C) measures their interaction. Differences are paired
+within each training seed before computing means and sample standard
+deviations.
+
+\begin{table}[t]
+\centering
+\caption{Five paired contrasts of tip RMSE, using the same eight held-out
+trajectories for each of three training seeds. Positive prior contrasts
+favour G; positive representation contrasts favour C.}
+\label{tab:core-learning}
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{lc}
+\toprule
+Contrast & Mean $\pm$ sample SD (mm)\\
+\midrule
+$\mathrm R-\mathrm{GR}$ & $(1.08\!\pm\!1.44)10^{-5}$\\
+$\mathrm C-\mathrm{GC}$ & $(1.08\!\pm\!1.44)10^{-5}$\\
+$\mathrm R-\mathrm C$ & $(-4.24\!\pm\!4.84)10^{-13}$\\
+$\mathrm{GR}-\mathrm{GC}$ & $(0.75\!\pm\!1.99)10^{-15}$\\
+$(\mathrm{GR}-\mathrm{GC})-(\mathrm R-\mathrm C)$ & $(4.25\!\pm\!4.82)10^{-13}$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The mean tip RMSE is $2.28\times10^{-5}\,\mathrm{mm}$ for BR/BC and
+$1.20\times10^{-5}\,\mathrm{mm}$ for GR/GC. The prior improves two seeds
+and worsens the third. Representation and interaction contrasts are
+smaller than the reference-solver refinement change,
+$1.92\times10^{-8}\,\mathrm{mm}$; the matched real and complex fits
+are numerically equivalent here. The three-seed summaries in
+Table~\ref{tab:core-learning} are descriptive.
+GC estimates $a=1.00326\pm0.00154$ with nonzero training residuals.
+Supplementary Table~\ref{S-tab:unified-learning} gives slope and physical
+target-energy errors as well as tip errors. The small errors reflect
+an in-class target and accurately controlled synthetic data.
+
+A separate $200$ s continuation spans $363$ first-mode periods and gives
+GC tip RMSEs of $1.38\times10^{-4}$--$4.03\times10^{-4}\,\mathrm{mm}$,
+maximum modal phase error $4.19\times10^{-4}\,\mathrm{rad}$, and
+own-energy relative drift below $5.11\times10^{-9}$.
+These DOP853 trajectories test long-time prediction, independently of
+the Central4 test (supplementary Figure~\ref{S-fig:unified-long}).
+Their finite-time agreement leads to the separate invariant-torus
+question in Section~\ref{sec:kam}.
+
+\subsection{Dissipation and independent finite-element comparisons}
+\label{sec:core-physical-comparisons}
+Driven tests first isolate the role of dissipation. Fitting the Rayleigh
+coefficient on unforced trajectories gives tip RMSEs of
+$6.40\times10^{-5}$--$1.37\times10^{-4}\,\mathrm{mm}$ on six held-out
+forced trajectories; omitting it gives approximately $3.01\,\mathrm{mm}$.
+The largest work-balance residual with dissipation is
+$4.41\times10^{-17}\,\mathrm J$. These free-motion tests precede the
+clearance constraints introduced in Section~\ref{sec:application}.
+
+Independent COMSOL calculations then quantify reduction error.
+On an $8$ s driven test, exact-cosine predictors with $2$, $4$ and $8$
+modes give tip RMSEs of $0.0156168$, $0.00407422$ and
+$0.00102484\,\mathrm{mm}$, respectively, versus
+$0.00005614\,\mathrm{mm}$ for all $64$ modes.
+The learned two-mode GC error, $0.0156171$--$0.0156177\,\mathrm{mm}$,
+shows that reduction dominates this test. Supplementary
+Section~\ref{S-sec:unified-comsol} gives the assembly and refinement checks.
+
+Fitting position--velocity increments from separate full-FE COMSOL
+trajectories gives $a=1.0223248822$ and test errors $0.14836$ and
+$0.05140\,\mu\mathrm m$, versus $0.24172$ and $0.27459\,\mu\mathrm m$
+for the exact two-mode predictor. The learned residual partly absorbs
+reduction error (Supplementary Section~\ref{S-sec:comsol-identification}).
+The KAM proof instead uses separate two-mode COMSOL observations,
+so that its identification error can be bounded directly.
+
+Unknown-parameter and model-mismatch tests further assess the feature
+choice (Supplementary Section~\ref{S-sec:robustness-newphysics}).
+For a soft rod with positive field gradient, adding omitted physical
+features reduces tip RMSE from $182.988$ to $9.829\,\mu\mathrm m$;
+a freely fitted quadratic model gives $7.258\,\mu\mathrm m$.
+At $0.5\%$ state noise, the corresponding errors are $183.028$,
+$9.757$ and $7.216\,\mu\mathrm m$. Thus a physical prior can limit
+absorption of reduction error. Finally, on six one-second forecasts
+along a slowly drifting full-FE trajectory, causal adaptation from past
+states reduces mean error from $387.483$ to $9.867\,\mu\mathrm m$.
+These nonautonomous forecasts have a separate empirical scope from the
+stationary KAM result.

@@ -1,0 +1,49 @@
+\subsection{Integration accuracy for the learned magnetic energy}
+\label{app:unified-integrator-check}
+We implement \eqref{eq:central4} for the Python-trained GC17 Hamiltonian,
+retaining its complete cosine and all mixed and momentum-dependent
+quartics. Polynomial and trigonometric derivatives through order four
+are evaluated analytically from the fitted energy; they supply both the
+central displacement and its Newton Jacobian. This test closes all
+forcing and damping ports. Starting at $(X_1,X_2,Y_1,Y_2)=(0.1,0.06,0,0.02)$,
+we integrate to $\tau=10$ and compare against DOP853 with relative and
+absolute tolerances $3\times10^{-14}$ and $3\times10^{-16}$.
+Tightening the reference tolerances from $2\times10^{-13}$ and
+$2\times10^{-15}$ changes the sampled reference by at most
+$8.32\times10^{-14}$ per state component.
+The endpoint errors in Table~\ref{tab:unified-integrator-check} approach
+fourth order for Central4 and second order for implicit midpoint.
+
+\begin{table}[htbp]
+\centering\small
+\setlength{\tabcolsep}{2.5pt}
+\caption{Conservative integration of the GC17 energy.
+Errors are Euclidean endpoint errors in the balanced dimensionless state;
+orders compare successive step halvings.}
+\label{tab:unified-integrator-check}
+\begin{tabular}{rrrrr}
+\toprule
+$h$ & Midpoint error & Order & Central4 error & Order\\
+\midrule
+$0.08$ & $7.1351\times10^{-2}$ & --- & $1.8346\times10^{-3}$ & ---\\
+$0.04$ & $1.9383\times10^{-2}$ & $1.8802$ & $1.1784\times10^{-4}$ & $3.9606$\\
+$0.02$ & $4.8966\times10^{-3}$ & $1.9849$ & $7.4149\times10^{-6}$ & $3.9902$\\
+$0.01$ & $1.2265\times10^{-3}$ & $1.9972$ & $4.6422\times10^{-7}$ & $3.9976$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The largest implicit-step residual in the infinity norm is
+$2.00\times10^{-15}$, with at most three Newton evaluations per step.
+For each tested step size, differentiating the converged implicit equation
+gives its one-step tangent map $D\Phi_h$. The largest measured defect
+$\|D\Phi_h^{\mathsf T}JD\Phi_h-J\|_\infty$ is
+$3.34\times10^{-16}$ for Central4 and $2.24\times10^{-16}$ for midpoint.
+An independent fourth-order central-difference evaluation of the solved
+step map agrees with the implicit tangent to $1.39\times10^{-12}$;
+its largest symplectic defect is $2.75\times10^{-12}$.
+Thus both methods preserve the symplectic structure to the measured
+implicit-solve and arithmetic accuracy, while their convergence orders
+differ. The test assesses numerical integration of the complete
+momentum-dependent Hamiltonian; the KAM statement follows separately
+from its analytic certificate.

@@ -1,0 +1,56 @@
+[
+  {
+    "frequency_ratio": 0.8,
+    "amplitude_mT": 8.65128735660559,
+    "method": "8-mode DOP853: doubled time and steps, doubled observations",
+    "maximum_whole_mm": 3.9999999998693156,
+    "steady_whole_mm": 2.5390743347771383,
+    "maximum_slope_rad": 0.07394328273740429
+  },
+  {
+    "frequency_ratio": 0.8,
+    "amplitude_mT": 8.65128735660559,
+    "method": "Full-64-mode Radau from rest, first 32 periods plus periodic solution",
+    "maximum_whole_mm": 4.001967665641042,
+    "steady_whole_mm": 2.5411194647999067,
+    "duration_s": 22.0128832761045,
+    "peak_time_s": 1.5625600128240682,
+    "nfev": 48966
+  },
+  {
+    "frequency_ratio": 1.0,
+    "amplitude_mT": 1.91688722974344,
+    "method": "8-mode DOP853: doubled time and steps, doubled observations",
+    "maximum_whole_mm": 4.00006778761247,
+    "steady_whole_mm": 4.000067787612328,
+    "maximum_slope_rad": 0.06746167174801178
+  },
+  {
+    "frequency_ratio": 1.0,
+    "amplitude_mT": 1.91688722974344,
+    "method": "Full-64-mode Radau from rest, first 32 periods plus periodic solution",
+    "maximum_whole_mm": 3.968304071721776,
+    "steady_whole_mm": 4.000079873042995,
+    "duration_s": 17.6103066208836,
+    "peak_time_s": 17.609231773067382,
+    "nfev": 39649
+  },
+  {
+    "frequency_ratio": 1.2,
+    "amplitude_mT": 10.44552371421464,
+    "method": "8-mode DOP853: doubled time and steps, doubled observations",
+    "maximum_whole_mm": 4.0000000000005045,
+    "steady_whole_mm": 2.2510186479623764,
+    "maximum_slope_rad": 0.06479224666172342
+  },
+  {
+    "frequency_ratio": 1.2,
+    "amplitude_mT": 10.44552371421464,
+    "method": "Full-64-mode Radau from rest, first 32 periods plus periodic solution",
+    "maximum_whole_mm": 3.997561706375279,
+    "steady_whole_mm": 2.248496849531244,
+    "duration_s": 14.675255517402999,
+    "peak_time_s": 1.4716458017024614,
+    "nfev": 44584
+  }
+]

@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "checks": [
+    "All 1715 sampled two-mode periodic orbits have Floquet spectral radius below one.",
+    "Monodromy determinant matches the exact divergence identity.",
+    "All periodic endpoints have residual below 1e-8 in canonical coordinates.",
+    "Matched initial conditions and forward/reverse branches agree.",
+    "Fifteen time/mode refinements retain negative conditional FTLE.",
+    "At all 31 full-FE boundary points the spatial Bernstein upper bound equals the sampled physical tip maximum.",
+    "Adaptive full-FE Radau trajectories agree with independently calculated Fourier periodic solutions."
+  ],
+  "caveats": [
+    "Floating-point checks are numerical, not interval proofs.",
+    "No physical collision/contact is simulated after a crossing.",
+    "A 0.1-rad slope screen is a reporting convention, not a calibrated model-validity threshold.",
+    "Grid absence of detected chaos is not a proof over a continuous parameter domain."
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "mode": "continuation",
+  "cases": 686,
+  "elapsed_s": 25.527075899997726,
+  "max_FTLE": -0.27084132733815575,
+  "max_strobe_step": 2.4616668425903043e-10,
+  "max_whole_mm": 39.48907874032134,
+  "max_slope": 0.6661232378075288
+}
