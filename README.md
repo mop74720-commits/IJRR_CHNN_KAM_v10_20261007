@@ -38,4 +38,15 @@ python reproducibility/compile_documents.py
 
 下载后将 ZIP 放在仓库根目录，可供需要原始交付包的验证脚本使用。对应 `.zip.sha256` 文件同时保留在仓库和 Release 附件中。编译临时文件和 Python/Numba 缓存不纳入版本控制。
 
-本仓库发布范围为 `IJRR_CHNN_KAM_v10_20261007` 目录；上述位于父目录的 S1 完整历史材料包未随本仓库发布。完整复现原始研究仍需 S1，详见 `reproducibility/ARTIFACT_INDEX.md`。
+完整历史材料 S1 及以下五个目录分包也作为同一 Release 的附件提供。所有分包均直接取自上述 SHA-256 锁定的原始 S1，保留文件内容和 `reproducibility/` 相对路径；完整 S1 保留原始外层目录，内部论文仍为历史 v9。
+
+| 下载 | S1 内的目录 | 文件数 | 大小（MiB） |
+|---|---|---:|---:|
+| [完整 S1](https://github.com/mop74720-commits/IJRR_CHNN_KAM_v10_20261007/releases/download/v10-20261008/S1_complete_original_20261002.zip) | 完整原始包，英文文件名副本 | 1114 | 771.0 |
+| [COMSOL 工程与构造材料](https://github.com/mop74720-commits/IJRR_CHNN_KAM_v10_20261007/releases/download/v10-20261008/S1_comsol_20261002.zip) | `reproducibility/unified_model/comsol/` | 57 | 52.9 |
+| [原观测、积分辨识及认证](https://github.com/mop74720-commits/IJRR_CHNN_KAM_v10_20261007/releases/download/v10-20261008/S1_integral_certificate_20261002.zip) | `reproducibility/mainline_completion/integral_certificate/` | 22 | 15.7 |
+| [完整有限元辨识材料](https://github.com/mop74720-commits/IJRR_CHNN_KAM_v10_20261007/releases/download/v10-20261008/S1_comsol_identification_refined_20261002.zip) | `reproducibility/unified_model/learning/raw/comsol_identification_refined/` | 28 | 24.8 |
+| [完整环面对象与认证程序](https://github.com/mop74720-commits/IJRR_CHNN_KAM_v10_20261007/releases/download/v10-20261008/S1_theory_20261002.zip) | `reproducibility/unified_model/theory/` | 204 | 102.2 |
+| [原 S 形跟踪任务](https://github.com/mop74720-commits/IJRR_CHNN_KAM_v10_20261007/releases/download/v10-20261008/S1_s_path_20261002.zip) | `reproducibility/mainline_completion/s_path/` | 33 | 29.1 |
+
+分包为原目录切片，未补入跨目录依赖；完整复算建议下载完整 S1。每个 ZIP 均附 `.sha256`，另提供 [校验和汇总](https://github.com/mop74720-commits/IJRR_CHNN_KAM_v10_20261007/releases/download/v10-20261008/S1_SHA256SUMS.txt)、[逐文件来源及 SHA-256 清单](https://github.com/mop74720-commits/IJRR_CHNN_KAM_v10_20261007/releases/download/v10-20261008/S1_export_manifest.json) 和 [解压说明](https://github.com/mop74720-commits/IJRR_CHNN_KAM_v10_20261007/releases/download/v10-20261008/S1_DOWNLOAD_README.md)。打包脚本为 `verification/package_s1_exports.py`。本次未重跑 COMSOL、训练或认证，原始材料的适用范围见 `reproducibility/ARTIFACT_INDEX.md`。
